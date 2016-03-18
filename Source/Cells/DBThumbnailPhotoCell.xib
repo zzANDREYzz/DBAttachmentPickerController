@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HTCThumbnailPhotoCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="May-cB-nvj">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="commonCheckBox" translatesAutoresizingMaskIntoConstraints="NO" id="s1Y-gz-hcc">
+                        <rect key="frame" x="71" y="71" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="9YU-5K-9UT"/>
+                            <constraint firstAttribute="height" constant="24" id="umo-BR-C2p"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="s1Y-gz-hcc" secondAttribute="trailing" constant="5" id="4o8-0A-gh0"/>
+                <constraint firstAttribute="trailing" secondItem="May-cB-nvj" secondAttribute="trailing" id="Caw-jf-HkV"/>
+                <constraint firstAttribute="bottom" secondItem="May-cB-nvj" secondAttribute="bottom" id="cUH-uV-2dx"/>
+                <constraint firstItem="May-cB-nvj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="fNR-2z-PdK"/>
+                <constraint firstAttribute="bottom" secondItem="s1Y-gz-hcc" secondAttribute="bottom" constant="5" id="gKX-sw-OAZ"/>
+                <constraint firstItem="May-cB-nvj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="plx-Vg-cvC"/>
+            </constraints>
+            <connections>
+                <outlet property="imageVeiw" destination="May-cB-nvj" id="Olq-0P-ClH"/>
+                <outlet property="selectorImageView" destination="s1Y-gz-hcc" id="ofR-4h-HhY"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="commonCheckBox" width="24" height="24"/>
+    </resources>
+</document>
