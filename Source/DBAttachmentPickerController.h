@@ -21,6 +21,7 @@
 
 #import <UIKit/UIKit.h>
 
+#warning Need use NS_OPTIONS for select attachment types
 typedef NS_ENUM(NSInteger, DBAttachmentPickerControllerMediaType) {
     DBAttachmentPickerControllerMediaTypeImage = 0,
     DBAttachmentPickerControllerMediaTypeVideo,

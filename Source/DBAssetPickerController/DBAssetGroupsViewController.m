@@ -129,7 +129,7 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     });
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableView DataSource && Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.assetCollections.count;

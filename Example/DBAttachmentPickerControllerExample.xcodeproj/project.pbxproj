@@ -190,14 +190,14 @@
 		C3849AA91C9C3D8C00D12EEF /* DBAssetPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				C3849AB01C9C3D8C00D12EEF /* DBAssetPickerController.h */,
+				C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */,
 				C3849AAA1C9C3D8C00D12EEF /* DBAssetGroupsViewController.h */,
 				C3849AAB1C9C3D8C00D12EEF /* DBAssetGroupsViewController.m */,
 				C3849AAC1C9C3D8C00D12EEF /* DBAssetGroupsViewController.xib */,
 				C3849AAD1C9C3D8C00D12EEF /* DBAssetItemsViewController.h */,
 				C3849AAE1C9C3D8C00D12EEF /* DBAssetItemsViewController.m */,
 				C3849AAF1C9C3D8C00D12EEF /* DBAssetItemsViewController.xib */,
-				C3849AB01C9C3D8C00D12EEF /* DBAssetPickerController.h */,
-				C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */,
 			);
 			name = DBAssetPickerController;
 			path = ../../Source/DBAssetPickerController;
