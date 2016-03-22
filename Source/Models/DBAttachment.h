@@ -32,6 +32,10 @@ typedef NS_ENUM(NSInteger, DBAttachmentSourceType) {
 @class PHAsset;
 @interface DBAttachment : NSObject
 
+@property (strong, nonatomic, readonly, nullable) NSString *fileName;
+@property (assign, nonatomic, readonly) NSUInteger fileSize;
+@property (strong, nonatomic, readonly, nullable) NSDate *createDate;
+
 @property (assign, nonatomic, readonly) DBAttachmentSourceType sourceType;
 @property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
 

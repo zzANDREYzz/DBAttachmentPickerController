@@ -99,7 +99,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (self.assetCollection) {
         PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
         allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeAudio) {
+        if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeImage) {
             allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
         }
         

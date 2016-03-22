@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DBAttachmentPickerController.h"
 #import "DBAttachment.h"
+#import "NSDateFormatter+DBLibrary.h"
 
 static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 
@@ -43,7 +44,7 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 #pragma mark -
 
 - (IBAction)addAttachmentButtonDidSelect:(UIBarButtonItem *)sender {
-    self.pickerController = [[DBAttachmentPickerController alloc] initWithMediaType:DBAttachmentMediaTypeAllMask];
+    self.pickerController = [[DBAttachmentPickerController alloc] initWithMediaType:DBAttachmentMediaTypeImage];
     self.pickerController.delegate = self;
     [self.pickerController presentAttachmentPickerOnViewController:self];
 }
@@ -85,8 +86,8 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 - (void)configureCell:(AttachmentCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DBAttachment *attachment = self.attachmentArray[indexPath.row];
     
-    cell.titleLabel.text = @"unknown file name";
-    cell.dateLabel.text = @"unknown date";
+    cell.titleLabel.text = attachment.fileName;
+    cell.dateLabel.text = [[NSDateFormatter localizedDateTimeFormatter] stringFromDate:attachment.createDate];
     cell.sizeLabel.text = @"0.00 Mb";
     
     CGFloat scale = [UIScreen mainScreen].scale;

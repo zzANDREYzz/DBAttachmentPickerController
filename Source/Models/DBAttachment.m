@@ -20,9 +20,14 @@
 //
 
 @import Photos;
+@import CoreLocation;
 #import "DBAttachment.h"
 
 @interface DBAttachment ()
+
+@property (strong, nonatomic) NSString *fileName;
+@property (assign, nonatomic) NSUInteger fileSize;
+@property (strong, nonatomic) NSDate *createDate;
 
 @property (assign, nonatomic) DBAttachmentSourceType sourceType;
 @property (assign, nonatomic) DBAttachmentMediaType mediaType;
@@ -40,14 +45,28 @@
     model.sourceType = DBAttachmentSourceTypePHAsset;
     model.photoAsset = asset;
     
+    NSArray *resources = [PHAssetResource assetResourcesForAsset:asset];
+    PHAssetResource *resource = [resources firstObject];
     switch (asset.mediaType) {
+        case PHAssetMediaTypeImage:
+            model.mediaType = DBAttachmentMediaTypeImage;
+            break;
         case PHAssetMediaTypeVideo:
             model.mediaType = DBAttachmentMediaTypeVideo;
             break;
         default:
-            model.mediaType = DBAttachmentMediaTypeImage;
+            model.mediaType = DBAttachmentMediaTypeOther;
             break;
     }
+    model.fileName = resource.originalFilename;
+    model.createDate = asset.creationDate;
+    
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    [geocoder reverseGeocodeLocation:asset.location
+//                   completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//                       CLPlacemark *placemark = [placemarks firstObject];
+//                       NSLog(@"%@", placemark.name);
+//                   }];
     
     return model;
 }

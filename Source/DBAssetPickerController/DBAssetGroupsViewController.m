@@ -148,7 +148,7 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     PHAssetCollection *assetCollection = self.assetCollections[indexPath.row];
     
     PHFetchOptions *options = [PHFetchOptions new];
-    if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeAudio) {
+    if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeImage) {
         options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
     }
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
