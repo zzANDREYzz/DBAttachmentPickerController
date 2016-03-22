@@ -148,7 +148,9 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     PHAssetCollection *assetCollection = self.assetCollections[indexPath.row];
     
     PHFetchOptions *options = [PHFetchOptions new];
-    options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+    if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeAudio) {
+        options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+    }
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
     
     cell.titleLabel.text = assetCollection.localizedTitle;

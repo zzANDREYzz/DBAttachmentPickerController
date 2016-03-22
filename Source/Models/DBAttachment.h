@@ -33,12 +33,12 @@ typedef NS_ENUM(NSInteger, DBAttachmentSourceType) {
 @interface DBAttachment : NSObject
 
 @property (assign, nonatomic, readonly) DBAttachmentSourceType sourceType;
-@property (assign, nonatomic, readonly) DBAttachmentPickerControllerMediaType mediaType;
+@property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
 
 NS_ASSUME_NONNULL_BEGIN
 + (instancetype)attachmentFromPHAsset:(PHAsset *)asset;
 + (instancetype)attachmentFromImage:(UIImage *)image;
-+ (instancetype)attachmentFromDocumentURL:(NSURL *)url withMediaType:(DBAttachmentPickerControllerMediaType)mediaType;
++ (instancetype)attachmentFromDocumentURL:(NSURL *)url withMediaType:(DBAttachmentMediaType)mediaType;
 
 - (void)loadThumbnailImageWithTargetSize:(CGSize)targetSize completion:(void(^)(UIImage * _Nullable resultImage))completion;
 - (void)loadOriginalImageWithCompletion:(void(^)(UIImage * _Nullable resultImage))completion;

@@ -26,10 +26,12 @@
 #import "DBAttachment.h"
 #import "DBAssetPickerController.h"
 
+const DBAttachmentMediaType DBAttachmentMediaTypeAllMask = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
+
 @interface DBAttachmentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DBAssetPickerControllerDelegate>
 
 @property (strong, nonatomic) UIViewController *initialViewController;
-@property (assign, nonatomic) DBAttachmentPickerControllerMediaType mediaType;
+@property (assign, nonatomic) DBAttachmentMediaType mediaType;
 @property (strong, nonatomic) DBAttachmentAlertController *alertController;
 
 @end
@@ -38,7 +40,7 @@
 
 #pragma mark - Class methods
 
-- (instancetype)initWithMediaType:(DBAttachmentPickerControllerMediaType)mediaType {
+- (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType {
     self = [super init];
     if (self) {
         self.mediaType = mediaType;
@@ -79,14 +81,12 @@
 #pragma mark Helpers
 
 - (PHAssetMediaType)assetMediaType {
-    switch (self.mediaType) {
-        case DBAttachmentPickerControllerMediaTypeVideo:
-            return PHAssetMediaTypeVideo;
-            break;
-        default:
-            return PHAssetMediaTypeImage;
-            break;
+    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+        return PHAssetMediaTypeImage;
+    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+        return PHAssetMediaTypeVideo;
     }
+    return PHAssetMediaTypeUnknown;
 }
 
 - (NSArray<DBAttachment *> *)attachmentArrayFromPHAssetArray:(NSArray<PHAsset *> *)assetArray {
@@ -104,19 +104,25 @@
     DBAssetPickerController *viewController =[[DBAssetPickerController alloc] init];
     viewController.assetMediaType = [self assetMediaType];
     viewController.assetPickerDelegate = self;
-    
     [self.initialViewController presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)otherAppsButtonDidSelect {
-    NSArray *documentMediaTypes = nil;
-    switch (self.mediaType) {
-        case DBAttachmentPickerControllerMediaTypeVideo:
-            documentMediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
-            break;
-        default:
-            documentMediaTypes = @[(NSString *)kUTTypeImage];
-            break;
+    
+#warning choose correct media types
+    NSMutableArray *documentMediaTypes = [NSMutableArray arrayWithCapacity:10];
+    if (self.mediaType & DBAttachmentMediaTypeImage) {
+        [documentMediaTypes addObject:(NSString *)kUTTypeImage];
+    }
+    if (self.mediaType & DBAttachmentMediaTypeVideo) {
+        [documentMediaTypes addObject:(NSString *)kUTTypeVideo];
+    }
+    if (self.mediaType & DBAttachmentMediaTypeOther) {
+        [documentMediaTypes addObject:(NSString *)kUTTypeMovie];
+        [documentMediaTypes addObject:(NSString *)kUTTypeText];
+        [documentMediaTypes addObject:(NSString *)kUTTypePDF];
+        [documentMediaTypes addObject:(NSString *)kUTTypeAudiovisualContent];
+        [documentMediaTypes addObject:(NSString *)kUTTypeAudio];
     }
     
     UIDocumentMenuViewController *viewController = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:documentMediaTypes inMode:UIDocumentPickerModeImport];
@@ -141,15 +147,15 @@
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
-    switch (self.mediaType) {
-        case DBAttachmentPickerControllerMediaTypeVideo:
-            picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
-            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-            break;
-        default:
-            picker.mediaTypes = @[(NSString *)kUTTypeImage];
-            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-            break;
+    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+        picker.mediaTypes = @[(NSString *)kUTTypeImage];
+        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+        picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
+        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+    } else {
+        picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo, (NSString *)kUTTypeImage];
+        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
     }
     
     [self.initialViewController presentViewController:picker animated:YES completion:nil];
@@ -183,7 +189,7 @@
 #pragma mark - UIDocumentPickerViewControllerDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
-    DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:url withMediaType:DBAttachmentPickerControllerMediaTypeImage];
+    DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:url withMediaType:DBAttachmentMediaTypeImage];
     [self finishPickingWithAttachmentArray:@[attachment]];
 }
 
@@ -203,7 +209,7 @@
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie] || [mediaType isEqualToString:(NSString *)kUTTypeVideo]) {
         NSURL *documentURL = info[UIImagePickerControllerMediaURL];
         if (documentURL) {
-            DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:documentURL withMediaType:DBAttachmentPickerControllerMediaTypeVideo];
+            DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:documentURL withMediaType:DBAttachmentMediaTypeVideo];
             attachmentArray = @[attachment];
         }
     }

@@ -28,7 +28,7 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
 
 @property (assign, nonatomic, readonly) PHAssetMediaType assetMediaType;
 
-+ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType) assetMediaType
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)mediaType
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler

@@ -73,17 +73,18 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         case PHAssetMediaTypeVideo:
             buttonTitle = @"Take a video";
             break;
-        default:
+        case PHAssetMediaTypeImage:
             buttonTitle = @"Take a picture";
+            break;
+        default:
+            buttonTitle = @"Take the picture or video";
             break;
     }
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:takePictureHandler];
     [controller addAction:cameraAction];
     
-    if (controller.assetMediaType == PHAssetMediaTypeImage) {
-        UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
-        [controller addAction:otherAppsAction];
-    }
+    UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
+    [controller addAction:otherAppsAction];
     
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:cancelHandler];
     [controller addAction:actionCancel];
@@ -120,9 +121,13 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     
     PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
     allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
     
-    self.assetsFetchResults = [PHAsset fetchAssetsWithMediaType:self.assetMediaType options:allPhotosOptions];
+    if (self.assetMediaType == PHAssetMediaTypeImage || self.assetMediaType == PHAssetMediaTypeVideo) {
+        allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+        self.assetsFetchResults = [PHAsset fetchAssetsWithMediaType:self.assetMediaType options:allPhotosOptions];
+    } else {
+        self.assetsFetchResults = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
+    }
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }

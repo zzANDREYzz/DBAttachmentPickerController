@@ -21,11 +21,13 @@
 
 #import <UIKit/UIKit.h>
 
-#warning Need use NS_OPTIONS for select attachment types
-typedef NS_ENUM(NSInteger, DBAttachmentPickerControllerMediaType) {
-    DBAttachmentPickerControllerMediaTypeImage = 0,
-    DBAttachmentPickerControllerMediaTypeVideo,
+typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
+    DBAttachmentMediaTypeImage = (1 << 0),
+    DBAttachmentMediaTypeVideo = (1 << 1),
+    DBAttachmentMediaTypeOther = (1 << 2),
 };
+
+UIKIT_EXTERN const DBAttachmentMediaType DBAttachmentMediaTypeAllMask;
 
 NS_ASSUME_NONNULL_BEGIN
 @class DBAttachmentPickerController, DBAttachment;
@@ -40,9 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DBAttachmentPickerController : NSObject
 
 @property (weak, nonatomic) id<DBAttachmentPickerControllerDelegate> delegate;
-@property (assign, nonatomic, readonly) DBAttachmentPickerControllerMediaType mediaType;
+@property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
 
-- (instancetype)initWithMediaType:(DBAttachmentPickerControllerMediaType)mediaType;
+- (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType;
 - (void)presentAttachmentPickerOnViewController:(UIViewController *)initialViewController;
 
 @end

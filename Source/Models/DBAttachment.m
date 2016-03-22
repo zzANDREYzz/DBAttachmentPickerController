@@ -25,7 +25,7 @@
 @interface DBAttachment ()
 
 @property (assign, nonatomic) DBAttachmentSourceType sourceType;
-@property (assign, nonatomic) DBAttachmentPickerControllerMediaType mediaType;
+@property (assign, nonatomic) DBAttachmentMediaType mediaType;
 
 @property (strong, nonatomic) PHAsset *photoAsset;
 @property (strong, nonatomic) UIImage *image;
@@ -42,10 +42,10 @@
     
     switch (asset.mediaType) {
         case PHAssetMediaTypeVideo:
-            model.mediaType = DBAttachmentPickerControllerMediaTypeVideo;
+            model.mediaType = DBAttachmentMediaTypeVideo;
             break;
         default:
-            model.mediaType = DBAttachmentPickerControllerMediaTypeImage;
+            model.mediaType = DBAttachmentMediaTypeImage;
             break;
     }
     
@@ -55,12 +55,12 @@
 + (instancetype)attachmentFromImage:(UIImage *)image {
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypeImage;
-    model.mediaType = DBAttachmentPickerControllerMediaTypeImage;
+    model.mediaType = DBAttachmentMediaTypeImage;
     model.image = image;
     return model;
 }
 
-+ (instancetype)attachmentFromDocumentURL:(NSURL *)url withMediaType:(DBAttachmentPickerControllerMediaType)mediaType {
++ (instancetype)attachmentFromDocumentURL:(NSURL *)url withMediaType:(DBAttachmentMediaType)mediaType {
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypeDocumentURL;
     model.mediaType = mediaType;
@@ -124,8 +124,8 @@
 
 #pragma mark Helpers
 
-- (void)loadImageFromDocumentURL:(NSURL *)url mediaType:(DBAttachmentPickerControllerMediaType)mediaType completion:(void(^)(UIImage *resultImage))completion {
-    if (mediaType == DBAttachmentPickerControllerMediaTypeImage) {
+- (void)loadImageFromDocumentURL:(NSURL *)url mediaType:(DBAttachmentMediaType)mediaType completion:(void(^)(UIImage *resultImage))completion {
+    if (mediaType == DBAttachmentMediaTypeImage) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UIImage *image = nil;
             if (url) {
@@ -138,7 +138,7 @@
                 }
             });
         });
-    } else if (mediaType == DBAttachmentPickerControllerMediaTypeVideo) {
+    } else if (mediaType == DBAttachmentMediaTypeVideo) {
         UIImage *image = [self generateThumbnailImageFromURL:url];
         if (completion) {
             completion(image);
