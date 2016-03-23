@@ -44,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<DBAttachmentPickerControllerDelegate> delegate;
 @property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
 
+#warning need implemtnt this feature
+@property (assign, nonatomic) BOOL allowsMultipleSelection;                 // default is NO;
+
 - (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType;
 - (void)presentAttachmentPickerOnViewController:(UIViewController *)initialViewController;
 

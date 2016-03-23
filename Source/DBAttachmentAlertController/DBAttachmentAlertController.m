@@ -24,7 +24,7 @@
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
 
-static const CGSize kDefaultThumbnailSize = {100.f, 100.f};
+static const CGFloat kDefaultThumbnailHeight = 100.f;
 static const CGFloat kDefaultItemOffset = 10.f;
 static const CGFloat kDefaultInteritemSpacing = 4.f;
 static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
@@ -101,9 +101,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     flowLayout.sectionInset = UIEdgeInsetsMake(.0f, kDefaultItemOffset, .0f, kDefaultItemOffset);
     flowLayout.minimumInteritemSpacing = kDefaultInteritemSpacing;
-    flowLayout.itemSize = kDefaultThumbnailSize;
     
-    CGRect collectionRect = CGRectMake(.0f, .0f, self.view.bounds.size.width, kDefaultThumbnailSize.height + kDefaultItemOffset *2);
+    CGRect collectionRect = CGRectMake(.0f, .0f, self.view.bounds.size.width, kDefaultThumbnailHeight + kDefaultItemOffset *2);
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionRect collectionViewLayout:flowLayout];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.collectionView.backgroundColor = [UIColor clearColor];
@@ -233,7 +232,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     cell.needsDisplayEmptySelectedIndicator = YES;
     
     CGFloat scale = [UIScreen mainScreen].scale;
-    CGSize scaledThumbnailSize = CGSizeMake( kDefaultThumbnailSize.width * scale, kDefaultThumbnailSize.height * scale );
+    CGSize cellSize = [self collectionItemCellSizeAtIndexPath:indexPath];
+    CGSize scaledThumbnailSize = CGSizeMake( cellSize.width * scale, cellSize.height * scale );
     
     [self.imageManager requestImageForAsset:asset
                                  targetSize:scaledThumbnailSize
@@ -259,6 +259,21 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 - (void)updateAttachPhotoCountIfNedded {
     NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
     self.attachActionText = ( selectedItems.count ? [NSString stringWithFormat:@"Attach %zd files", selectedItems.count] : @"All albums" );
+}
+
+#pragma mark UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [self collectionItemCellSizeAtIndexPath:indexPath];
+}
+
+#pragma mark Helpers
+
+- (CGSize)collectionItemCellSizeAtIndexPath:(NSIndexPath *)indexPath {
+    PHAsset *asset = self.assetsFetchResults[indexPath.item];
+    const CGFloat coef = (CGFloat)asset.pixelWidth / (CGFloat)asset.pixelHeight;
+    CGFloat maxWidth = CGRectGetWidth(self.collectionView.bounds) - kDefaultInteritemSpacing *2;
+    return CGSizeMake( MIN( kDefaultThumbnailHeight * coef, maxWidth ), kDefaultThumbnailHeight );
 }
 
 @end
