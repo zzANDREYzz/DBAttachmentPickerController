@@ -25,7 +25,7 @@
 #import "NSIndexSet+DB.h"
 
 static const CGFloat kDefaultThumbnailHeight = 100.f;
-static const CGFloat kDefaultItemOffset = 10.f;
+static const CGFloat kDefaultItemOffset = 11.f;
 static const CGFloat kDefaultInteritemSpacing = 4.f;
 static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
