@@ -23,6 +23,7 @@
 #import "DBAttachmentAlertController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
+#import "UIImage+DB.h"
 
 static const CGFloat kDefaultThumbnailHeight = 100.f;
 static const CGFloat kDefaultItemOffset = 11.f;
@@ -230,6 +231,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     cell.tintColor = self.collectionView.tintColor;
     cell.identifier = asset.localIdentifier;
     cell.needsDisplayEmptySelectedIndicator = YES;
+    [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
     
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize cellSize = [self collectionItemCellSizeAtIndexPath:indexPath];
@@ -241,7 +243,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
                                     options:nil
                               resultHandler:^(UIImage *result, NSDictionary *info) {
                                   if ([cell.identifier isEqualToString:asset.localIdentifier]) {
-                                      cell.imageVeiw.image = result;
+                                      cell.assetImageView.image = result;
                                   }
                               }];
 }

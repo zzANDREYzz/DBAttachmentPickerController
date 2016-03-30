@@ -19,10 +19,13 @@
 //  IN THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import Photos;
 
 @interface UIImage (DB)
 
++ (UIImage *)imageWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype;
++ (UIImage *)imageWithAssetCollectionType:(PHAssetCollectionType)collectionType subtype:(PHAssetCollectionSubtype)collectionSubtype;
 + (UIImage *)placeholderImageWithSize:(CGSize)size;
 
 @end

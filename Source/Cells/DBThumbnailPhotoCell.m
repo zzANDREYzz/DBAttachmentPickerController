@@ -23,7 +23,7 @@
 
 @interface DBThumbnailPhotoCell ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *selectorImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *selectorImageView;
 
 @end
 

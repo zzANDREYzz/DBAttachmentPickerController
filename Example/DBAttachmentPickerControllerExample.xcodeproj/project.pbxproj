@@ -27,6 +27,7 @@
 		C3849AB81C9C3D8C00D12EEF /* DBAssetItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3849AAF1C9C3D8C00D12EEF /* DBAssetItemsViewController.xib */; };
 		C3849AB91C9C3D8C00D12EEF /* DBAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */; };
 		C3849ABA1C9C3D8C00D12EEF /* DBAttachmentAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3849AB41C9C3D8C00D12EEF /* DBAttachmentAlertController.m */; };
+		C3A86DCB1CABB49800CAC1FC /* DBAssetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */; };
 		C3A949421CA188B80061EE61 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A949411CA188B80061EE61 /* CoreLocation.framework */; };
 		C3A949451CA18D440061EE61 /* NSDateFormatter+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A949441CA18D440061EE61 /* NSDateFormatter+DBLibrary.m */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,8 @@
 		C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetPickerController.m; sourceTree = "<group>"; };
 		C3849AB31C9C3D8C00D12EEF /* DBAttachmentAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAttachmentAlertController.h; sourceTree = "<group>"; };
 		C3849AB41C9C3D8C00D12EEF /* DBAttachmentAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAttachmentAlertController.m; sourceTree = "<group>"; };
+		C3A86DC91CABB49800CAC1FC /* DBAssetImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBAssetImageView.h; path = ../../Source/DBAssetImageView.h; sourceTree = "<group>"; };
+		C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBAssetImageView.m; path = ../../Source/DBAssetImageView.m; sourceTree = "<group>"; };
 		C3A949411CA188B80061EE61 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C3A949431CA18D440061EE61 /* NSDateFormatter+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+DBLibrary.h"; sourceTree = "<group>"; };
 		C3A949441CA18D440061EE61 /* NSDateFormatter+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+DBLibrary.m"; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				C3134ED01C9C323C0023B9E6 /* Cells */,
 				C3849AB21C9C3D8C00D12EEF /* DBAttachmentAlertController */,
 				C3849AA91C9C3D8C00D12EEF /* DBAssetPickerController */,
+				C3A86DC91CABB49800CAC1FC /* DBAssetImageView.h */,
+				C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */,
 			);
 			name = DBAttachmentPickerController;
 			path = ../DBAttachmentPickerControllerExample;
@@ -314,6 +319,7 @@
 				C3849AB91C9C3D8C00D12EEF /* DBAssetPickerController.m in Sources */,
 				C3849ABA1C9C3D8C00D12EEF /* DBAttachmentAlertController.m in Sources */,
 				C3134EF51C9C323C0023B9E6 /* DBAttachment.m in Sources */,
+				C3A86DCB1CABB49800CAC1FC /* DBAssetImageView.m in Sources */,
 				C3849AB51C9C3D8C00D12EEF /* DBAssetGroupsViewController.m in Sources */,
 				C3849AB71C9C3D8C00D12EEF /* DBAssetItemsViewController.m in Sources */,
 			);

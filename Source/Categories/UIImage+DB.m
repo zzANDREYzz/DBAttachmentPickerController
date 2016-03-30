@@ -20,7 +20,6 @@
 //
 
 #import "UIImage+DB.h"
-@import Photos;
 
 @implementation UIImage (DB)
 
@@ -650,19 +649,68 @@
 
 #pragma mark - PHAsset Icons
 
-+ (UIImage *)assetMediaSubtypeIconForSubtype:(PHAssetMediaSubtype)mediaSubtype {
++ (UIImage *)imageWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype {
     UIImage *iconImage = nil;
-    switch (mediaSubtype) {
-        case PHAssetMediaSubtypePhotoPanorama:
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
-            [self drawSeriesIcon];
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    switch (mediaType) {
+        case PHAssetMediaTypeVideo: {
+            if (mediaSubtype & PHAssetMediaSubtypeVideoStreamed) {
+                [self drawSeriesIcon];
+            } else if (mediaSubtype & PHAssetMediaSubtypeVideoHighFrameRate) {
+                [self drawIntervalIcon];
+            } else if (mediaSubtype & PHAssetMediaSubtypeVideoTimelapse) {
+                [self drawSlowIcon];
+            } else {
+                [self drawVideoIcon];
+            }
             iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
+            break;
+        }
+        case PHAssetMediaTypeImage: {
+            if (mediaSubtype & PHAssetMediaSubtypePhotoPanorama) {
+                [self drawPanoramaIcon];
+                iconImage = UIGraphicsGetImageFromCurrentImageContext();
+//            } else if (mediaSubtype & PHAssetMediaSubtypePhoto) {
+//                [self drawPanoramaIcon];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    UIGraphicsEndImageContext();
+    return iconImage;
+}
+
++ (UIImage *)imageWithAssetCollectionType:(PHAssetCollectionType)collectionType subtype:(PHAssetCollectionSubtype)collectionSubtype {
+    UIImage *iconImage = nil;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    switch (collectionSubtype) {
+        case PHAssetCollectionSubtypeSmartAlbumVideos:
+            [self drawVideoIcon];
+            iconImage = UIGraphicsGetImageFromCurrentImageContext();
+            break;
+        case PHAssetCollectionSubtypeSmartAlbumPanoramas:
+            [self drawPanoramaIcon];
+            iconImage = UIGraphicsGetImageFromCurrentImageContext();
+            break;
+        case PHAssetCollectionSubtypeSmartAlbumFavorites:
+            [self drawFavoriteIcon];
+            iconImage = UIGraphicsGetImageFromCurrentImageContext();
+            break;
+        case PHAssetCollectionSubtypeSmartAlbumSlomoVideos:
+            [self drawSlowIcon];
+            iconImage = UIGraphicsGetImageFromCurrentImageContext();
+            break;
+        case PHAssetCollectionSubtypeSmartAlbumSelfPortraits:
+            [self drawSelfieIcon];
+            iconImage = UIGraphicsGetImageFromCurrentImageContext();
             break;
             
         default:
             break;
     }
+    UIGraphicsEndImageContext();
     return iconImage;
 }
 

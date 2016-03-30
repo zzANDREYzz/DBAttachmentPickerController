@@ -20,10 +20,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DBAssetImageView.h"
 
 @interface DBAssetGroupCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewFront;
+@property (weak, nonatomic) IBOutlet DBAssetImageView *imageViewFront;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewMid;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewBack;
 

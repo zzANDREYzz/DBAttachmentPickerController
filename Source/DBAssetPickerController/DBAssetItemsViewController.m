@@ -23,6 +23,7 @@
 #import "DBAssetItemsViewController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
+#import "UIImage+DB.h"
 
 static const NSInteger kNumberItemsPerRow = 4;
 static const CGFloat kDefaultItemOffset = 2.f;
@@ -165,6 +166,7 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.tintColor = self.collectionView.tintColor;
     cell.identifier = asset.localIdentifier;
     cell.needsDisplayEmptySelectedIndicator = YES;
+    [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
     
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize size = [self collectionItemCell];
@@ -176,7 +178,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                     options:nil
                               resultHandler:^(UIImage *result, NSDictionary *info) {
                                   if ([cell.identifier isEqualToString:asset.localIdentifier]) {
-                                      cell.imageVeiw.image = result;
+                                      cell.assetImageView.image = result;
                                   }
                               }];
 }

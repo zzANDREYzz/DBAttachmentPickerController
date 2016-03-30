@@ -20,10 +20,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DBAssetImageView.h"
 
 @interface DBThumbnailPhotoCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageVeiw;
+@property (weak, nonatomic) IBOutlet DBAssetImageView *assetImageView;
 
 @property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
 @property (copy, nonatomic, nullable) NSString *identifier;
