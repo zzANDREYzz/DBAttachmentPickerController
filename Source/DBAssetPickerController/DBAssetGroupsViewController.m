@@ -64,11 +64,21 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
 
 - (void)updateAssetCollections {
     // Filter albums
-    NSArray *assetCollectionSubtypes = @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
+    NSArray *assetCollectionSubtypes = @[
+//                                         @(PHAssetCollectionSubtypeAlbumRegular),
+//                                         @(PHAssetCollectionSubtypeAlbumImported),
+                                         @(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
                                          @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
+                                         @(PHAssetCollectionSubtypeSmartAlbumFavorites),
+                                         @(PHAssetCollectionSubtypeSmartAlbumSelfPortraits),
                                          @(PHAssetCollectionSubtypeSmartAlbumPanoramas),
                                          @(PHAssetCollectionSubtypeSmartAlbumVideos),
-                                         @(PHAssetCollectionSubtypeSmartAlbumBursts) ];
+                                         @(PHAssetCollectionSubtypeSmartAlbumSlomoVideos),
+                                         @(PHAssetCollectionSubtypeSmartAlbumTimelapses),
+                                         @(PHAssetCollectionSubtypeSmartAlbumBursts),
+                                         @(PHAssetCollectionSubtypeSmartAlbumScreenshots),
+                                         @(PHAssetCollectionSubtypeAlbumCloudShared)
+                                         ];
     NSMutableDictionary *smartAlbums = [NSMutableDictionary dictionaryWithCapacity:assetCollectionSubtypes.count];
     NSMutableArray *userAlbums = [NSMutableArray array];
     
