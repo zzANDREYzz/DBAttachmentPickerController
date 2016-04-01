@@ -20,6 +20,7 @@
 //
 
 #import "DBThumbnailPhotoCell.h"
+#import "UIImage+DBAssetIcons.h"
 
 @interface DBThumbnailPhotoCell ()
 
@@ -41,9 +42,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.selectorImageView.image = [[UIImage imageNamed:@"commonCheckBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.selectorImageView.highlightedImage = [[UIImage imageNamed:@"commonCheckBoxSelected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.selectorImageView.tintColor = self.tintColor;
+    //self.selectorImageView.image = [[UIImage imageNamed:@"commonCheckBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.selectorImageView.highlightedImage = [UIImage imageOfSelectorIconWithTintColor:self.tintColor];
 }
 
 #pragma mark - Accessors

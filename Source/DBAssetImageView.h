@@ -12,6 +12,6 @@
 @interface DBAssetImageView : UIImageView
 
 - (void)configureWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype;
-- (void)configureCollectionType:(PHAssetCollectionType)collectionType subtype:(PHAssetCollectionSubtype)collectionSubtype;
+- (void)configureCollectionSubtype:(PHAssetCollectionSubtype)collectionSubtype;
 
 @end

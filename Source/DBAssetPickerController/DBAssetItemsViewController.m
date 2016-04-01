@@ -23,10 +23,9 @@
 #import "DBAssetItemsViewController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
-#import "UIImage+DB.h"
 
 static const NSInteger kNumberItemsPerRow = 4;
-static const CGFloat kDefaultItemOffset = 2.f;
+static const CGFloat kDefaultItemOffset = 1.f;
 static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 @interface DBAssetItemsViewController () <PHPhotoLibraryChangeObserver>
@@ -168,8 +167,18 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.needsDisplayEmptySelectedIndicator = YES;
     [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
     
+    if (asset.mediaType == PHAssetMediaTypeVideo) {
+        NSDateComponentsFormatter *formatter = [[NSDateComponentsFormatter alloc] init];
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStylePositional;
+        formatter.allowedUnits = NSCalendarUnitMinute | NSCalendarUnitSecond;
+        cell.durationLabel.text = [formatter stringFromTimeInterval:asset.duration];
+    } else {
+        cell.durationLabel.text = nil;
+    }
+    
     CGFloat scale = [UIScreen mainScreen].scale;
-    CGSize size = [self collectionItemCell];
+    CGSize size = [self collectionItemCellSizeAtIndexPath:indexPath];
     CGSize scaledThumbnailSize = CGSizeMake( size.width * scale, size.height * scale );
     
     [self.imageManager requestImageForAsset:asset
@@ -186,14 +195,21 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self collectionItemCell];
+    return [self collectionItemCellSizeAtIndexPath:indexPath];
 }
 
 #pragma mark Helpers
 
-- (CGSize)collectionItemCell {
-    CGFloat itemWidth = floorf( ( CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset * ( kNumberItemsPerRow + 1 ) ) / kNumberItemsPerRow);
-    return CGSizeMake(itemWidth, itemWidth);
+- (CGSize)collectionItemCellSizeAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumPanoramas) {
+        PHAsset *asset = self.assetsFetchResults[indexPath.item];
+        const CGFloat coef = (CGFloat)asset.pixelWidth / (CGFloat)asset.pixelHeight;
+        CGFloat itemWidth = CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset *2;
+        return CGSizeMake( itemWidth, itemWidth / coef );
+    } else {
+        CGFloat itemWidth = floorf( ( CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset * ( kNumberItemsPerRow + 1 ) ) / kNumberItemsPerRow );
+        return CGSizeMake(itemWidth, itemWidth);
+    }
 }
 
 @end

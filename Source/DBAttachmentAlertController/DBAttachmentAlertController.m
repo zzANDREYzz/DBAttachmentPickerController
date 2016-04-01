@@ -23,7 +23,6 @@
 #import "DBAttachmentAlertController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
-#import "UIImage+DB.h"
 
 static const CGFloat kDefaultThumbnailHeight = 100.f;
 static const CGFloat kDefaultItemOffset = 11.f;
@@ -232,6 +231,16 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     cell.identifier = asset.localIdentifier;
     cell.needsDisplayEmptySelectedIndicator = YES;
     [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
+    
+    if (asset.mediaType == PHAssetMediaTypeVideo) {
+        NSDateComponentsFormatter *formatter = [[NSDateComponentsFormatter alloc] init];
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStylePositional;
+        formatter.allowedUnits = NSCalendarUnitMinute | NSCalendarUnitSecond;
+        cell.durationLabel.text = [formatter stringFromTimeInterval:asset.duration];
+    } else {
+        cell.durationLabel.text = nil;
+    }
     
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize cellSize = [self collectionItemCellSizeAtIndexPath:indexPath];

@@ -23,7 +23,7 @@
 #import "DBAssetGroupsViewController.h"
 #import "DBAssetItemsViewController.h"
 #import "DBAssetGroupCell.h"
-#import "UIImage+DB.h"
+#import "UIImage+DBAssetIcons.h"
 
 static const CGSize kDefaultThumbnailSize = {68.f, 68.f};
 static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
@@ -165,7 +165,7 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     
     cell.titleLabel.text = assetCollection.localizedTitle;
     cell.countLabel.text = [NSString stringWithFormat:@"%lu", (long)fetchResult.count];
-    [cell.imageViewFront configureCollectionType:assetCollection.assetCollectionType subtype:assetCollection.assetCollectionSubtype];
+    [cell.imageViewFront configureCollectionSubtype:assetCollection.assetCollectionSubtype];
     
     [self configureImageViewForCell:cell atIndexPath:indexPath fetchResult:fetchResult];
 }

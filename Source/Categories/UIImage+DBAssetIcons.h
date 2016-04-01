@@ -1,5 +1,5 @@
 //
-//  UIImage+DB.h
+//  UIImage+DBAssetIcons.h
 //  DBAttachmentPickerController
 //
 //  Created by Denis Bogatyrev on 14.03.16.
@@ -22,10 +22,25 @@
 @import UIKit;
 @import Photos;
 
-@interface UIImage (DB)
+@interface UIImage (DBAssetIcons)
 
-+ (UIImage *)imageWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype;
-+ (UIImage *)imageWithAssetCollectionType:(PHAssetCollectionType)collectionType subtype:(PHAssetCollectionSubtype)collectionSubtype;
+//+ (UIImage *)imageWithAssetMediaSubtype:(PHAssetMediaSubtype)mediaSubtype;
+//+ (UIImage *)imageWithAssetCollectionSubtype:(PHAssetCollectionSubtype)collectionSubtype;
+
++ (UIImage*)imageOfSmartAlbumBurstsIcon;
++ (UIImage*)imageOfSmartAlbumSlomoVideosIcon;
++ (UIImage*)imageOfSmartAlbumTimelapsesIcon;
++ (UIImage*)imageOfSmartAlbumVideosIcon;
++ (UIImage*)imageOfSmartAlbumPanoramasIcon;
++ (UIImage*)imageOfSmartAlbumSelfPortraitsIcon;
++ (UIImage*)imageOfSmartAlbumFavoritesIcon;
++ (UIImage*)imageOfSmartAlbumScreenshotsIcon;
++ (UIImage*)imageOfVideoTimelapseIcon;
++ (UIImage*)imageOfVideoHighFrameRateIcon;
++ (UIImage*)imageOfVideoIcon;
+
++ (UIImage*)imageOfSelectorIconWithTintColor: (UIColor*)tintColor;
+
 + (UIImage *)placeholderImageWithSize:(CGSize)size;
 
 @end

@@ -12,7 +12,7 @@
 		C3134EBD1C9C30990023B9E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3134EBB1C9C30990023B9E6 /* Main.storyboard */; };
 		C3134EC21C9C30990023B9E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3134EC01C9C30990023B9E6 /* LaunchScreen.storyboard */; };
 		C3134EE81C9C323C0023B9E6 /* NSIndexSet+DB.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */; };
-		C3134EE91C9C323C0023B9E6 /* UIImage+DB.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECF1C9C323C0023B9E6 /* UIImage+DB.m */; };
+		C3134EE91C9C323C0023B9E6 /* UIImage+DBAssetIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */; };
 		C3134EEA1C9C323C0023B9E6 /* DBAssetGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ED21C9C323C0023B9E6 /* DBAssetGroupCell.m */; };
 		C3134EEB1C9C323C0023B9E6 /* DBAssetGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3134ED31C9C323C0023B9E6 /* DBAssetGroupCell.xib */; };
 		C3134EEC1C9C323C0023B9E6 /* DBThumbnailPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ED51C9C323C0023B9E6 /* DBThumbnailPhotoCell.m */; };
@@ -43,8 +43,8 @@
 		C3134EC91C9C30D10023B9E6 /* DBAttachmentPickerControllerExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DBAttachmentPickerControllerExample.entitlements; sourceTree = "<group>"; };
 		C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+DB.h"; sourceTree = "<group>"; };
 		C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+DB.m"; sourceTree = "<group>"; };
-		C3134ECE1C9C323C0023B9E6 /* UIImage+DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DB.h"; sourceTree = "<group>"; };
-		C3134ECF1C9C323C0023B9E6 /* UIImage+DB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DB.m"; sourceTree = "<group>"; };
+		C3134ECE1C9C323C0023B9E6 /* UIImage+DBAssetIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DBAssetIcons.h"; sourceTree = "<group>"; };
+		C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DBAssetIcons.m"; sourceTree = "<group>"; };
 		C3134ED11C9C323C0023B9E6 /* DBAssetGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetGroupCell.h; sourceTree = "<group>"; };
 		C3134ED21C9C323C0023B9E6 /* DBAssetGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetGroupCell.m; sourceTree = "<group>"; };
 		C3134ED31C9C323C0023B9E6 /* DBAssetGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBAssetGroupCell.xib; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 			children = (
 				C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DB.h */,
 				C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */,
-				C3134ECE1C9C323C0023B9E6 /* UIImage+DB.h */,
-				C3134ECF1C9C323C0023B9E6 /* UIImage+DB.m */,
+				C3134ECE1C9C323C0023B9E6 /* UIImage+DBAssetIcons.h */,
+				C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */,
 			);
 			name = Categories;
 			path = ../../Source/Categories;
@@ -315,7 +315,7 @@
 				C3134EEC1C9C323C0023B9E6 /* DBThumbnailPhotoCell.m in Sources */,
 				C3134EB41C9C30990023B9E6 /* main.m in Sources */,
 				C3134EEA1C9C323C0023B9E6 /* DBAssetGroupCell.m in Sources */,
-				C3134EE91C9C323C0023B9E6 /* UIImage+DB.m in Sources */,
+				C3134EE91C9C323C0023B9E6 /* UIImage+DBAssetIcons.m in Sources */,
 				C3849AB91C9C3D8C00D12EEF /* DBAssetPickerController.m in Sources */,
 				C3849ABA1C9C3D8C00D12EEF /* DBAttachmentAlertController.m in Sources */,
 				C3134EF51C9C323C0023B9E6 /* DBAttachment.m in Sources */,

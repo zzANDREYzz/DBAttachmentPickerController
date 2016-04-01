@@ -1,5 +1,5 @@
 //
-//  UIImage+DB.m
+//  UIImage+DBAssetIcons.m
 //  DBAttachmentPickerController
 //
 //  Created by Denis Bogatyrev on 14.03.16.
@@ -19,13 +19,27 @@
 //  IN THE SOFTWARE.
 //
 
-#import "UIImage+DB.h"
+#import "UIImage+DBAssetIcons.h"
 
-@implementation UIImage (DB)
+@implementation UIImage (DBAssetIcons)
+
+#pragma mark Cache
+
+static UIImage* _imageOfSmartAlbumBurstsIcon = nil;
+static UIImage* _imageOfSmartAlbumSlomoVideosIcon = nil;
+static UIImage* _imageOfSmartAlbumTimelapsesIcon = nil;
+static UIImage* _imageOfSmartAlbumVideosIcon = nil;
+static UIImage* _imageOfSmartAlbumPanoramasIcon = nil;
+static UIImage* _imageOfSmartAlbumSelfPortraitsIcon = nil;
+static UIImage* _imageOfSmartAlbumFavoritesIcon = nil;
+static UIImage* _imageOfSmartAlbumScreenshotsIcon = nil;
+static UIImage* _imageOfVideoTimelapseIcon = nil;
+static UIImage* _imageOfVideoHighFrameRateIcon = nil;
+static UIImage* _imageOfVideoIcon = nil;
 
 #pragma mark Drawing Methods
 
-+ (void)drawSeriesIcon
++ (void)drawSmartAlbumBurstsIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -33,25 +47,27 @@
     //// Group
     {
         //// Rectangle Drawing
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 11, 48, 35)];
+        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 11, 48, 35) cornerRadius: 1];
         [color setFill];
         [rectanglePath fill];
         
         
         //// Rectangle 2 Drawing
-        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(4, 7, 41, 3)];
+        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(4, 7, 41, 3) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(1, 1)];
+        [rectangle2Path closePath];
         [color setFill];
         [rectangle2Path fill];
         
         
         //// Rectangle 3 Drawing
-        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(7, 4, 35, 2)];
+        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(7, 4, 35, 2) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(1, 1)];
+        [rectangle3Path closePath];
         [color setFill];
         [rectangle3Path fill];
     }
 }
 
-+ (void)drawIntervalIcon
++ (void)drawSmartAlbumSlomoVideosIcon
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -59,303 +75,294 @@
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
-    //// Group
-    {
-        //// ShortItems
-        {
-            //// short15 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -345 * M_PI / 180);
-            
-            UIBezierPath* short15Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short15Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short45 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -315 * M_PI / 180);
-            
-            UIBezierPath* short45Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short45Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short75 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -285 * M_PI / 180);
-            
-            UIBezierPath* short75Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short75Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short105 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -255 * M_PI / 180);
-            
-            UIBezierPath* short105Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short105Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short135 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -225 * M_PI / 180);
-            
-            UIBezierPath* short135Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short135Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short165 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -195 * M_PI / 180);
-            
-            UIBezierPath* short165Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short165Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short195 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -165 * M_PI / 180);
-            
-            UIBezierPath* short195Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short195Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short225 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -135 * M_PI / 180);
-            
-            UIBezierPath* short225Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short225Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short255 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -105 * M_PI / 180);
-            
-            UIBezierPath* short255Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short255Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short285 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -75 * M_PI / 180);
-            
-            UIBezierPath* short285Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short285Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short315 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -45 * M_PI / 180);
-            
-            UIBezierPath* short315Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short315Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// short345 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -15 * M_PI / 180);
-            
-            UIBezierPath* short345Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 2)];
-            [color setFill];
-            [short345Path fill];
-            
-            CGContextRestoreGState(context);
-        }
-        
-        
-        //// LongItems
-        {
-            //// long0 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            
-            UIBezierPath* long0Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long0Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long30 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -330 * M_PI / 180);
-            
-            UIBezierPath* long30Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long30Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long60 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -300 * M_PI / 180);
-            
-            UIBezierPath* long60Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long60Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long90 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -270 * M_PI / 180);
-            
-            UIBezierPath* long90Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long90Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long120 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -240 * M_PI / 180);
-            
-            UIBezierPath* long120Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long120Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long150 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -210 * M_PI / 180);
-            
-            UIBezierPath* long150Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long150Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long180 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -180 * M_PI / 180);
-            
-            UIBezierPath* long180Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long180Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long210 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -150 * M_PI / 180);
-            
-            UIBezierPath* long210Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long210Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long240 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -120 * M_PI / 180);
-            
-            UIBezierPath* long240Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long240Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long270 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -90 * M_PI / 180);
-            
-            UIBezierPath* long270Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long270Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long300 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -60 * M_PI / 180);
-            
-            UIBezierPath* long300Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long300Path fill];
-            
-            CGContextRestoreGState(context);
-            
-            
-            //// long330 Drawing
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, 24, 24);
-            CGContextRotateCTM(context, -30 * M_PI / 180);
-            
-            UIBezierPath* long330Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 8)];
-            [color setFill];
-            [long330Path fill];
-            
-            CGContextRestoreGState(context);
-        }
-    }
+    //// short15 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 15 * M_PI / 180);
+    
+    UIBezierPath* short15Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short15Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short45 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 45 * M_PI / 180);
+    
+    UIBezierPath* short45Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short45Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short75 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 75 * M_PI / 180);
+    
+    UIBezierPath* short75Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short75Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short105 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 105 * M_PI / 180);
+    
+    UIBezierPath* short105Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short105Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short135 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 135 * M_PI / 180);
+    
+    UIBezierPath* short135Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short135Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short165 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 165 * M_PI / 180);
+    
+    UIBezierPath* short165Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short165Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short195 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -165 * M_PI / 180);
+    
+    UIBezierPath* short195Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short195Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short225 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -135 * M_PI / 180);
+    
+    UIBezierPath* short225Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short225Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short255 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -105 * M_PI / 180);
+    
+    UIBezierPath* short255Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short255Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short285 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -75 * M_PI / 180);
+    
+    UIBezierPath* short285Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short285Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short315 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -45 * M_PI / 180);
+    
+    UIBezierPath* short315Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short315Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// short345 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -15 * M_PI / 180);
+    
+    UIBezierPath* short345Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -22, 2, 2) cornerRadius: 1];
+    [color setFill];
+    [short345Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long0 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    
+    UIBezierPath* long0Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long0Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long30 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 30 * M_PI / 180);
+    
+    UIBezierPath* long30Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long30Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long60 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 60 * M_PI / 180);
+    
+    UIBezierPath* long60Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long60Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long90 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 90 * M_PI / 180);
+    
+    UIBezierPath* long90Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long90Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long120 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 120 * M_PI / 180);
+    
+    UIBezierPath* long120Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long120Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long150 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, 150 * M_PI / 180);
+    
+    UIBezierPath* long150Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long150Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long180 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -180 * M_PI / 180);
+    
+    UIBezierPath* long180Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long180Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long210 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -150 * M_PI / 180);
+    
+    UIBezierPath* long210Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long210Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long240 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -120 * M_PI / 180);
+    
+    UIBezierPath* long240Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long240Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long270 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -90 * M_PI / 180);
+    
+    UIBezierPath* long270Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long270Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long300 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -60 * M_PI / 180);
+    
+    UIBezierPath* long300Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long300Path fill];
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// long330 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 24, 24);
+    CGContextRotateCTM(context, -30 * M_PI / 180);
+    
+    UIBezierPath* long330Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22, 3, 8) cornerRadius: 1];
+    [color setFill];
+    [long330Path fill];
+    
+    CGContextRestoreGState(context);
 }
 
-+ (void)drawSlowIcon
++ (void)drawSmartAlbumTimelapsesIcon
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -369,7 +376,7 @@
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, 24, 24);
         
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectanglePath fill];
         
@@ -381,7 +388,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, 30 * M_PI / 180);
         
-        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle2Path fill];
         
@@ -393,7 +400,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, 60 * M_PI / 180);
         
-        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle3Path fill];
         
@@ -405,7 +412,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, 90 * M_PI / 180);
         
-        UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle4Path fill];
         
@@ -417,7 +424,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, 120 * M_PI / 180);
         
-        UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle5Path fill];
         
@@ -429,7 +436,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, 150 * M_PI / 180);
         
-        UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle6Path fill];
         
@@ -441,7 +448,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -180 * M_PI / 180);
         
-        UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle7Path fill];
         
@@ -453,7 +460,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -150 * M_PI / 180);
         
-        UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle8Path fill];
         
@@ -465,7 +472,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -120 * M_PI / 180);
         
-        UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle9Path fill];
         
@@ -477,7 +484,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -90 * M_PI / 180);
         
-        UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle10Path fill];
         
@@ -489,7 +496,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -60 * M_PI / 180);
         
-        UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle11Path fill];
         
@@ -501,7 +508,7 @@
         CGContextTranslateCTM(context, 24, 24);
         CGContextRotateCTM(context, -30 * M_PI / 180);
         
-        UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -22, 2, 5)];
+        UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -22.5, 3, 6) cornerRadius: 1];
         [color setFill];
         [rectangle12Path fill];
         
@@ -509,7 +516,7 @@
     }
 }
 
-+ (void)drawVideoIcon
++ (void)drawSmartAlbumVideosIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -535,7 +542,7 @@
     }
 }
 
-+ (void)drawPanoramaIcon
++ (void)drawSmartAlbumPanoramasIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -564,7 +571,7 @@
     [rectanglePath fill];
 }
 
-+ (void)drawSelfieIcon
++ (void)drawSmartAlbumSelfPortraitsIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -577,24 +584,24 @@
     
     //// Bezier 2 Drawing
     UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
-    [bezier2Path moveToPoint: CGPointMake(24, 18)];
-    [bezier2Path addCurveToPoint: CGPointMake(15.23, 22.54) controlPoint1: CGPointMake(20.23, 18) controlPoint2: CGPointMake(16.94, 19.41)];
-    [bezier2Path addCurveToPoint: CGPointMake(14, 28) controlPoint1: CGPointMake(14.45, 23.98) controlPoint2: CGPointMake(14, 25.79)];
-    [bezier2Path addCurveToPoint: CGPointMake(23, 37) controlPoint1: CGPointMake(14, 35) controlPoint2: CGPointMake(19, 37)];
-    [bezier2Path addLineToPoint: CGPointMake(25, 37)];
-    [bezier2Path addCurveToPoint: CGPointMake(25, 36) controlPoint1: CGPointMake(25, 36.93) controlPoint2: CGPointMake(25, 36)];
-    [bezier2Path addLineToPoint: CGPointMake(23, 36)];
-    [bezier2Path addCurveToPoint: CGPointMake(15, 28) controlPoint1: CGPointMake(17.5, 36) controlPoint2: CGPointMake(15, 31.5)];
-    [bezier2Path addCurveToPoint: CGPointMake(15.93, 23.58) controlPoint1: CGPointMake(15, 26.39) controlPoint2: CGPointMake(15.31, 24.88)];
-    [bezier2Path addCurveToPoint: CGPointMake(24, 19) controlPoint1: CGPointMake(17.24, 20.84) controlPoint2: CGPointMake(19.93, 19)];
-    [bezier2Path addCurveToPoint: CGPointMake(32, 27) controlPoint1: CGPointMake(30, 19) controlPoint2: CGPointMake(32, 23)];
-    [bezier2Path addCurveToPoint: CGPointMake(32, 28) controlPoint1: CGPointMake(32, 28) controlPoint2: CGPointMake(32, 28)];
-    [bezier2Path addLineToPoint: CGPointMake(29, 28)];
-    [bezier2Path addLineToPoint: CGPointMake(32.5, 34)];
-    [bezier2Path addLineToPoint: CGPointMake(36, 28)];
-    [bezier2Path addLineToPoint: CGPointMake(33, 28)];
-    [bezier2Path addCurveToPoint: CGPointMake(33, 27) controlPoint1: CGPointMake(33, 28) controlPoint2: CGPointMake(33, 29)];
-    [bezier2Path addCurveToPoint: CGPointMake(24, 18) controlPoint1: CGPointMake(33, 21.5) controlPoint2: CGPointMake(29.5, 18)];
+    [bezier2Path moveToPoint: CGPointMake(24, 17.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(14.8, 22) controlPoint1: CGPointMake(20.23, 17.5) controlPoint2: CGPointMake(16.5, 18.87)];
+    [bezier2Path addCurveToPoint: CGPointMake(13.5, 28) controlPoint1: CGPointMake(14.02, 23.44) controlPoint2: CGPointMake(13.5, 25.79)];
+    [bezier2Path addCurveToPoint: CGPointMake(23, 37.5) controlPoint1: CGPointMake(13.5, 35) controlPoint2: CGPointMake(19, 37.5)];
+    [bezier2Path addLineToPoint: CGPointMake(25.5, 37.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(25.5, 35.5) controlPoint1: CGPointMake(25.5, 37.43) controlPoint2: CGPointMake(25.5, 35.5)];
+    [bezier2Path addLineToPoint: CGPointMake(23, 35.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(15.5, 28) controlPoint1: CGPointMake(17.5, 35.5) controlPoint2: CGPointMake(15.5, 31.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(16.38, 23.58) controlPoint1: CGPointMake(15.5, 26.39) controlPoint2: CGPointMake(15.76, 24.88)];
+    [bezier2Path addCurveToPoint: CGPointMake(24, 19.5) controlPoint1: CGPointMake(17.69, 20.84) controlPoint2: CGPointMake(19.93, 19.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(31.5, 27) controlPoint1: CGPointMake(30, 19.5) controlPoint2: CGPointMake(31.5, 23)];
+    [bezier2Path addCurveToPoint: CGPointMake(31.5, 27.5) controlPoint1: CGPointMake(31.5, 28) controlPoint2: CGPointMake(31.5, 27.5)];
+    [bezier2Path addLineToPoint: CGPointMake(28, 27.5)];
+    [bezier2Path addLineToPoint: CGPointMake(32.5, 35)];
+    [bezier2Path addLineToPoint: CGPointMake(37, 27.5)];
+    [bezier2Path addLineToPoint: CGPointMake(33.5, 27.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(33.5, 27) controlPoint1: CGPointMake(33.5, 27.5) controlPoint2: CGPointMake(33.5, 29)];
+    [bezier2Path addCurveToPoint: CGPointMake(24, 17.5) controlPoint1: CGPointMake(33.5, 21.5) controlPoint2: CGPointMake(29.5, 17.5)];
     [bezier2Path closePath];
     [bezier2Path moveToPoint: CGPointMake(29, 10)];
     [bezier2Path addLineToPoint: CGPointMake(34, 15)];
@@ -626,28 +633,28 @@
     [bezier2Path fill];
 }
 
-+ (void)drawFavoriteIcon
++ (void)drawSmartAlbumFavoritesIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Bezier Drawing
     UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-    [bezierPath moveToPoint: CGPointMake(23.5, 45)];
-    [bezierPath addLineToPoint: CGPointMake(3, 24)];
-    [bezierPath addCurveToPoint: CGPointMake(1, 16) controlPoint1: CGPointMake(1.5, 22) controlPoint2: CGPointMake(1, 21)];
-    [bezierPath addCurveToPoint: CGPointMake(12, 5) controlPoint1: CGPointMake(1, 11) controlPoint2: CGPointMake(4, 5)];
-    [bezierPath addCurveToPoint: CGPointMake(23.5, 12) controlPoint1: CGPointMake(20, 5) controlPoint2: CGPointMake(23.5, 12)];
-    [bezierPath addCurveToPoint: CGPointMake(35, 5) controlPoint1: CGPointMake(23.5, 12) controlPoint2: CGPointMake(26, 5)];
-    [bezierPath addCurveToPoint: CGPointMake(46, 16) controlPoint1: CGPointMake(44, 5) controlPoint2: CGPointMake(46, 10)];
-    [bezierPath addCurveToPoint: CGPointMake(44, 24) controlPoint1: CGPointMake(46, 21.5) controlPoint2: CGPointMake(44, 24)];
-    [bezierPath addLineToPoint: CGPointMake(23.5, 45)];
+    [bezierPath moveToPoint: CGPointMake(24, 45)];
+    [bezierPath addLineToPoint: CGPointMake(3.5, 24)];
+    [bezierPath addCurveToPoint: CGPointMake(1.5, 16) controlPoint1: CGPointMake(2, 22) controlPoint2: CGPointMake(1.5, 21)];
+    [bezierPath addCurveToPoint: CGPointMake(12.5, 5) controlPoint1: CGPointMake(1.5, 11) controlPoint2: CGPointMake(4.5, 5)];
+    [bezierPath addCurveToPoint: CGPointMake(24, 12) controlPoint1: CGPointMake(20.5, 5) controlPoint2: CGPointMake(24, 12)];
+    [bezierPath addCurveToPoint: CGPointMake(35.5, 5) controlPoint1: CGPointMake(24, 12) controlPoint2: CGPointMake(26.5, 5)];
+    [bezierPath addCurveToPoint: CGPointMake(46.5, 16) controlPoint1: CGPointMake(44.5, 5) controlPoint2: CGPointMake(46.5, 10)];
+    [bezierPath addCurveToPoint: CGPointMake(44.5, 24) controlPoint1: CGPointMake(46.5, 21.5) controlPoint2: CGPointMake(44.5, 24)];
+    [bezierPath addLineToPoint: CGPointMake(24, 45)];
     [bezierPath closePath];
     [color setFill];
     [bezierPath fill];
 }
 
-+ (void)drawScreenshotIcon
++ (void)drawSmartAlbumScreenshotsIcon
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -716,10 +723,9 @@
     [bezierPath closePath];
     [color setFill];
     [bezierPath fill];
-
 }
 
-+ (void)drawTimelapsesIcon
++ (void)drawVideoTimelapseIcon
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -731,7 +737,7 @@
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 24, 24);
     
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectanglePath fill];
     
@@ -743,7 +749,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -15 * M_PI / 180);
     
-    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle2Path fill];
     
@@ -755,7 +761,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -30 * M_PI / 180);
     
-    UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle3Path fill];
     
@@ -767,7 +773,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -45 * M_PI / 180);
     
-    UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle4Path fill];
     
@@ -779,7 +785,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -60 * M_PI / 180);
     
-    UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle5Path fill];
     
@@ -791,7 +797,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -75 * M_PI / 180);
     
-    UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle6Path fill];
     
@@ -803,7 +809,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -90 * M_PI / 180);
     
-    UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle7Path fill];
     
@@ -815,7 +821,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -105 * M_PI / 180);
     
-    UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle8Path fill];
     
@@ -827,7 +833,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -120 * M_PI / 180);
     
-    UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle9Path fill];
     
@@ -839,7 +845,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -135 * M_PI / 180);
     
-    UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle10Path fill];
     
@@ -851,7 +857,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -150 * M_PI / 180);
     
-    UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle11Path fill];
     
@@ -863,7 +869,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -165 * M_PI / 180);
     
-    UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle12Path fill];
     
@@ -875,7 +881,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -180 * M_PI / 180);
     
-    UIBezierPath* rectangle13Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle13Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle13Path fill];
     
@@ -887,7 +893,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -195 * M_PI / 180);
     
-    UIBezierPath* rectangle14Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle14Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle14Path fill];
     
@@ -899,7 +905,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -210 * M_PI / 180);
     
-    UIBezierPath* rectangle15Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle15Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle15Path fill];
     
@@ -911,7 +917,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -225 * M_PI / 180);
     
-    UIBezierPath* rectangle16Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle16Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle16Path fill];
     
@@ -923,7 +929,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -240 * M_PI / 180);
     
-    UIBezierPath* rectangle17Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle17Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle17Path fill];
     
@@ -935,7 +941,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -255 * M_PI / 180);
     
-    UIBezierPath* rectangle18Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle18Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle18Path fill];
     
@@ -947,7 +953,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -270 * M_PI / 180);
     
-    UIBezierPath* rectangle19Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle19Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle19Path fill];
     
@@ -959,7 +965,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -285 * M_PI / 180);
     
-    UIBezierPath* rectangle20Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle20Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle20Path fill];
     
@@ -971,7 +977,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -300 * M_PI / 180);
     
-    UIBezierPath* rectangle21Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle21Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle21Path fill];
     
@@ -983,7 +989,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -315 * M_PI / 180);
     
-    UIBezierPath* rectangle22Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle22Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle22Path fill];
     
@@ -995,7 +1001,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -330 * M_PI / 180);
     
-    UIBezierPath* rectangle23Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle23Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle23Path fill];
     
@@ -1007,14 +1013,14 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -345 * M_PI / 180);
     
-    UIBezierPath* rectangle24Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1, -19, 2, 6)];
+    UIBezierPath* rectangle24Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1, -19, 2, 6) cornerRadius: 1];
     [color setFill];
     [rectangle24Path fill];
     
     CGContextRestoreGState(context);
 }
 
-+ (void)drawHighFrameRateIcon
++ (void)drawVideoHighFrameRateIcon
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -1026,7 +1032,7 @@
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 24, 24);
     
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 8)];
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 8) cornerRadius: 1];
     [color setFill];
     [rectanglePath fill];
     
@@ -1038,7 +1044,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -90 * M_PI / 180);
     
-    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 8)];
+    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 8) cornerRadius: 1];
     [color setFill];
     [rectangle2Path fill];
     
@@ -1050,7 +1056,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -180 * M_PI / 180);
     
-    UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 8)];
+    UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 8) cornerRadius: 1];
     [color setFill];
     [rectangle3Path fill];
     
@@ -1062,7 +1068,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -270 * M_PI / 180);
     
-    UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 8)];
+    UIBezierPath* rectangle4Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 8) cornerRadius: 1];
     [color setFill];
     [rectangle4Path fill];
     
@@ -1074,7 +1080,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -45 * M_PI / 180);
     
-    UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 11)];
+    UIBezierPath* rectangle5Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 11) cornerRadius: 1];
     [color setFill];
     [rectangle5Path fill];
     
@@ -1086,7 +1092,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -135 * M_PI / 180);
     
-    UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 11)];
+    UIBezierPath* rectangle6Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 11) cornerRadius: 1];
     [color setFill];
     [rectangle6Path fill];
     
@@ -1098,7 +1104,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -225 * M_PI / 180);
     
-    UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 11)];
+    UIBezierPath* rectangle7Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 11) cornerRadius: 1];
     [color setFill];
     [rectangle7Path fill];
     
@@ -1110,7 +1116,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, 45 * M_PI / 180);
     
-    UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 11)];
+    UIBezierPath* rectangle8Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 11) cornerRadius: 1];
     [color setFill];
     [rectangle8Path fill];
     
@@ -1122,7 +1128,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -22.5 * M_PI / 180);
     
-    UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle9Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle9Path fill];
     
@@ -1134,7 +1140,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -112.5 * M_PI / 180);
     
-    UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle10Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle10Path fill];
     
@@ -1146,7 +1152,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -202.5 * M_PI / 180);
     
-    UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle11Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle11Path fill];
     
@@ -1158,7 +1164,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, 67.5 * M_PI / 180);
     
-    UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle12Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle12Path fill];
     
@@ -1170,7 +1176,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -67.5 * M_PI / 180);
     
-    UIBezierPath* rectangle13Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle13Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle13Path fill];
     
@@ -1182,7 +1188,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, -157.5 * M_PI / 180);
     
-    UIBezierPath* rectangle14Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle14Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle14Path fill];
     
@@ -1194,7 +1200,7 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, 112.5 * M_PI / 180);
     
-    UIBezierPath* rectangle15Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle15Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle15Path fill];
     
@@ -1206,92 +1212,238 @@
     CGContextTranslateCTM(context, 24, 24);
     CGContextRotateCTM(context, 22.5 * M_PI / 180);
     
-    UIBezierPath* rectangle16Path = [UIBezierPath bezierPathWithRect: CGRectMake(-1.5, -19.5, 3, 5)];
+    UIBezierPath* rectangle16Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-1.5, -19.5, 3, 5) cornerRadius: 1];
     [color setFill];
     [rectangle16Path fill];
     
     CGContextRestoreGState(context);
 }
 
-
-#pragma mark - PHAsset Icons
-
-+ (UIImage *)imageWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype {
-    UIImage *iconImage = nil;
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
-    switch (mediaType) {
-        case PHAssetMediaTypeVideo: {
-            if (mediaSubtype & PHAssetMediaSubtypeVideoStreamed) {
-                [self drawSeriesIcon];
-            } else if (mediaSubtype & PHAssetMediaSubtypeVideoHighFrameRate) {
-                [self drawHighFrameRateIcon];
-            } else if (mediaSubtype & PHAssetMediaSubtypeVideoTimelapse) {
-                [self drawTimelapsesIcon];
-            } else {
-                [self drawVideoIcon];
-            }
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        }
-        case PHAssetMediaTypeImage: {
-            if (mediaSubtype & PHAssetMediaSubtypePhotoPanorama) {
-                [self drawPanoramaIcon];
-                iconImage = UIGraphicsGetImageFromCurrentImageContext();
-//            } else if (mediaSubtype & PHAssetMediaSubtypePhoto) {
-//                [self drawPanoramaIcon];
-            }
-            break;
-        }
-        default:
-            break;
-    }
-    UIGraphicsEndImageContext();
-    return iconImage;
++ (void)drawVideoIcon
+{
+    //// Color Declarations
+    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(3, 11.5, 27, 24) cornerRadius: 5];
+    [color setFill];
+    [rectanglePath fill];
+    
+    
+    //// Bezier Drawing
+    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+    [bezierPath moveToPoint: CGPointMake(33, 22.5)];
+    [bezierPath addLineToPoint: CGPointMake(45, 12)];
+    [bezierPath addLineToPoint: CGPointMake(45, 35)];
+    [bezierPath addLineToPoint: CGPointMake(33, 24.5)];
+    [bezierPath addLineToPoint: CGPointMake(33, 22.5)];
+    [bezierPath closePath];
+    [color setFill];
+    [bezierPath fill];
 }
 
-+ (UIImage *)imageWithAssetCollectionType:(PHAssetCollectionType)collectionType subtype:(PHAssetCollectionSubtype)collectionSubtype {
-    UIImage *iconImage = nil;
+#pragma mark Generated Images
+
++ (UIImage*)imageOfSmartAlbumBurstsIcon
+{
+    if (_imageOfSmartAlbumBurstsIcon)
+        return _imageOfSmartAlbumBurstsIcon;
+    
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
-    switch (collectionSubtype) {
-        case PHAssetCollectionSubtypeSmartAlbumVideos:
-            [self drawVideoIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumPanoramas:
-            [self drawPanoramaIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumFavorites:
-            [self drawFavoriteIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumSlomoVideos:
-            [self drawSlowIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumTimelapses:
-            [self drawIntervalIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumSelfPortraits:
-            [self drawSelfieIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumBursts:
-            [self drawSeriesIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-        case PHAssetCollectionSubtypeSmartAlbumScreenshots:
-            [self drawScreenshotIcon];
-            iconImage = UIGraphicsGetImageFromCurrentImageContext();
-            break;
-            
-        default:
-            break;
-    }
+    [self drawSmartAlbumBurstsIcon];
+    
+    _imageOfSmartAlbumBurstsIcon = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return iconImage;
+    
+    return _imageOfSmartAlbumBurstsIcon;
 }
+
++ (UIImage*)imageOfSmartAlbumSlomoVideosIcon
+{
+    if (_imageOfSmartAlbumSlomoVideosIcon)
+        return _imageOfSmartAlbumSlomoVideosIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumSlomoVideosIcon];
+    
+    _imageOfSmartAlbumSlomoVideosIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumSlomoVideosIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumTimelapsesIcon
+{
+    if (_imageOfSmartAlbumTimelapsesIcon)
+        return _imageOfSmartAlbumTimelapsesIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumTimelapsesIcon];
+    
+    _imageOfSmartAlbumTimelapsesIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumTimelapsesIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumVideosIcon
+{
+    if (_imageOfSmartAlbumVideosIcon)
+        return _imageOfSmartAlbumVideosIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumVideosIcon];
+    
+    _imageOfSmartAlbumVideosIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumVideosIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumPanoramasIcon
+{
+    if (_imageOfSmartAlbumPanoramasIcon)
+        return _imageOfSmartAlbumPanoramasIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumPanoramasIcon];
+    
+    _imageOfSmartAlbumPanoramasIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumPanoramasIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumSelfPortraitsIcon
+{
+    if (_imageOfSmartAlbumSelfPortraitsIcon)
+        return _imageOfSmartAlbumSelfPortraitsIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumSelfPortraitsIcon];
+    
+    _imageOfSmartAlbumSelfPortraitsIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumSelfPortraitsIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumFavoritesIcon
+{
+    if (_imageOfSmartAlbumFavoritesIcon)
+        return _imageOfSmartAlbumFavoritesIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumFavoritesIcon];
+    
+    _imageOfSmartAlbumFavoritesIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumFavoritesIcon;
+}
+
++ (UIImage*)imageOfSmartAlbumScreenshotsIcon
+{
+    if (_imageOfSmartAlbumScreenshotsIcon)
+        return _imageOfSmartAlbumScreenshotsIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawSmartAlbumScreenshotsIcon];
+    
+    _imageOfSmartAlbumScreenshotsIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSmartAlbumScreenshotsIcon;
+}
+
++ (UIImage*)imageOfVideoTimelapseIcon
+{
+    if (_imageOfVideoTimelapseIcon)
+        return _imageOfVideoTimelapseIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawVideoTimelapseIcon];
+    
+    _imageOfVideoTimelapseIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfVideoTimelapseIcon;
+}
+
++ (UIImage*)imageOfVideoHighFrameRateIcon
+{
+    if (_imageOfVideoHighFrameRateIcon)
+        return _imageOfVideoHighFrameRateIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawVideoHighFrameRateIcon];
+    
+    _imageOfVideoHighFrameRateIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfVideoHighFrameRateIcon;
+}
+
++ (UIImage*)imageOfVideoIcon
+{
+    if (_imageOfVideoIcon)
+        return _imageOfVideoIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(48, 48), NO, 0.0f);
+    [self drawVideoIcon];
+    
+    _imageOfVideoIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfVideoIcon;
+}
+
+#pragma mark - Selector
+
++ (void)drawSelectorIconWithTintColor: (UIColor*)tintColor
+{
+    //// Color Declarations
+    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    
+    //// Oval Drawing
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(2.5, 2.5, 73, 73)];
+    [color setFill];
+    [ovalPath fill];
+    
+    
+    //// Bezier 2 Drawing
+    UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
+    [bezier2Path moveToPoint: CGPointMake(54, 25)];
+    [bezier2Path addLineToPoint: CGPointMake(31.5, 47.5)];
+    [bezier2Path addLineToPoint: CGPointMake(22.5, 38.5)];
+    [bezier2Path addLineToPoint: CGPointMake(19.5, 41.5)];
+    [bezier2Path addLineToPoint: CGPointMake(31.5, 53.5)];
+    [bezier2Path addLineToPoint: CGPointMake(57, 28)];
+    [bezier2Path addLineToPoint: CGPointMake(54, 25)];
+    [bezier2Path closePath];
+    [bezier2Path moveToPoint: CGPointMake(72.5, 39)];
+    [bezier2Path addCurveToPoint: CGPointMake(39, 72.5) controlPoint1: CGPointMake(72.5, 57.5) controlPoint2: CGPointMake(57.5, 72.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(5.5, 39) controlPoint1: CGPointMake(20.5, 72.5) controlPoint2: CGPointMake(5.5, 57.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(20.74, 10.91) controlPoint1: CGPointMake(5.5, 27.23) controlPoint2: CGPointMake(11.56, 16.89)];
+    [bezier2Path addCurveToPoint: CGPointMake(39, 5.5) controlPoint1: CGPointMake(25.99, 7.49) controlPoint2: CGPointMake(32.26, 5.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(72.5, 39) controlPoint1: CGPointMake(57.5, 5.5) controlPoint2: CGPointMake(72.5, 20.5)];
+    [bezier2Path closePath];
+    [tintColor setFill];
+    [bezier2Path fill];
+}
+
++ (UIImage*)imageOfSelectorIconWithTintColor: (UIColor*)tintColor
+{
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(78, 78), NO, 0.0f);
+    [self drawSelectorIconWithTintColor: tintColor];
+    
+    UIImage* imageOfSelectorIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return imageOfSelectorIcon;
+}
+
+
 
 #pragma mark -
 
