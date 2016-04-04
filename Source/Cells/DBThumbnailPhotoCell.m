@@ -22,9 +22,12 @@
 #import "DBThumbnailPhotoCell.h"
 #import "UIImage+DBAssetIcons.h"
 
+static const CGFloat kDefaultSelectorImageViewOffset = 4.f;
+
 @interface DBThumbnailPhotoCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectorImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectorImageViewRightConstraint;
 
 @end
 
@@ -46,11 +49,23 @@
     self.selectorImageView.highlightedImage = [UIImage imageOfSelectorIconWithTintColor:self.tintColor];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.selectorOffset = 0.f;
+}
+
 #pragma mark - Accessors
 
 - (void)setTintColor:(UIColor *)tintColor {
     [super setTintColor:tintColor];
     [self.selectorImageView setTintColor:tintColor];
+}
+
+- (void)setSelectorOffset:(CGFloat)selectorOffset {
+    _selectorOffset = selectorOffset;
+    
+    const CGFloat maxOfsset = CGRectGetWidth(self.bounds) - kDefaultSelectorImageViewOffset - CGRectGetWidth(self.selectorImageView.frame);
+    self.selectorImageViewRightConstraint.constant = MIN(maxOfsset, kDefaultSelectorImageViewOffset + selectorOffset);
 }
 
 - (void)setSelected:(BOOL)selected {

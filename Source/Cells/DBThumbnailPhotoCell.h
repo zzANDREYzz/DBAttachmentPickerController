@@ -30,6 +30,8 @@
 @property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
 @property (copy, nonatomic, nullable) NSString *identifier;
 
+@property (assign, nonatomic) CGFloat selectorOffset;
+
 + (_Nonnull instancetype)thumbnailImageCell;
 
 @end

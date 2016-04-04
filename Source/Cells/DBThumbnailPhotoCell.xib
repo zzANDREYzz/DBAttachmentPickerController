@@ -50,6 +50,7 @@
                 <outlet property="assetImageView" destination="May-cB-nvj" id="xKQ-yA-iTs"/>
                 <outlet property="durationLabel" destination="Uh4-r3-SBz" id="xMB-dI-VUq"/>
                 <outlet property="selectorImageView" destination="s1Y-gz-hcc" id="ofR-4h-HhY"/>
+                <outlet property="selectorImageViewRightConstraint" destination="4o8-0A-gh0" id="6ai-Xm-qJs"/>
             </connections>
         </collectionViewCell>
     </objects>

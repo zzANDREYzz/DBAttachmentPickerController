@@ -131,6 +131,11 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self recalculateVisibleCellsSelectorOffsetWithScrollViewOffsetX:self.collectionView.contentOffset.x];
+}
+
 - (void)dealloc {
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
@@ -278,6 +283,12 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     return [self collectionItemCellSizeAtIndexPath:indexPath];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self recalculateVisibleCellsSelectorOffsetWithScrollViewOffsetX:scrollView.contentOffset.x];
+}
+
 #pragma mark Helpers
 
 - (CGSize)collectionItemCellSizeAtIndexPath:(NSIndexPath *)indexPath {
@@ -285,6 +296,15 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     const CGFloat coef = (CGFloat)asset.pixelWidth / (CGFloat)asset.pixelHeight;
     CGFloat maxWidth = CGRectGetWidth(self.collectionView.bounds) - kDefaultInteritemSpacing *2;
     return CGSizeMake( MIN( kDefaultThumbnailHeight * coef, maxWidth ), kDefaultThumbnailHeight );
+}
+
+- (void)recalculateVisibleCellsSelectorOffsetWithScrollViewOffsetX:(CGFloat)offsetX {
+    for (DBThumbnailPhotoCell *cell in self.collectionView.visibleCells) {
+        if ( offsetX + CGRectGetWidth(self.collectionView.frame) < CGRectGetMaxX(cell.frame)) {
+            cell.selectorOffset = CGRectGetMaxX(cell.frame) - ( offsetX + CGRectGetWidth(self.collectionView.frame) );
+            break;
+        }
+    }
 }
 
 @end
