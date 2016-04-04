@@ -45,8 +45,8 @@ static const CGFloat kDefaultSelectorImageViewOffset = 4.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    //self.selectorImageView.image = [[UIImage imageNamed:@"commonCheckBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.selectorImageView.highlightedImage = [UIImage imageOfSelectorIconWithTintColor:self.tintColor];
+    self.selectorImageView.image = [UIImage imageOfSelectorOffIcon];
+    self.selectorImageView.highlightedImage = [UIImage imageOfSelectorOnIconWithTintColor:self.tintColor];
 }
 
 - (void)prepareForReuse {

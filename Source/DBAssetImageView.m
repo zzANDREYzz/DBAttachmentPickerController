@@ -28,7 +28,7 @@ static const CGSize kDefaultMediaTypeIconSize = {16.f, 16.f};
     [self addSubview:self.mediaTypeImageView];
     
     self.gradient = [CAGradientLayer layer];
-    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[[UIColor blackColor] colorWithAlphaComponent:.5f] CGColor], nil];
+    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[[UIColor blackColor] colorWithAlphaComponent:.75f] CGColor], nil];
 }
 
 - (void)configureWithAssetMediaType:(PHAssetMediaType)mediaType subtype:(PHAssetMediaSubtype)mediaSubtype {

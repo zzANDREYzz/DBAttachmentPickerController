@@ -36,6 +36,7 @@ static UIImage* _imageOfSmartAlbumScreenshotsIcon = nil;
 static UIImage* _imageOfVideoTimelapseIcon = nil;
 static UIImage* _imageOfVideoHighFrameRateIcon = nil;
 static UIImage* _imageOfVideoIcon = nil;
+static UIImage* _imageOfSelectorOffIcon = nil;
 
 #pragma mark Drawing Methods
 
@@ -1400,15 +1401,29 @@ static UIImage* _imageOfVideoIcon = nil;
 
 #pragma mark - Selector
 
-+ (void)drawSelectorIconWithTintColor: (UIColor*)tintColor
++ (void)drawSelectorOnIconWithTintColor: (UIColor*)tintColor
 {
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* shadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.498];
+    
+    //// Shadow Declarations
+    NSShadow* shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor: shadowColor];
+    [shadow setShadowOffset: CGSizeMake(0.1, -0.1)];
+    [shadow setShadowBlurRadius: 5];
     
     //// Oval Drawing
     UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(2.5, 2.5, 73, 73)];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
     [color setFill];
     [ovalPath fill];
+    CGContextRestoreGState(context);
+    
     
     
     //// Bezier 2 Drawing
@@ -1432,10 +1447,48 @@ static UIImage* _imageOfVideoIcon = nil;
     [bezier2Path fill];
 }
 
-+ (UIImage*)imageOfSelectorIconWithTintColor: (UIColor*)tintColor
++ (void)drawSelectorOffIcon
+{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //// Color Declarations
+    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* shadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.498];
+    
+    //// Shadow Declarations
+    NSShadow* shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor: shadowColor];
+    [shadow setShadowOffset: CGSizeMake(0.1, -0.1)];
+    [shadow setShadowBlurRadius: 5];
+    
+    //// Bezier Drawing
+    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+    [bezierPath moveToPoint: CGPointMake(39, 5.5)];
+    [bezierPath addCurveToPoint: CGPointMake(20.74, 10.91) controlPoint1: CGPointMake(32.26, 5.5) controlPoint2: CGPointMake(25.99, 7.49)];
+    [bezierPath addCurveToPoint: CGPointMake(5.5, 39) controlPoint1: CGPointMake(11.56, 16.89) controlPoint2: CGPointMake(5.5, 27.23)];
+    [bezierPath addCurveToPoint: CGPointMake(39, 72.5) controlPoint1: CGPointMake(5.5, 57.5) controlPoint2: CGPointMake(20.5, 72.5)];
+    [bezierPath addCurveToPoint: CGPointMake(72.5, 39) controlPoint1: CGPointMake(57.5, 72.5) controlPoint2: CGPointMake(72.5, 57.5)];
+    [bezierPath addCurveToPoint: CGPointMake(39, 5.5) controlPoint1: CGPointMake(72.5, 20.5) controlPoint2: CGPointMake(57.5, 5.5)];
+    [bezierPath closePath];
+    [bezierPath moveToPoint: CGPointMake(75.5, 39)];
+    [bezierPath addCurveToPoint: CGPointMake(39, 75.5) controlPoint1: CGPointMake(75.5, 59.16) controlPoint2: CGPointMake(59.16, 75.5)];
+    [bezierPath addCurveToPoint: CGPointMake(2.5, 39) controlPoint1: CGPointMake(18.84, 75.5) controlPoint2: CGPointMake(2.5, 59.16)];
+    [bezierPath addCurveToPoint: CGPointMake(18.06, 9.1) controlPoint1: CGPointMake(2.5, 26.63) controlPoint2: CGPointMake(8.65, 15.71)];
+    [bezierPath addCurveToPoint: CGPointMake(39, 2.5) controlPoint1: CGPointMake(23.98, 4.94) controlPoint2: CGPointMake(31.21, 2.5)];
+    [bezierPath addCurveToPoint: CGPointMake(75.5, 39) controlPoint1: CGPointMake(59.16, 2.5) controlPoint2: CGPointMake(75.5, 18.84)];
+    [bezierPath closePath];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
+    [color setFill];
+    [bezierPath fill];
+    CGContextRestoreGState(context);
+}
+
++ (UIImage*)imageOfSelectorOnIconWithTintColor: (UIColor*)tintColor
 {
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(78, 78), NO, 0.0f);
-    [self drawSelectorIconWithTintColor: tintColor];
+    [self drawSelectorOnIconWithTintColor: tintColor];
     
     UIImage* imageOfSelectorIcon = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -1443,7 +1496,19 @@ static UIImage* _imageOfVideoIcon = nil;
     return imageOfSelectorIcon;
 }
 
-
++ (UIImage*)imageOfSelectorOffIcon
+{
+    if (_imageOfSelectorOffIcon)
+        return _imageOfSelectorOffIcon;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(78, 78), NO, 0.0f);
+    [self drawSelectorOffIcon];
+    
+    _imageOfSelectorOffIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return _imageOfSelectorOffIcon;
+}
 
 #pragma mark -
 

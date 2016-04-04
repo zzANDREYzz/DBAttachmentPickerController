@@ -39,7 +39,8 @@
 + (UIImage*)imageOfVideoHighFrameRateIcon;
 + (UIImage*)imageOfVideoIcon;
 
-+ (UIImage*)imageOfSelectorIconWithTintColor: (UIColor*)tintColor;
++ (UIImage*)imageOfSelectorOnIconWithTintColor: (UIColor*)tintColor;
++ (UIImage*)imageOfSelectorOffIcon;
 
 + (UIImage *)placeholderImageWithSize:(CGSize)size;
 

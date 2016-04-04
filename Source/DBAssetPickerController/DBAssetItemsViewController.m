@@ -24,7 +24,8 @@
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DB.h"
 
-static const NSInteger kNumberItemsPerRow = 4;
+static const NSInteger kNumberItemsPerRowPortrait = 4;
+static const NSInteger kNumberItemsPerRowLandscape = 7;
 static const CGFloat kDefaultItemOffset = 1.f;
 static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
@@ -58,6 +59,11 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:nil] forCellWithReuseIdentifier:kPhotoCellIdentifier];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)dealloc {
@@ -164,7 +170,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     cell.tintColor = self.collectionView.tintColor;
     cell.identifier = asset.localIdentifier;
-    cell.needsDisplayEmptySelectedIndicator = YES;
+    cell.needsDisplayEmptySelectedIndicator = NO;
     [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
     
     if (asset.mediaType == PHAssetMediaTypeVideo) {
@@ -207,9 +213,16 @@ static NSString * const reuseIdentifier = @"Cell";
         CGFloat itemWidth = CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset *2;
         return CGSizeMake( itemWidth, itemWidth / coef );
     } else {
-        CGFloat itemWidth = floorf( ( CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset * ( kNumberItemsPerRow + 1 ) ) / kNumberItemsPerRow );
+        NSInteger numberOfItems = [self numberOfItemsPerRow];
+        CGFloat itemWidth = floorf( ( CGRectGetWidth(self.collectionView.bounds) - kDefaultItemOffset * ( numberOfItems + 1 ) ) / numberOfItems );
         return CGSizeMake(itemWidth, itemWidth);
     }
+}
+
+- (NSInteger)numberOfItemsPerRow {
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    const BOOL isLandscape = ( orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
+    return isLandscape ? kNumberItemsPerRowLandscape : kNumberItemsPerRowPortrait;
 }
 
 @end

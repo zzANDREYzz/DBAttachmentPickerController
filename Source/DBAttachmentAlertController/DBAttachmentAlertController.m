@@ -38,6 +38,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 @property (strong, nonatomic) PHCachingImageManager *imageManager;
 
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
+@property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
 
 @end
 
@@ -154,6 +155,16 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 #pragma mark - Accessors
 
+- (void)setNeedsDisplayEmptySelectedIndicator:(BOOL)needsDisplayEmptySelectedIndicator {
+    if (_needsDisplayEmptySelectedIndicator != needsDisplayEmptySelectedIndicator) {
+        _needsDisplayEmptySelectedIndicator = needsDisplayEmptySelectedIndicator;
+        
+        for (DBThumbnailPhotoCell *cell in self.collectionView.visibleCells) {
+            cell.needsDisplayEmptySelectedIndicator = needsDisplayEmptySelectedIndicator;
+        }
+    }
+}
+
 - (void)setAttachActionText:(NSString *)attachActionText {
     if (![_attachActionText isEqualToString:attachActionText]) {
         UILabel *attachLabel = [self attachActionLabelForView:self.view];
@@ -234,7 +245,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     
     cell.tintColor = self.collectionView.tintColor;
     cell.identifier = asset.localIdentifier;
-    cell.needsDisplayEmptySelectedIndicator = YES;
+    cell.needsDisplayEmptySelectedIndicator = self.needsDisplayEmptySelectedIndicator;
     [cell.assetImageView configureWithAssetMediaType:asset.mediaType subtype:asset.mediaSubtypes];
     
     if (asset.mediaType == PHAssetMediaTypeVideo) {
@@ -264,6 +275,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self updateAttachPhotoCountIfNedded];
+    self.needsDisplayEmptySelectedIndicator = YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -300,10 +312,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 - (void)recalculateVisibleCellsSelectorOffsetWithScrollViewOffsetX:(CGFloat)offsetX {
     for (DBThumbnailPhotoCell *cell in self.collectionView.visibleCells) {
-        if ( offsetX + CGRectGetWidth(self.collectionView.frame) < CGRectGetMaxX(cell.frame)) {
-            cell.selectorOffset = CGRectGetMaxX(cell.frame) - ( offsetX + CGRectGetWidth(self.collectionView.frame) );
-            break;
-        }
+        BOOL isLastItem = ( offsetX + CGRectGetWidth(self.collectionView.frame) < CGRectGetMaxX(cell.frame) );
+        cell.selectorOffset = ( isLastItem ? CGRectGetMaxX(cell.frame) - ( offsetX + CGRectGetWidth(self.collectionView.frame) ) : .0f);
     }
 }
 
