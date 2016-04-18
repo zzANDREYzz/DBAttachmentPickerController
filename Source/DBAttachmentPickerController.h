@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
     DBAttachmentMediaTypeOther = (1 << 2),
 };
 
-UIKIT_EXTERN const DBAttachmentMediaType DBAttachmentMediaTypeAllMask;
+UIKIT_EXTERN const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll;
 
 NS_ASSUME_NONNULL_BEGIN
 @class DBAttachmentPickerController, DBAttachment;
@@ -42,10 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DBAttachmentPickerController : NSObject
 
 @property (weak, nonatomic) id<DBAttachmentPickerControllerDelegate> delegate;
-@property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
+@property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;        // Default is DBAttachmentMediaTypeMaskAll
 
 #warning need implemtnt this feature
-@property (assign, nonatomic) BOOL allowsMultipleSelection;                 // default is NO;
+@property (assign, nonatomic) BOOL allowsMultipleSelection;                     // default is NO;
 
 - (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType;
 - (void)presentAttachmentPickerOnViewController:(UIViewController *)initialViewController;

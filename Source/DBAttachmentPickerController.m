@@ -26,7 +26,7 @@
 #import "DBAttachment.h"
 #import "DBAssetPickerController.h"
 
-const DBAttachmentMediaType DBAttachmentMediaTypeAllMask = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
+const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
 
 @interface DBAttachmentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DBAssetPickerControllerDelegate>
 

@@ -37,6 +37,8 @@ static const CGSize kDefaultMediaTypeIconSize = {16.f, 16.f};
         iconImage =[UIImage imageOfVideoHighFrameRateIcon];
     } else if (mediaSubtype & PHAssetMediaSubtypeVideoTimelapse) {
         iconImage =[UIImage imageOfVideoTimelapseIcon];
+    } else if (mediaSubtype == PHAssetMediaSubtypePhotoPanorama) {
+        iconImage =[UIImage imageOfSmartAlbumPanoramasIcon];
     } else if (mediaType == PHAssetMediaTypeVideo) {
         iconImage =[UIImage imageOfVideoIcon];
     }
