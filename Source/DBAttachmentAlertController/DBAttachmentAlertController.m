@@ -32,13 +32,16 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 @interface DBAttachmentAlertController () <UICollectionViewDataSource, UICollectionViewDelegate, PHPhotoLibraryChangeObserver>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (strong, nonatomic) NSString *attachActionText;
+@property (copy, nonatomic) NSString *attachActionText;
 
 @property (strong, nonatomic) PHFetchResult *assetsFetchResults;
 @property (strong, nonatomic) PHCachingImageManager *imageManager;
 
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
 @property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
+@property (assign, nonatomic) BOOL allowsMultipleSelection;
+
+@property (strong, nonatomic) AlertAttachAssetsHandler extensionAttachHandler;
 
 @end
 
@@ -47,6 +50,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 #pragma mark - Class methods
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType) assetMediaType
+                                        allowsMultipleSelection:(BOOL)allowsMultipleSelection
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
@@ -55,6 +59,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 {
     DBAttachmentAlertController *controller = [DBAttachmentAlertController alertControllerWithTitle:@"\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     controller.assetMediaType = assetMediaType;
+    controller.allowsMultipleSelection = allowsMultipleSelection;
     
     __weak DBAttachmentAlertController *weakController = controller;
     UIAlertAction *attachAction = [UIAlertAction actionWithTitle:@"All albums" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -68,6 +73,13 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     }];
     [controller addAction:attachAction];
     controller.attachActionText = attachAction.title;
+    
+    controller.extensionAttachHandler = ^(NSArray * _Nonnull assetArray) {
+        if (attachHandler) {
+            attachHandler(assetArray);
+        }
+        [weakController dismissViewControllerAnimated:YES completion:nil];
+    };
     
     NSString *buttonTitle;
     switch (controller.assetMediaType) {
@@ -167,8 +179,10 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 - (void)setAttachActionText:(NSString *)attachActionText {
     if (![_attachActionText isEqualToString:attachActionText]) {
-        UILabel *attachLabel = [self attachActionLabelForView:self.view];
-        attachLabel.text = attachActionText;
+        if (self.isViewLoaded) {
+            UILabel *attachLabel = [self attachActionLabelForView:self.view];
+            attachLabel.text = [attachActionText copy];
+        }
         
         _attachActionText = attachActionText;
     }
@@ -183,9 +197,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     } else if (baseView.subviews.count > 0) {
         for (UIView *subview in baseView.subviews) {
             label = [self attachActionLabelForView:subview];
-            if (label) {
-                break;
-            }
+            if (label) break;
         }
     }
     return label;
@@ -274,8 +286,12 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self updateAttachPhotoCountIfNedded];
-    self.needsDisplayEmptySelectedIndicator = YES;
+    if (self.allowsMultipleSelection) {
+        [self updateAttachPhotoCountIfNedded];
+        self.needsDisplayEmptySelectedIndicator = YES;
+    } else {
+        self.extensionAttachHandler([self getSelectedAssetArray]);
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {

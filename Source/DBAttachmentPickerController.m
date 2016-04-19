@@ -60,6 +60,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     self.initialViewController = initialViewController;
     __weak typeof(self) weakSelf = self;
     self.alertController = [DBAttachmentAlertController attachmentAlertControllerWithMediaType:[self assetMediaType]
+                                                                       allowsMultipleSelection:self.allowsMultipleSelection
                                                            attachHandler:^(NSArray<PHAsset *> *assetArray) {
                                                                NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
                                                                [weakSelf finishPickingWithAttachmentArray:attachmentArray];
