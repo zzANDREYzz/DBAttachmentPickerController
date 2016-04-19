@@ -46,7 +46,7 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 - (IBAction)addAttachmentButtonDidSelect:(UIBarButtonItem *)sender {
     self.pickerController = [[DBAttachmentPickerController alloc] initWithMediaType:DBAttachmentMediaTypeMaskAll];
     self.pickerController.delegate = self;
-    self.pickerController.allowsMultipleSelection = NO;
+    self.pickerController.allowsMultipleSelection = YES;
     [self.pickerController presentAttachmentPickerOnViewController:self];
 }
 

@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)DBAssetItemsViewController:(DBAssetItemsViewController *)controller didFinishPickingAssetArray:(NSArray<PHAsset *> *)assetArray;
+- (BOOL)DBAssetImageViewControllerAllowsMultipleSelection:(DBAssetItemsViewController *)controller;
 NS_ASSUME_NONNULL_END
 
 @end

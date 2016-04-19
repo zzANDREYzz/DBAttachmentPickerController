@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)DBAssetPickerController:(DBAssetPickerController *)controller didFinishPickingAssetArray:(NSArray<PHAsset *> *)assetArray;
 - (void)DBAssetPickerControllerDidCancel:(DBAssetPickerController *)controller;
+- (BOOL)DBAssetPickerControllerAllowsMultipleSelection:(DBAssetPickerController *)controller;
 NS_ASSUME_NONNULL_END
 
 @end

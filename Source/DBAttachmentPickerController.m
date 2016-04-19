@@ -245,4 +245,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     }];
 }
 
+- (BOOL)DBAssetPickerControllerAllowsMultipleSelection:(DBAssetPickerController *)controller {
+    return self.allowsMultipleSelection;
+}
+
 @end

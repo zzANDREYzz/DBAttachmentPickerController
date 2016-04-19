@@ -44,7 +44,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     
     self.navigationItem.title = @"Camera roll";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Attach" style:UIBarButtonItemStyleDone target:self action:@selector(attachButtonDidSelect:)];
+    
+    if ([self.assetItemsDelegate respondsToSelector:@selector(DBAssetImageViewControllerAllowsMultipleSelection:)]) {
+        if ( [self.assetItemsDelegate DBAssetImageViewControllerAllowsMultipleSelection:self] ) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Attach" style:UIBarButtonItemStyleDone target:self action:@selector(attachButtonDidSelect:)];
+        }
+    }
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.sectionInset = UIEdgeInsetsMake(kDefaultItemOffset, kDefaultItemOffset, kDefaultItemOffset, kDefaultItemOffset);
@@ -196,6 +201,16 @@ static NSString * const reuseIdentifier = @"Cell";
                                       cell.assetImageView.image = result;
                                   }
                               }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    BOOL allowsMultipleSelection = NO;
+    if ([self.assetItemsDelegate respondsToSelector:@selector(DBAssetImageViewControllerAllowsMultipleSelection:)]) {
+        allowsMultipleSelection = [self.assetItemsDelegate DBAssetImageViewControllerAllowsMultipleSelection:self];
+    }
+    if ( !allowsMultipleSelection ) {
+        [self attachButtonDidSelect:nil];
+    }
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

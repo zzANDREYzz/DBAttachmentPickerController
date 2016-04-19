@@ -63,4 +63,12 @@
     }
 }
 
+- (BOOL)DBAssetImageViewControllerAllowsMultipleSelection:(DBAssetItemsViewController *)controller {
+    BOOL allowsMultipleSelection = NO;
+    if ([self.assetPickerDelegate respondsToSelector:@selector(DBAssetPickerControllerAllowsMultipleSelection:)]) {
+        allowsMultipleSelection = [self.assetPickerDelegate DBAssetPickerControllerAllowsMultipleSelection:self];
+    }
+    return allowsMultipleSelection;
+}
+
 @end
