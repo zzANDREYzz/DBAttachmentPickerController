@@ -33,6 +33,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 @property (strong, nonatomic) PHFetchResult *assetsFetchResults;
 @property (strong, nonatomic) PHCachingImageManager *imageManager;
+@property (strong, nonatomic) NSMutableArray *selectedIndexPathArray;
 
 @end
 
@@ -42,6 +43,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectedIndexPathArray = [NSMutableArray arrayWithCapacity:100];
     
     self.navigationItem.title = @"Camera roll";
     
@@ -86,7 +89,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark Helpers
 
 - (NSArray *)getSelectedAssetArray {
-    NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+    NSArray *selectedItems = self.selectedIndexPathArray;
     NSMutableArray *assetArray = [NSMutableArray arrayWithCapacity:selectedItems.count];
     for (NSIndexPath *indexPath in selectedItems) {
         PHAsset *asset = self.assetsFetchResults[indexPath.item];
@@ -151,6 +154,11 @@ static NSString * const reuseIdentifier = @"Cell";
                 } completion:nil];
             }
             [self.imageManager stopCachingImagesForAllAssets];
+            
+            for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems]) {
+                [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            }
+            [self.selectedIndexPathArray removeAllObjects];
         }
     });
 }
@@ -204,6 +212,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.selectedIndexPathArray addObject:indexPath];
     BOOL allowsMultipleSelection = NO;
     if ([self.assetItemsDelegate respondsToSelector:@selector(DBAssetImageViewControllerAllowsMultipleSelection:)]) {
         allowsMultipleSelection = [self.assetItemsDelegate DBAssetImageViewControllerAllowsMultipleSelection:self];
@@ -211,6 +220,10 @@ static NSString * const reuseIdentifier = @"Cell";
     if ( !allowsMultipleSelection ) {
         [self attachButtonDidSelect:nil];
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.selectedIndexPathArray removeObject:indexPath];
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

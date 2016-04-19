@@ -224,6 +224,24 @@
     }
 }
 
+- (id)originalFileResource {
+    switch (self.sourceType) {
+        case DBAttachmentSourceTypePHAsset:
+            return self.photoAsset;
+            break;
+        case DBAttachmentSourceTypeImage:
+            return self.image;
+            break;
+        case DBAttachmentSourceTypeDocumentURL:
+            return self.originalFilePath;
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
+}
+
 #pragma mark Helpers
 
 - (UIImage *)generateThumbnailImageFromURL:(NSURL *)url {

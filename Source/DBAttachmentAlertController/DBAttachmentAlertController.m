@@ -40,6 +40,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
 @property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
 @property (assign, nonatomic) BOOL allowsMultipleSelection;
+@property (strong, nonatomic) NSMutableArray *selectedIndexPathArray;
 
 @property (strong, nonatomic) AlertAttachAssetsHandler extensionAttachHandler;
 
@@ -110,6 +111,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.selectedIndexPathArray = [NSMutableArray arrayWithCapacity:100];
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     flowLayout.sectionInset = UIEdgeInsetsMake(.0f, kDefaultItemOffset, .0f, kDefaultItemOffset);
@@ -156,7 +159,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 #pragma mark Helpers
 
 - (NSArray *)getSelectedAssetArray {
-    NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+    NSArray *selectedItems = self.selectedIndexPathArray;
     NSMutableArray *assetArray = [NSMutableArray arrayWithCapacity:selectedItems.count];
     for (NSIndexPath *indexPath in selectedItems) {
         PHAsset *asset = self.assetsFetchResults[indexPath.item];
@@ -233,6 +236,12 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
                 } completion:nil];
             }
             [self.imageManager stopCachingImagesForAllAssets];
+            
+            for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems]) {
+                [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            }
+            [self.selectedIndexPathArray removeAllObjects];
+            [self updateAttachPhotoCountIfNedded];
         }
     });
 }
@@ -286,6 +295,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.selectedIndexPathArray addObject:indexPath];
     if (self.allowsMultipleSelection) {
         [self updateAttachPhotoCountIfNedded];
         self.needsDisplayEmptySelectedIndicator = YES;
@@ -295,6 +305,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.selectedIndexPathArray removeObject:indexPath];
     [self updateAttachPhotoCountIfNedded];
 }
 
