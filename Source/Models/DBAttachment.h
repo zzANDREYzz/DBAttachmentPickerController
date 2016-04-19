@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, DBAttachmentSourceType) {
 
 NS_ASSUME_NONNULL_BEGIN
 + (instancetype)attachmentFromPHAsset:(PHAsset *)asset;
-+ (instancetype)attachmentFromImage:(UIImage *)image;
++ (instancetype)attachmentFromCameraImage:(UIImage *)image;
 + (instancetype)attachmentFromDocumentURL:(NSURL *)url;
 
 - (void)loadThumbnailImageWithTargetSize:(CGSize)targetSize completion:(void(^)(UIImage * _Nullable resultImage))completion;

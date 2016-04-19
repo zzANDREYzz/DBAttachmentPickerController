@@ -76,11 +76,17 @@
     return model;
 }
 
-+ (instancetype)attachmentFromImage:(UIImage *)image {
++ (instancetype)attachmentFromCameraImage:(UIImage *)image {
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypeImage;
     model.mediaType = DBAttachmentMediaTypeImage;
     model.image = image;
+    
+    NSData *imgData = UIImageJPEGRepresentation(image, 1);
+    model.fileSize = imgData.length;
+    model.creationDate = [NSDate date];
+    model.fileName = @"capturedimage";
+    
     return model;
 }
 
@@ -105,7 +111,7 @@
         [[NSFileManager defaultManager] copyItemAtPath:fileTmpPath toPath:model.originalFilePath error:&error];
     }
     
-    NSString *fileExt = [[url absoluteString] pathExtension];
+    NSString *fileExt = [[[url absoluteString] pathExtension] lowercaseString];
     if ( [fileExt isEqualToString:@"png"] || [fileExt isEqualToString:@"jpeg"] || [fileExt isEqualToString:@"jpg"] || [fileExt isEqualToString:@"gif"] || [fileExt isEqualToString:@"tiff"]) {
         model.mediaType = DBAttachmentMediaTypeImage;
         model.thumbmailImage = [UIImage imageWithContentsOfFile:model.originalFilePath];
@@ -147,6 +153,7 @@
 #pragma mark - Accessors
 
 - (NSString *)fileSizeStr {
+    if (self.fileSize == 0) return nil;
     return [NSByteCountFormatter stringFromByteCount:self.fileSize countStyle:NSByteCountFormatterCountStyleFile];
 }
 
@@ -201,11 +208,11 @@
             break;
         }
         case DBAttachmentSourceTypeDocumentURL: {
-            if (self.originalFilePath) {
-                UIImage *image = [UIImage imageWithContentsOfFile:self.originalFilePath];
-                if (completion) {
-                    completion(image);
-                }
+            if (!self.image) {
+                self.image = [UIImage imageWithContentsOfFile:self.originalFilePath];
+            }
+            if (completion) {
+                completion(self.image);
             }
             break;
         }

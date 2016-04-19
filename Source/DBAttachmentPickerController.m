@@ -204,7 +204,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     NSArray *attachmentArray = @[];
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *image = info[UIImagePickerControllerOriginalImage];
-        DBAttachment *attachment = [DBAttachment attachmentFromImage:image];
+        DBAttachment *attachment = [DBAttachment attachmentFromCameraImage:image];
         attachmentArray = @[attachment];
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie] || [mediaType isEqualToString:(NSString *)kUTTypeVideo]) {
         NSURL *documentURL = info[UIImagePickerControllerMediaURL];
