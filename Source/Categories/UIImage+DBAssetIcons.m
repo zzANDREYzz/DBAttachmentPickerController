@@ -1512,6 +1512,82 @@ static UIImage* _imageOfSelectorOffIcon = nil;
 
 #pragma mark -
 
++ (void)drawFileIconWithExtensionText: (NSString*)text
+{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    
+    //// Shadow Declarations
+    NSShadow* shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor: [UIColor.blackColor colorWithAlphaComponent: 0.5]];
+    [shadow setShadowOffset: CGSizeMake(0.1, -0.1)];
+    [shadow setShadowBlurRadius: 10];
+    NSShadow* shadow2 = [[NSShadow alloc] init];
+    [shadow2 setShadowColor: [UIColor.blackColor colorWithAlphaComponent: 0.5]];
+    [shadow2 setShadowOffset: CGSizeMake(0.1, -0.1)];
+    [shadow2 setShadowBlurRadius: 10];
+    
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = UIBezierPath.bezierPath;
+    [rectanglePath moveToPoint: CGPointMake(48, 219)];
+    [rectanglePath addLineToPoint: CGPointMake(186, 219)];
+    [rectanglePath addLineToPoint: CGPointMake(186, 60)];
+    [rectanglePath addLineToPoint: CGPointMake(141, 15)];
+    [rectanglePath addLineToPoint: CGPointMake(48, 15)];
+    [rectanglePath addLineToPoint: CGPointMake(48, 219)];
+    [rectanglePath closePath];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
+    [UIColor.whiteColor setFill];
+    [rectanglePath fill];
+    CGContextRestoreGState(context);
+    
+    
+    
+    //// Rectangle 2 Drawing
+    UIBezierPath* rectangle2Path = UIBezierPath.bezierPath;
+    [rectangle2Path moveToPoint: CGPointMake(141, 60)];
+    [rectangle2Path addLineToPoint: CGPointMake(186, 60)];
+    [rectangle2Path addLineToPoint: CGPointMake(141, 15)];
+    [rectangle2Path addLineToPoint: CGPointMake(141, 36)];
+    [rectangle2Path addLineToPoint: CGPointMake(141, 60)];
+    [rectangle2Path closePath];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadow2.shadowOffset, shadow2.shadowBlurRadius, [shadow2.shadowColor CGColor]);
+    [UIColor.whiteColor setFill];
+    [rectangle2Path fill];
+    CGContextRestoreGState(context);
+    
+    
+    
+    //// Text Drawing
+    CGRect textRect = CGRectMake(48, 161, 138, 50);
+    NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
+    textStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 38], NSForegroundColorAttributeName: UIColor.grayColor, NSParagraphStyleAttributeName: textStyle};
+    
+    CGFloat textTextHeight = [text boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
+    CGContextSaveGState(context);
+    CGContextClipToRect(context, textRect);
+    [text drawInRect: CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight) withAttributes: textFontAttributes];
+    CGContextRestoreGState(context);
+}
+
++ (UIImage*)imageOfFileIconWithExtensionText: (NSString*)text
+{
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(234, 234), NO, 0.0f);
+    [self drawFileIconWithExtensionText:text];
+    
+    UIImage* imageOfSelectorIcon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return imageOfSelectorIcon;
+}
+
+#pragma mark -
+
 + (UIImage *)placeholderImageWithSize:(CGSize)size {    
     UIGraphicsBeginImageContext(size);
     CGContextRef context = UIGraphicsGetCurrentContext();

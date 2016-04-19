@@ -22,19 +22,24 @@
 @import Photos;
 @import CoreLocation;
 #import "DBAttachment.h"
+#import "UIImage+DBAssetIcons.h"
 
 @interface DBAttachment ()
 
 @property (strong, nonatomic) NSString *fileName;
 @property (assign, nonatomic) NSUInteger fileSize;
-@property (strong, nonatomic) NSDate *createDate;
+@property (strong, nonatomic) NSDate *creationDate;
 
 @property (assign, nonatomic) DBAttachmentSourceType sourceType;
 @property (assign, nonatomic) DBAttachmentMediaType mediaType;
 
 @property (strong, nonatomic) PHAsset *photoAsset;
 @property (strong, nonatomic) UIImage *image;
-@property (strong, nonatomic) NSURL *documentURL;
+@property (strong, nonatomic) UIImage *thumbmailImage;
+@property (strong, nonatomic) NSString *originalFilePath;
+//@property (strong, nonatomic) NSURL *documentURL;
+
+@property (strong, nonatomic) NSString *restorationIdentifier;
 
 @end
 
@@ -59,7 +64,7 @@
             break;
     }
     model.fileName = resource.originalFilename;
-    model.createDate = asset.creationDate;
+    model.creationDate = asset.creationDate;
     
 //    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
 //    [geocoder reverseGeocodeLocation:asset.location
@@ -79,12 +84,70 @@
     return model;
 }
 
-+ (instancetype)attachmentFromDocumentURL:(NSURL *)url withMediaType:(DBAttachmentMediaType)mediaType {
++ (instancetype)attachmentFromDocumentURL:(NSURL *)url {
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypeDocumentURL;
-    model.mediaType = mediaType;
-    model.documentURL = url;
+    
+    NSString *fileTmpPath = [url path];
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:fileTmpPath] ) {
+        model.fileName = [fileTmpPath lastPathComponent];
+        NSString *cacheFolderPath = [[model cacheFolderPath] stringByAppendingPathComponent:model.restorationIdentifier];
+        NSError *error;
+        if ( ![[NSFileManager defaultManager] fileExistsAtPath:cacheFolderPath] ) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:cacheFolderPath withIntermediateDirectories:YES attributes:nil error:&error];
+        }
+        
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fileTmpPath error:nil];
+        model.creationDate = attributes[NSFileCreationDate];
+        model.fileSize = [attributes[NSFileSize] integerValue];
+        
+        model.originalFilePath = [cacheFolderPath stringByAppendingPathComponent:model.fileName];
+        [[NSFileManager defaultManager] copyItemAtPath:fileTmpPath toPath:model.originalFilePath error:&error];
+    }
+    
+    NSString *fileExt = [[url absoluteString] pathExtension];
+    if ( [fileExt isEqualToString:@"png"] || [fileExt isEqualToString:@"jpeg"] || [fileExt isEqualToString:@"jpg"] || [fileExt isEqualToString:@"gif"] || [fileExt isEqualToString:@"tiff"]) {
+        model.mediaType = DBAttachmentMediaTypeImage;
+        model.thumbmailImage = [UIImage imageWithContentsOfFile:model.originalFilePath];
+    } else if ( [fileExt isEqualToString:@"mov"] || [fileExt isEqualToString:@"avi"]) {
+        model.mediaType = DBAttachmentMediaTypeVideo;
+        model.thumbmailImage = [model generateThumbnailImageFromURL:url];
+    } else {
+        model.mediaType = DBAttachmentMediaTypeOther;
+        model.thumbmailImage = [UIImage imageOfFileIconWithExtensionText:[fileExt uppercaseString]];
+    }
     return model;
+}
+
+#pragma mark Helpers
+
+- (NSString *)cacheFolderPath {
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [documentsDirectory stringByAppendingPathComponent:@"DBAttachmentPickerControllerCache"];
+}
+
+#pragma mark - Lifecycle
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.restorationIdentifier = [NSUUID UUID].UUIDString;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    NSString *cacheFolderPath = [[self cacheFolderPath] stringByAppendingPathComponent:self.restorationIdentifier];
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:cacheFolderPath] ) {
+        NSError *error;
+        [[NSFileManager defaultManager] removeItemAtPath:cacheFolderPath error:&error];
+    }
+}
+
+#pragma mark - Accessors
+
+- (NSString *)fileSizeStr {
+    return [NSByteCountFormatter stringFromByteCount:self.fileSize countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 #pragma mark -
@@ -103,6 +166,14 @@
                                                             }
                                                         }];
             }
+            break;
+        case DBAttachmentSourceTypeDocumentURL: {
+            if (self.thumbmailImage) {
+                completion(self.thumbmailImage);
+            } else {
+                [self loadOriginalImageWithCompletion:completion];
+            }
+        }
             break;
         default:
             [self loadOriginalImageWithCompletion:completion];
@@ -130,7 +201,12 @@
             break;
         }
         case DBAttachmentSourceTypeDocumentURL: {
-            [self loadImageFromDocumentURL:self.documentURL mediaType:self.mediaType completion:completion];
+            if (self.originalFilePath) {
+                UIImage *image = [UIImage imageWithContentsOfFile:self.originalFilePath];
+                if (completion) {
+                    completion(image);
+                }
+            }
             break;
         }
         default:
@@ -142,32 +218,6 @@
 }
 
 #pragma mark Helpers
-
-- (void)loadImageFromDocumentURL:(NSURL *)url mediaType:(DBAttachmentMediaType)mediaType completion:(void(^)(UIImage *resultImage))completion {
-    if (mediaType == DBAttachmentMediaTypeImage) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            UIImage *image = nil;
-            if (url) {
-                NSData *imageData = [NSData dataWithContentsOfURL:url];
-                image = [UIImage imageWithData:imageData];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) {
-                    completion(image);
-                }
-            });
-        });
-    } else if (mediaType == DBAttachmentMediaTypeVideo) {
-        UIImage *image = [self generateThumbnailImageFromURL:url];
-        if (completion) {
-            completion(image);
-        }
-    } else {
-        if (completion) {
-            completion(nil);
-        }
-    }
-}
 
 - (UIImage *)generateThumbnailImageFromURL:(NSURL *)url {
     AVAsset *asset = [AVAsset assetWithURL:url];

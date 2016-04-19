@@ -42,6 +42,8 @@
 + (UIImage*)imageOfSelectorOnIconWithTintColor: (UIColor*)tintColor;
 + (UIImage*)imageOfSelectorOffIcon;
 
++ (UIImage*)imageOfFileIconWithExtensionText: (NSString*)text;
+
 + (UIImage *)placeholderImageWithSize:(CGSize)size;
 
 @end

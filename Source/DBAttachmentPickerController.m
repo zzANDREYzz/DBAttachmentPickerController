@@ -189,7 +189,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 #pragma mark - UIDocumentPickerViewControllerDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
-    DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:url withMediaType:DBAttachmentMediaTypeImage];
+    DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:url];
     [self finishPickingWithAttachmentArray:@[attachment]];
 }
 
@@ -209,7 +209,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie] || [mediaType isEqualToString:(NSString *)kUTTypeVideo]) {
         NSURL *documentURL = info[UIImagePickerControllerMediaURL];
         if (documentURL) {
-            DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:documentURL withMediaType:DBAttachmentMediaTypeVideo];
+            DBAttachment *attachment = [DBAttachment attachmentFromDocumentURL:documentURL];
             attachmentArray = @[attachment];
         }
     }

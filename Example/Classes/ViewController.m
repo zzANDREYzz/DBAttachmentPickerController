@@ -87,8 +87,8 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
     DBAttachment *attachment = self.attachmentArray[indexPath.row];
     
     cell.titleLabel.text = attachment.fileName;
-    cell.dateLabel.text = [[NSDateFormatter localizedDateTimeFormatter] stringFromDate:attachment.createDate];
-    cell.sizeLabel.text = @"0.00 Mb";
+    cell.sizeLabel.text = attachment.fileSizeStr;
+    cell.dateLabel.text = [[NSDateFormatter localizedDateTimeFormatter] stringFromDate:attachment.creationDate];
     
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize scaledThumbnailSize = CGSizeMake( 80.f * scale, 80.f * scale );
