@@ -30,25 +30,27 @@ typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
 UIKIT_EXTERN const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll;
 
 NS_ASSUME_NONNULL_BEGIN
-@class DBAttachmentPickerController, DBAttachment;
-@protocol DBAttachmentPickerControllerDelegate <NSObject>
 
-@optional
-- (void)DBAttachmentPickerController:(DBAttachmentPickerController *)controller didFinishPickingAttachmentArray:(NSArray<DBAttachment *> *)attachmentArray;
-- (void)DBAttachmentPickerControllerDidCancel:(DBAttachmentPickerController *)controller;
+@class DBAttachment;
 
-@end
+typedef void (^FinishPickingBlock)(NSArray<DBAttachment *> * attachmentArray);
+typedef void (^CancelBlock)();
 
 @interface DBAttachmentPickerController : NSObject
 
-@property (weak, nonatomic) id<DBAttachmentPickerControllerDelegate> delegate;
-@property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;        // Default is DBAttachmentMediaTypeMaskAll
+/*! @brief It's determine the types of attachments that can be picked. This property has readonly attribute, 
+ but you can specify it in appropriate initialization method. */
+@property (assign, nonatomic) DBAttachmentMediaType mediaType;          // default is DBAttachmentMediaTypeMaskAll
 
-#warning need implemtnt this feature
-@property (assign, nonatomic) BOOL allowsMultipleSelection;                     // default is NO;
+/*! @brief */
+@property (assign, nonatomic) BOOL allowsSelectionFromOtherApps;        // default is NO
 
-- (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType;
-- (void)presentAttachmentPickerOnViewController:(UIViewController *)initialViewController;
+/*! @brief Used to allow multiple selection where it possible */
+@property (assign, nonatomic) BOOL allowsMultipleSelection;             // default is NO
+
++ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock cancelBlock:(_Nullable CancelBlock)cancelBlock;
+- (void)presentOnViewController:(UIViewController *)initialViewController;
 
 @end
+
 NS_ASSUME_NONNULL_END

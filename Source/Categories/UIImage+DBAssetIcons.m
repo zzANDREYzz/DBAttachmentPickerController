@@ -1533,6 +1533,7 @@ static UIImage* _imageOfSelectorOffIcon = nil;
     [rectanglePath moveToPoint: CGPointMake(48, 219)];
     [rectanglePath addLineToPoint: CGPointMake(186, 219)];
     [rectanglePath addLineToPoint: CGPointMake(186, 60)];
+    [rectanglePath addLineToPoint: CGPointMake(141, 60)];
     [rectanglePath addLineToPoint: CGPointMake(141, 15)];
     [rectanglePath addLineToPoint: CGPointMake(48, 15)];
     [rectanglePath addLineToPoint: CGPointMake(48, 219)];

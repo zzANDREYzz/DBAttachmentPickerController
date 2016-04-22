@@ -26,7 +26,7 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 
 @end
 
-@interface ViewController () <DBAttachmentPickerControllerDelegate>
+@interface ViewController ()
 
 @property (strong, nonatomic) NSMutableArray *attachmentArray;
 @property (strong, nonatomic) DBAttachmentPickerController *pickerController;
@@ -44,29 +44,21 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 #pragma mark -
 
 - (IBAction)addAttachmentButtonDidSelect:(UIBarButtonItem *)sender {
-    self.pickerController = [[DBAttachmentPickerController alloc] initWithMediaType:DBAttachmentMediaTypeMaskAll];
-    self.pickerController.delegate = self;
-    self.pickerController.allowsMultipleSelection = YES;
-    [self.pickerController presentAttachmentPickerOnViewController:self];
-}
+    __weak typeof(self) weakSelf = self;
+    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {
+        NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:attachmentArray.count];
+        NSUInteger currentIndex = weakSelf.attachmentArray.count;
+        for (NSUInteger i = 0; i < attachmentArray.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentIndex+i inSection:0];
+            [indexPathArray addObject:indexPath];
+        }
+        [weakSelf.attachmentArray addObjectsFromArray:attachmentArray];
+        [weakSelf.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
 
-#pragma mark - DBAttachmentPickerController Delegate
-
-- (void)DBAttachmentPickerController:(DBAttachmentPickerController *)controller didFinishPickingAttachmentArray:(NSArray<DBAttachment *> *)attachmentArray {
-    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:attachmentArray.count];
-    NSUInteger currentIndex = self.attachmentArray.count;
-    for (NSUInteger i = 0; i < attachmentArray.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentIndex+i inSection:0];
-        [indexPathArray addObject:indexPath];
-    }
-    [self.attachmentArray addObjectsFromArray:attachmentArray];
-    [self.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-    self.pickerController = nil;
-
-}
-
-- (void)DBAttachmentPickerControllerDidCancel:(DBAttachmentPickerController *)controller {
-    self.pickerController = nil;
+    } cancelBlock:nil];
+    attachmentPickerController.allowsMultipleSelection = YES;
+    attachmentPickerController.allowsSelectionFromOtherApps = YES;
+    [attachmentPickerController presentOnViewController:self];
 }
 
 #pragma mark - UITableView DataSource && Delegate

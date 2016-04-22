@@ -6,6 +6,32 @@
 
 This component allows to select different types of files from different sources on your device.
 
+## Adding to your project
+
+### Cocoapods
+
+To add DBAttachmentPickerController via [CocoaPods](http://cocoapods.org/) into your project:
+
+1. Add a pod entry for DBAttachmentPickerController to your Podfile `pod 'DBAttachmentPickerController', '~> 1.0.0'`
+2. Install the pod by running `pod install`
+
+### Source Files
+
+To add DBAttachmentPickerController manually into your project: 
+
+1. Download the latest code, using `git clone`
+2. Open your project in Xcode, then drag and drop entire contents of the `Source` folder into your project (Make sure to select Copy items when asked if you extracted the code archive outside of your project)
+
+
+
+### Property list selector
+
+You can change additional MapSelector properties. Full properties list is shown below:
+
+- `DBAttachmentMediaType mediaType` - It's determine the types of attachments that can be picked. This property has readonly attribute, 
+ but you can specify it in appropriate initialization method. Default is DBAttachmentMediaTypeMaskAll;
+- `BOOL allowsMultipleSelection` - Used to allow multiple selection where it possible. Default is NO.
+
 ## Contact
 
 Denis Bogatyrev (maintainer)

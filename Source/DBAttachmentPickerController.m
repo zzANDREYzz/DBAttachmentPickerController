@@ -31,8 +31,10 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 @interface DBAttachmentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DBAssetPickerControllerDelegate>
 
 @property (strong, nonatomic) UIViewController *initialViewController;
-@property (assign, nonatomic) DBAttachmentMediaType mediaType;
 @property (strong, nonatomic) DBAttachmentAlertController *alertController;
+
+@property (strong, nonatomic) FinishPickingBlock extendedFinishPickingBlock;
+@property (strong, nonatomic) CancelBlock extendedCancelBlock;
 
 @end
 
@@ -40,23 +42,40 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 
 #pragma mark - Class methods
 
-- (instancetype)initWithMediaType:(DBAttachmentMediaType)mediaType {
-    self = [super init];
-    if (self) {
-        self.mediaType = mediaType;
-    }
-    return self;
++ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock
+                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock
+{
+    DBAttachmentPickerController *controller = [[DBAttachmentPickerController alloc] init];
+    controller.mediaType = DBAttachmentMediaTypeMaskAll;
+    controller.allowsSelectionFromOtherApps = NO;
+    controller.allowsMultipleSelection = NO;
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+    controller.extendedFinishPickingBlock = ^void(NSArray<DBAttachment *> * attachmentArray) {
+        if (finishPickingBlock) finishPickingBlock(attachmentArray);
+        [controller dismissAttachmentPicker];
+    };
+    controller.extendedCancelBlock = ^void() {
+        if (cancelBlock) cancelBlock();
+        [controller dismissAttachmentPicker];
+    };
+#pragma clang diagnostic pop
+    
+    return controller;
 }
+
+#pragma mark - Lifecycle
 
 - (void)dealloc {
     [self.alertController dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"Error: Responder must retain pickerController instance");
+        NSLog(@"Error: Responder must initialize DBAttachmentPickerController through special method attachmentPickerControllerFinishPickingBlock:cancelBlock:");
     }];
 }
 
 #pragma mark - Public
 
-- (void)presentAttachmentPickerOnViewController:(UIViewController *)initialViewController {
+- (void)presentOnViewController:(UIViewController *)initialViewController {
     self.initialViewController = initialViewController;
     __weak typeof(self) weakSelf = self;
     self.alertController = [DBAttachmentAlertController attachmentAlertControllerWithMediaType:[self assetMediaType]
@@ -77,6 +96,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     [self.initialViewController presentViewController:self.alertController animated:YES completion:^{
         weakSelf.alertController = nil;
     }];
+}
+
+- (void)dismissAttachmentPicker {
+    self.extendedFinishPickingBlock = nil;
+    self.extendedCancelBlock = nil;
 }
 
 #pragma mark Helpers
@@ -165,15 +189,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 #pragma mark
 
 - (void)finishPickingWithAttachmentArray:(NSArray <DBAttachment *> *)attachmentArray {
-    if ([self.delegate respondsToSelector:@selector(DBAttachmentPickerController:didFinishPickingAttachmentArray:)]) {
-        [self.delegate DBAttachmentPickerController:self didFinishPickingAttachmentArray:attachmentArray];
-    }
+    self.extendedFinishPickingBlock(attachmentArray);
 }
 
 - (void)cancelDidSelect {
-    if ([self.delegate respondsToSelector:@selector(DBAttachmentPickerControllerDidCancel:)]) {
-        [self.delegate DBAttachmentPickerControllerDidCancel:self];
-    }
+    self.extendedCancelBlock();
 }
 
 #pragma mark - UIDocumentMenuViewControllerDelegate
