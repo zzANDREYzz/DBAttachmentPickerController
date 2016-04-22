@@ -22,14 +22,16 @@ To add DBAttachmentPickerController manually into your project:
 1. Download the latest code, using `git clone`
 2. Open your project in Xcode, then drag and drop entire contents of the `Source` folder into your project (Make sure to select Copy items when asked if you extracted the code archive outside of your project)
 
-
+## AllowsSelectionFromOtherApps
+Bla Bla
 
 ### Property list selector
 
 You can change additional MapSelector properties. Full properties list is shown below:
 
-- `DBAttachmentMediaType mediaType` - It's determine the types of attachments that can be picked. This property has readonly attribute, 
- but you can specify it in appropriate initialization method. Default is DBAttachmentMediaTypeMaskAll;
+- `DBAttachmentMediaType mediaType` - It's determine the types of attachments that can be picked. Default is DBAttachmentMediaTypeMaskAll;
+- `BOOL allowsSelectionFromOtherApps` - Used to add Other Apps button. IMPORTANT: To correctly work this option you must select iCloud Documents 
+ capability on project settings. To view detail information, see [AllowsSelectionFromOtherApps](#AllowsSelectionFromOtherApps). Default is NO.
 - `BOOL allowsMultipleSelection` - Used to allow multiple selection where it possible. Default is NO.
 
 ## Contact

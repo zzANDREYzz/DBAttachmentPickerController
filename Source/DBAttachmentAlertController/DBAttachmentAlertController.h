@@ -31,6 +31,7 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)mediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
+                                   allowsSelectionFromOtherApps:(BOOL)allowsSelectionFromOtherApps
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler

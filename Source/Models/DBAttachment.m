@@ -37,7 +37,6 @@
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *thumbmailImage;
 @property (strong, nonatomic) NSString *originalFilePath;
-//@property (strong, nonatomic) NSURL *documentURL;
 
 @property (strong, nonatomic) NSString *restorationIdentifier;
 

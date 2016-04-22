@@ -80,18 +80,19 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     __weak typeof(self) weakSelf = self;
     self.alertController = [DBAttachmentAlertController attachmentAlertControllerWithMediaType:[self assetMediaType]
                                                                        allowsMultipleSelection:self.allowsMultipleSelection
-                                                           attachHandler:^(NSArray<PHAsset *> *assetArray) {
-                                                               NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
-                                                               [weakSelf finishPickingWithAttachmentArray:attachmentArray];
-                                                           } allAlbumsHandler:^(UIAlertAction *action) {
-                                                               [weakSelf allAlbumsDidSelect];
-                                                           } takePictureHandler:^(UIAlertAction *action) {
-                                                               [weakSelf takePictureButtonDidSelect];
-                                                           } otherAppsHandler:^(UIAlertAction *action) {
-                                                               [weakSelf otherAppsButtonDidSelect];
-                                                           } cancelHandler:^(UIAlertAction * _Nonnull action) {
-                                                               [weakSelf cancelDidSelect];
-                                                           }];
+                                                                  allowsSelectionFromOtherApps:self.allowsSelectionFromOtherApps
+                                                                                 attachHandler:^(NSArray<PHAsset *> *assetArray) {
+                                                                                     NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
+                                                                                     [weakSelf finishPickingWithAttachmentArray:attachmentArray];
+                                                                                 } allAlbumsHandler:^(UIAlertAction *action) {
+                                                                                     [weakSelf allAlbumsDidSelect];
+                                                                                 } takePictureHandler:^(UIAlertAction *action) {
+                                                                                     [weakSelf takePictureButtonDidSelect];
+                                                                                 } otherAppsHandler:^(UIAlertAction *action) {
+                                                                                     [weakSelf otherAppsButtonDidSelect];
+                                                                                 } cancelHandler:^(UIAlertAction * _Nonnull action) {
+                                                                                     [weakSelf cancelDidSelect];
+                                                                                 }];
 
     [self.initialViewController presentViewController:self.alertController animated:YES completion:^{
         weakSelf.alertController = nil;

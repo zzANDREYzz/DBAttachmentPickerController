@@ -38,11 +38,11 @@ typedef void (^CancelBlock)();
 
 @interface DBAttachmentPickerController : NSObject
 
-/*! @brief It's determine the types of attachments that can be picked. This property has readonly attribute, 
- but you can specify it in appropriate initialization method. */
+/*! @brief Used to determine the types of attachments that can be picked */
 @property (assign, nonatomic) DBAttachmentMediaType mediaType;          // default is DBAttachmentMediaTypeMaskAll
 
-/*! @brief */
+/*! @brief Used to add Other Apps button. IMPORTANT: To correctly work this option you must select iCloud Documents 
+ capability on project settings. To view detail information, see README.md */
 @property (assign, nonatomic) BOOL allowsSelectionFromOtherApps;        // default is NO
 
 /*! @brief Used to allow multiple selection where it possible */

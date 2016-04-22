@@ -52,6 +52,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType) assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
+                                   allowsSelectionFromOtherApps:(BOOL)allowsSelectionFromOtherApps
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
@@ -97,8 +98,10 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:takePictureHandler];
     [controller addAction:cameraAction];
     
-    UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
-    [controller addAction:otherAppsAction];
+    if (allowsSelectionFromOtherApps) {
+        UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
+        [controller addAction:otherAppsAction];
+    }
     
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:cancelHandler];
     [controller addAction:actionCancel];
