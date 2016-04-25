@@ -11,7 +11,7 @@
 		C3134EB71C9C30990023B9E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134EB61C9C30990023B9E6 /* AppDelegate.m */; };
 		C3134EBD1C9C30990023B9E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3134EBB1C9C30990023B9E6 /* Main.storyboard */; };
 		C3134EC21C9C30990023B9E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3134EC01C9C30990023B9E6 /* LaunchScreen.storyboard */; };
-		C3134EE81C9C323C0023B9E6 /* NSIndexSet+DB.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */; };
+		C3134EE81C9C323C0023B9E6 /* NSIndexSet+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DBLibrary.m */; };
 		C3134EE91C9C323C0023B9E6 /* UIImage+DBAssetIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */; };
 		C3134EEA1C9C323C0023B9E6 /* DBAssetGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134ED21C9C323C0023B9E6 /* DBAssetGroupCell.m */; };
 		C3134EEB1C9C323C0023B9E6 /* DBAssetGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3134ED31C9C323C0023B9E6 /* DBAssetGroupCell.xib */; };
@@ -27,7 +27,7 @@
 		C3849AB81C9C3D8C00D12EEF /* DBAssetItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3849AAF1C9C3D8C00D12EEF /* DBAssetItemsViewController.xib */; };
 		C3849AB91C9C3D8C00D12EEF /* DBAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */; };
 		C3849ABA1C9C3D8C00D12EEF /* DBAttachmentAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3849AB41C9C3D8C00D12EEF /* DBAttachmentAlertController.m */; };
-		C3A86DCB1CABB49800CAC1FC /* DBAssetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */; };
+		C3A004DE1CCDE66C00945C1B /* DBAssetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A004DD1CCDE66C00945C1B /* DBAssetImageView.m */; };
 		C3A949421CA188B80061EE61 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A949411CA188B80061EE61 /* CoreLocation.framework */; };
 		C3A949451CA18D440061EE61 /* NSDateFormatter+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A949441CA18D440061EE61 /* NSDateFormatter+DBLibrary.m */; };
 /* End PBXBuildFile section */
@@ -41,8 +41,8 @@
 		C3134EC11C9C30990023B9E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3134EC31C9C30990023B9E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3134EC91C9C30D10023B9E6 /* DBAttachmentPickerControllerExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DBAttachmentPickerControllerExample.entitlements; sourceTree = "<group>"; };
-		C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+DB.h"; sourceTree = "<group>"; };
-		C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+DB.m"; sourceTree = "<group>"; };
+		C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+DBLibrary.h"; sourceTree = "<group>"; };
+		C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+DBLibrary.m"; sourceTree = "<group>"; };
 		C3134ECE1C9C323C0023B9E6 /* UIImage+DBAssetIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DBAssetIcons.h"; sourceTree = "<group>"; };
 		C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DBAssetIcons.m"; sourceTree = "<group>"; };
 		C3134ED11C9C323C0023B9E6 /* DBAssetGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetGroupCell.h; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 		C3849AB11C9C3D8C00D12EEF /* DBAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetPickerController.m; sourceTree = "<group>"; };
 		C3849AB31C9C3D8C00D12EEF /* DBAttachmentAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAttachmentAlertController.h; sourceTree = "<group>"; };
 		C3849AB41C9C3D8C00D12EEF /* DBAttachmentAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAttachmentAlertController.m; sourceTree = "<group>"; };
-		C3A86DC91CABB49800CAC1FC /* DBAssetImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBAssetImageView.h; path = ../../Source/DBAssetImageView.h; sourceTree = "<group>"; };
-		C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBAssetImageView.m; path = ../../Source/DBAssetImageView.m; sourceTree = "<group>"; };
+		C3A004DC1CCDE66C00945C1B /* DBAssetImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetImageView.h; sourceTree = "<group>"; };
+		C3A004DD1CCDE66C00945C1B /* DBAssetImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetImageView.m; sourceTree = "<group>"; };
 		C3A949411CA188B80061EE61 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C3A949431CA18D440061EE61 /* NSDateFormatter+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+DBLibrary.h"; sourceTree = "<group>"; };
 		C3A949441CA18D440061EE61 /* NSDateFormatter+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+DBLibrary.m"; sourceTree = "<group>"; };
@@ -133,12 +133,11 @@
 				C3134EE31C9C323C0023B9E6 /* DBAttachmentPickerController.h */,
 				C3134EE41C9C323C0023B9E6 /* DBAttachmentPickerController.m */,
 				C3134ECB1C9C323C0023B9E6 /* Categories */,
+				C3A004DB1CCDE66C00945C1B /* Common */,
 				C3134EE51C9C323C0023B9E6 /* Models */,
 				C3134ED01C9C323C0023B9E6 /* Cells */,
 				C3849AB21C9C3D8C00D12EEF /* DBAttachmentAlertController */,
 				C3849AA91C9C3D8C00D12EEF /* DBAssetPickerController */,
-				C3A86DC91CABB49800CAC1FC /* DBAssetImageView.h */,
-				C3A86DCA1CABB49800CAC1FC /* DBAssetImageView.m */,
 			);
 			name = DBAttachmentPickerController;
 			path = ../DBAttachmentPickerControllerExample;
@@ -147,8 +146,8 @@
 		C3134ECB1C9C323C0023B9E6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DB.h */,
-				C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DB.m */,
+				C3134ECC1C9C323C0023B9E6 /* NSIndexSet+DBLibrary.h */,
+				C3134ECD1C9C323C0023B9E6 /* NSIndexSet+DBLibrary.m */,
 				C3134ECE1C9C323C0023B9E6 /* UIImage+DBAssetIcons.h */,
 				C3134ECF1C9C323C0023B9E6 /* UIImage+DBAssetIcons.m */,
 			);
@@ -225,6 +224,15 @@
 			);
 			name = DBAttachmentAlertController;
 			path = ../../Source/DBAttachmentAlertController;
+			sourceTree = "<group>";
+		};
+		C3A004DB1CCDE66C00945C1B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C3A004DC1CCDE66C00945C1B /* DBAssetImageView.h */,
+				C3A004DD1CCDE66C00945C1B /* DBAssetImageView.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,10 +316,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3134EF91C9C33CA0023B9E6 /* ViewController.m in Sources */,
+				C3A004DE1CCDE66C00945C1B /* DBAssetImageView.m in Sources */,
 				C3A949451CA18D440061EE61 /* NSDateFormatter+DBLibrary.m in Sources */,
 				C3134EF41C9C323C0023B9E6 /* DBAttachmentPickerController.m in Sources */,
 				C3134EB71C9C30990023B9E6 /* AppDelegate.m in Sources */,
-				C3134EE81C9C323C0023B9E6 /* NSIndexSet+DB.m in Sources */,
+				C3134EE81C9C323C0023B9E6 /* NSIndexSet+DBLibrary.m in Sources */,
 				C3134EEC1C9C323C0023B9E6 /* DBThumbnailPhotoCell.m in Sources */,
 				C3134EB41C9C30990023B9E6 /* main.m in Sources */,
 				C3134EEA1C9C323C0023B9E6 /* DBAssetGroupCell.m in Sources */,
@@ -319,7 +328,6 @@
 				C3849AB91C9C3D8C00D12EEF /* DBAssetPickerController.m in Sources */,
 				C3849ABA1C9C3D8C00D12EEF /* DBAttachmentAlertController.m in Sources */,
 				C3134EF51C9C323C0023B9E6 /* DBAttachment.m in Sources */,
-				C3A86DCB1CABB49800CAC1FC /* DBAssetImageView.m in Sources */,
 				C3849AB51C9C3D8C00D12EEF /* DBAssetGroupsViewController.m in Sources */,
 				C3849AB71C9C3D8C00D12EEF /* DBAssetItemsViewController.m in Sources */,
 			);

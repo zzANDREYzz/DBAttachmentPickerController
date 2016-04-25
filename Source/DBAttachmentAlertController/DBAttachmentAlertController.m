@@ -22,7 +22,7 @@
 @import Photos;
 #import "DBAttachmentAlertController.h"
 #import "DBThumbnailPhotoCell.h"
-#import "NSIndexSet+DB.h"
+#import "NSIndexSet+DBLibrary.h"
 
 static const CGFloat kDefaultThumbnailHeight = 100.f;
 static const CGFloat kDefaultItemOffset = 11.f;

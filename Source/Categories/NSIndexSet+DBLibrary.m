@@ -1,5 +1,5 @@
 //
-//  NSIndexSet+DB.m
+//  NSIndexSet+DBLibrary.m
 //  DBAttachmentPickerController
 //
 //  Created by Denis Bogatyrev on 15.03.16.
@@ -19,10 +19,10 @@
 //  IN THE SOFTWARE.
 //
 
-#import "NSIndexSet+DB.h"
+#import "NSIndexSet+DBLibrary.h"
 #import <UIKit/UIKit.h>
 
-@implementation NSIndexSet (DB)
+@implementation NSIndexSet (DBLibrary)
 
 - (NSArray *)indexPathsFromIndexesWithSection:(NSUInteger)section {
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.count];

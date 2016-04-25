@@ -24,9 +24,6 @@
 
 @interface UIImage (DBAssetIcons)
 
-//+ (UIImage *)imageWithAssetMediaSubtype:(PHAssetMediaSubtype)mediaSubtype;
-//+ (UIImage *)imageWithAssetCollectionSubtype:(PHAssetCollectionSubtype)collectionSubtype;
-
 + (UIImage*)imageOfSmartAlbumBurstsIcon;
 + (UIImage*)imageOfSmartAlbumSlomoVideosIcon;
 + (UIImage*)imageOfSmartAlbumTimelapsesIcon;

@@ -65,13 +65,6 @@
     model.fileName = resource.originalFilename;
     model.creationDate = asset.creationDate;
     
-//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-//    [geocoder reverseGeocodeLocation:asset.location
-//                   completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//                       CLPlacemark *placemark = [placemarks firstObject];
-//                       NSLog(@"%@", placemark.name);
-//                   }];
-    
     return model;
 }
 

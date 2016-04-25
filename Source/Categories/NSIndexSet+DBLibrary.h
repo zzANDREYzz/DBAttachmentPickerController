@@ -1,5 +1,5 @@
 //
-//  NSIndexSet+DB.h
+//  NSIndexSet+DBLibrary.h
 //  DBAttachmentPickerController
 //
 //  Created by Denis Bogatyrev on 15.03.16.
@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSIndexSet (DB)
+@interface NSIndexSet (DBLibrary)
 
 - (NSArray *)indexPathsFromIndexesWithSection:(NSUInteger)section;
 
