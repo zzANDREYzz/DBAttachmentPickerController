@@ -21,6 +21,7 @@
 
 @import Photos;
 #import "DBAttachmentAlertController.h"
+#import "DBAttachmentPickerController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DBLibrary.h"
 
@@ -31,6 +32,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 @interface DBAttachmentAlertController () <UICollectionViewDataSource, UICollectionViewDelegate, PHPhotoLibraryChangeObserver>
 
+@property (assign, nonatomic) BOOL showCollectionView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (copy, nonatomic) NSString *attachActionText;
 
@@ -50,55 +52,62 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 #pragma mark - Class methods
 
-+ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType) assetMediaType
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
-                                   allowsSelectionFromOtherApps:(BOOL)allowsSelectionFromOtherApps
+                                             allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
+                                                allowsOtherApps:(BOOL)allowsOtherApps
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
                                                otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
                                                   cancelHandler:(nullable AlertActionHandler)cancelHandler
 {
-    DBAttachmentAlertController *controller = [DBAttachmentAlertController alertControllerWithTitle:@"\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    const BOOL showPhotoOrVideo = allowsPhotoOrVideo;
+    NSString *alertControllerTitle = ( showPhotoOrVideo ? @"\n\n\n\n\n" : @"Attach files" );
+    
+    DBAttachmentAlertController *controller = [DBAttachmentAlertController alertControllerWithTitle:alertControllerTitle message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     controller.assetMediaType = assetMediaType;
     controller.allowsMultipleSelection = allowsMultipleSelection;
+    controller.showCollectionView = showPhotoOrVideo;
     
-    __weak DBAttachmentAlertController *weakController = controller;
-    UIAlertAction *attachAction = [UIAlertAction actionWithTitle:@"All albums" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([weakController.collectionView indexPathsForSelectedItems].count) {
-            if (attachHandler) {
-                attachHandler([weakController getSelectedAssetArray]);
+    if (showPhotoOrVideo) {
+        __weak DBAttachmentAlertController *weakController = controller;
+        UIAlertAction *attachAction = [UIAlertAction actionWithTitle:@"All albums" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if ([weakController.collectionView indexPathsForSelectedItems].count) {
+                if (attachHandler) {
+                    attachHandler([weakController getSelectedAssetArray]);
+                }
+            } else if (allAlbumsHandler) {
+                allAlbumsHandler(action);
             }
-        } else if (allAlbumsHandler) {
-            allAlbumsHandler(action);
+        }];
+        [controller addAction:attachAction];
+        controller.attachActionText = attachAction.title;
+        
+        controller.extensionAttachHandler = ^(NSArray * _Nonnull assetArray) {
+            if (attachHandler) {
+                attachHandler(assetArray);
+            }
+            [weakController dismissViewControllerAnimated:YES completion:nil];
+        };
+        
+        NSString *buttonTitle;
+        switch (controller.assetMediaType) {
+            case PHAssetMediaTypeVideo:
+                buttonTitle = @"Take a video";
+                break;
+            case PHAssetMediaTypeImage:
+                buttonTitle = @"Take a picture";
+                break;
+            default:
+                buttonTitle = @"Take a picture or a video";
+                break;
         }
-    }];
-    [controller addAction:attachAction];
-    controller.attachActionText = attachAction.title;
-    
-    controller.extensionAttachHandler = ^(NSArray * _Nonnull assetArray) {
-        if (attachHandler) {
-            attachHandler(assetArray);
-        }
-        [weakController dismissViewControllerAnimated:YES completion:nil];
-    };
-    
-    NSString *buttonTitle;
-    switch (controller.assetMediaType) {
-        case PHAssetMediaTypeVideo:
-            buttonTitle = @"Take a video";
-            break;
-        case PHAssetMediaTypeImage:
-            buttonTitle = @"Take a picture";
-            break;
-        default:
-            buttonTitle = @"Take the picture or video";
-            break;
+        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:takePictureHandler];
+        [controller addAction:cameraAction];
     }
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:takePictureHandler];
-    [controller addAction:cameraAction];
     
-    if (allowsSelectionFromOtherApps) {
+    if (allowsOtherApps) {
         UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
         [controller addAction:otherAppsAction];
     }
@@ -116,38 +125,41 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     
     self.selectedIndexPathArray = [NSMutableArray arrayWithCapacity:100];
     
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    flowLayout.sectionInset = UIEdgeInsetsMake(.0f, kDefaultItemOffset, .0f, kDefaultItemOffset);
-    flowLayout.minimumInteritemSpacing = kDefaultInteritemSpacing;
-    
-    CGRect collectionRect = CGRectMake(.0f, .0f, self.view.bounds.size.width, kDefaultThumbnailHeight + kDefaultItemOffset *2);
-    self.collectionView = [[UICollectionView alloc] initWithFrame:collectionRect collectionViewLayout:flowLayout];
-    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.collectionView.tintColor = [[[UIApplication sharedApplication] delegate] window].tintColor;
-    
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:nil] forCellWithReuseIdentifier:kPhotoCellIdentifier];
-    
-    [self.view addSubview:self.collectionView];
-    
-    self.imageManager = [[PHCachingImageManager alloc] init];
-    [self.imageManager stopCachingImagesForAllAssets];
-    
-    PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
-    allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    
-    if (self.assetMediaType == PHAssetMediaTypeImage || self.assetMediaType == PHAssetMediaTypeVideo) {
-        allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
-        self.assetsFetchResults = [PHAsset fetchAssetsWithMediaType:self.assetMediaType options:allPhotosOptions];
-    } else {
-        self.assetsFetchResults = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
+    if (self.showCollectionView) {
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        flowLayout.sectionInset = UIEdgeInsetsMake(.0f, kDefaultItemOffset, .0f, kDefaultItemOffset);
+        flowLayout.minimumInteritemSpacing = kDefaultInteritemSpacing;
+        
+        CGRect collectionRect = CGRectMake(.0f, .0f, self.view.bounds.size.width, kDefaultThumbnailHeight + kDefaultItemOffset *2);
+        self.collectionView = [[UICollectionView alloc] initWithFrame:collectionRect collectionViewLayout:flowLayout];
+        self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.collectionView.backgroundColor = [UIColor clearColor];
+        self.collectionView.allowsMultipleSelection = YES;
+        self.collectionView.delegate = self;
+        self.collectionView.dataSource = self;
+        self.collectionView.tintColor = [[[UIApplication sharedApplication] delegate] window].tintColor;
+        
+        [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:nil] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+        
+        [self.view addSubview:self.collectionView];
+        
+        self.imageManager = [[PHCachingImageManager alloc] init];
+        [self.imageManager stopCachingImagesForAllAssets];
+        
+        PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
+        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+        
+        if (self.assetMediaType == PHAssetMediaTypeImage || self.assetMediaType == PHAssetMediaTypeVideo) {
+            allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+            self.assetsFetchResults = [PHAsset fetchAssetsWithMediaType:self.assetMediaType options:allPhotosOptions];
+        } else {
+            self.assetsFetchResults = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
+        }
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     }
-    
-    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -156,7 +168,9 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)dealloc {
-    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+    if (self.showCollectionView) {
+        [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+    }
 }
 
 #pragma mark Helpers

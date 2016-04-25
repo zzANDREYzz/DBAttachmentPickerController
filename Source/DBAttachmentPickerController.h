@@ -22,7 +22,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
-    DBAttachmentMediaTypeImage = (1 << 0),
+    DBAttachmentMediaTypePhoto = (1 << 0),
     DBAttachmentMediaTypeVideo = (1 << 1),
     DBAttachmentMediaTypeOther = (1 << 2),
 };
@@ -38,17 +38,41 @@ typedef void (^CancelBlock)();
 
 @interface DBAttachmentPickerController : NSObject
 
-/*! @brief Used to determine the types of attachments that can be picked */
+/*! 
+ @brief Used to determine the types of attachments that can be picked 
+ @note You can specify one or more than one from following types: <br>
+ ● @a DBAttachmentMediaTypePhoto - photo from camera, camera roll or other apps;<br>
+ ● @a DBAttachmentMediaTypeVideo - video from camera, camera roll or other apps;<br>
+ ● @a DBAttachmentMediaTypeOther - any files from other apps.<br>
+ Also you can use @a DBAttachmentMediaTypeMaskAll to select all available types.
+ */
 @property (assign, nonatomic) DBAttachmentMediaType mediaType;          // default is DBAttachmentMediaTypeMaskAll
 
-/*! @brief Used to add Other Apps button. IMPORTANT: To correctly work this option you must select iCloud Documents 
- capability on project settings. To view detail information, see README.md */
+/*! 
+ @brief Used to add Other Apps button
+ @attention To correctly work this option you must select iCloud Documents capability on project settings.
+ To view detail information, see README.md.
+ */
 @property (assign, nonatomic) BOOL allowsSelectionFromOtherApps;        // default is NO
 
-/*! @brief Used to allow multiple selection where it possible */
+/*! 
+ @brief Used to allow multiple selection where it possible 
+ */
 @property (assign, nonatomic) BOOL allowsMultipleSelection;             // default is NO
 
+/*! 
+ @brief Creates and returns an attachment picker controller
+ @see presentOnViewController:
+ @param finishPickingBlock The block will be performed when user select attachment(s)
+ @param cancelBlock The block will be performed when user select cancel button
+ @return An instance attachment picker controller
+ */
 + (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock cancelBlock:(_Nullable CancelBlock)cancelBlock;
+
+/*!
+ @brief Present attachment picker controller on specify UIViewController
+ @param viewController The view controller to present the attachment picker controller
+ */
 - (void)presentOnViewController:(UIViewController *)initialViewController;
 
 @end

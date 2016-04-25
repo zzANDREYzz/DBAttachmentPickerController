@@ -53,7 +53,7 @@
     PHAssetResource *resource = [resources firstObject];
     switch (asset.mediaType) {
         case PHAssetMediaTypeImage:
-            model.mediaType = DBAttachmentMediaTypeImage;
+            model.mediaType = DBAttachmentMediaTypePhoto;
             break;
         case PHAssetMediaTypeVideo:
             model.mediaType = DBAttachmentMediaTypeVideo;
@@ -71,7 +71,7 @@
 + (instancetype)attachmentFromCameraImage:(UIImage *)image {
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypeImage;
-    model.mediaType = DBAttachmentMediaTypeImage;
+    model.mediaType = DBAttachmentMediaTypePhoto;
     model.image = image;
     
     NSData *imgData = UIImageJPEGRepresentation(image, 1);
@@ -105,7 +105,7 @@
     
     NSString *fileExt = [[[url absoluteString] pathExtension] lowercaseString];
     if ( [fileExt isEqualToString:@"png"] || [fileExt isEqualToString:@"jpeg"] || [fileExt isEqualToString:@"jpg"] || [fileExt isEqualToString:@"gif"] || [fileExt isEqualToString:@"tiff"]) {
-        model.mediaType = DBAttachmentMediaTypeImage;
+        model.mediaType = DBAttachmentMediaTypePhoto;
         model.thumbmailImage = [UIImage imageWithContentsOfFile:model.originalFilePath];
     } else if ( [fileExt isEqualToString:@"mov"] || [fileExt isEqualToString:@"avi"]) {
         model.mediaType = DBAttachmentMediaTypeVideo;

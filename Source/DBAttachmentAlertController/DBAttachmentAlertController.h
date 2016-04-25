@@ -29,9 +29,10 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
 @property (assign, nonatomic, readonly) PHAssetMediaType assetMediaType;
 @property (assign, nonatomic, readonly) BOOL allowsMultipleSelection;
 
-+ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)mediaType
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
-                                   allowsSelectionFromOtherApps:(BOOL)allowsSelectionFromOtherApps
+                                             allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
+                                                allowsOtherApps:(BOOL)allowsOtherApps
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler

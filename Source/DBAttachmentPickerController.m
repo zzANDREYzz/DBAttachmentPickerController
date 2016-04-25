@@ -26,7 +26,7 @@
 #import "DBAttachment.h"
 #import "DBAssetPickerController.h"
 
-const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
+const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaTypePhoto | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
 
 @interface DBAttachmentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DBAssetPickerControllerDelegate>
 
@@ -80,7 +80,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     __weak typeof(self) weakSelf = self;
     self.alertController = [DBAttachmentAlertController attachmentAlertControllerWithMediaType:[self assetMediaType]
                                                                        allowsMultipleSelection:self.allowsMultipleSelection
-                                                                  allowsSelectionFromOtherApps:self.allowsSelectionFromOtherApps
+                                                                            allowsMediaLibrary:( (self.mediaType & DBAttachmentMediaTypePhoto) || (self.mediaType & DBAttachmentMediaTypeVideo) )
+                                                                               allowsOtherApps:self.allowsSelectionFromOtherApps
                                                                                  attachHandler:^(NSArray<PHAsset *> *assetArray) {
                                                                                      NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
                                                                                      [weakSelf finishPickingWithAttachmentArray:attachmentArray];
@@ -107,9 +108,9 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 #pragma mark Helpers
 
 - (PHAssetMediaType)assetMediaType {
-    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    if ( (self.mediaType & DBAttachmentMediaTypePhoto) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
         return PHAssetMediaTypeImage;
-    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    } else if ( !(self.mediaType & DBAttachmentMediaTypePhoto) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
         return PHAssetMediaTypeVideo;
     }
     return PHAssetMediaTypeUnknown;
@@ -134,21 +135,16 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 }
 
 - (void)otherAppsButtonDidSelect {
-    
-#warning choose correct media types
     NSMutableArray *documentMediaTypes = [NSMutableArray arrayWithCapacity:10];
-    if (self.mediaType & DBAttachmentMediaTypeImage) {
+    if (self.mediaType & DBAttachmentMediaTypePhoto) {
         [documentMediaTypes addObject:(NSString *)kUTTypeImage];
     }
     if (self.mediaType & DBAttachmentMediaTypeVideo) {
         [documentMediaTypes addObject:(NSString *)kUTTypeVideo];
+        [documentMediaTypes addObject:(NSString *)kUTTypeMovie];
     }
     if (self.mediaType & DBAttachmentMediaTypeOther) {
-        [documentMediaTypes addObject:(NSString *)kUTTypeMovie];
-        [documentMediaTypes addObject:(NSString *)kUTTypeText];
-        [documentMediaTypes addObject:(NSString *)kUTTypePDF];
-        [documentMediaTypes addObject:(NSString *)kUTTypeAudiovisualContent];
-        [documentMediaTypes addObject:(NSString *)kUTTypeAudio];
+        [documentMediaTypes addObject:(NSString *)kUTTypeItem];
     }
     
     UIDocumentMenuViewController *viewController = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:documentMediaTypes inMode:UIDocumentPickerModeImport];
@@ -173,10 +169,10 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
-    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    if ( (self.mediaType & DBAttachmentMediaTypePhoto) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
         picker.mediaTypes = @[(NSString *)kUTTypeImage];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    } else if ( !(self.mediaType & DBAttachmentMediaTypePhoto) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
     } else {
