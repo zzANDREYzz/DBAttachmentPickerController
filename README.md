@@ -31,6 +31,7 @@ You can change additional MapSelector properties. Full properties list is shown 
 
 - `UIView *senderView` - Used to provide opportunity to correctly calculate position popover view when app works on iPad. You can specify UIButton, UITableViewCell, etc. instance to which the user touched. ATTENTION: The parameter must contain only UIView subclass instance or nil;
 - `DBAttachmentMediaType mediaType` - It's determine the types of attachments that can be picked. Default is DBAttachmentMediaTypeMaskAll;
+- `UIImagePickerControllerQualityType capturedVideoQulity` - Used to determine the quality of the captured video from camera. Default is UIImagePickerControllerQualityTypeMedium;
 - `BOOL allowsSelectionFromOtherApps` - Used to add Other Apps button. ATTENTION: To correctly work this option you must select iCloud Documents 
  capability on project settings. To view detail information, see [AllowsSelectionFromOtherApps](#AllowsSelectionFromOtherApps). Default is NO.
 - `BOOL allowsMultipleSelection` - Used to allow multiple selection where it possible. Default is NO.

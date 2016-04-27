@@ -25,6 +25,7 @@ typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
     DBAttachmentMediaTypePhoto = (1 << 0),
     DBAttachmentMediaTypeVideo = (1 << 1),
     DBAttachmentMediaTypeOther = (1 << 2),
+    db
 };
 
 UIKIT_EXTERN const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll;
@@ -52,19 +53,24 @@ typedef void (^CancelBlock)();
  ● @a DBAttachmentMediaTypeOther - any files from other apps.<br>
  Also you can use @a DBAttachmentMediaTypeMaskAll to select all available types.
  */
-@property (assign, nonatomic) DBAttachmentMediaType mediaType;          // default is DBAttachmentMediaTypeMaskAll
+@property (assign, nonatomic) DBAttachmentMediaType mediaType;                          // default is DBAttachmentMediaTypeMaskAll
+
+/*!
+ @brief Used to determine the quality of the captured video from camera
+ */
+@property (assign, nonatomic) UIImagePickerControllerQualityType capturedVideoQulity;   // default is UIImagePickerControllerQualityTypeMedium
 
 /*! 
  @brief Used to add Other Apps button
  @attention To correctly work this option you must select iCloud Documents capability on project settings.
  To view detail information, see README.md.
  */
-@property (assign, nonatomic) BOOL allowsSelectionFromOtherApps;        // default is NO
+@property (assign, nonatomic) BOOL allowsSelectionFromOtherApps;                        // default is NO
 
 /*! 
  @brief Used to allow multiple selection where it possible 
  */
-@property (assign, nonatomic) BOOL allowsMultipleSelection;             // default is NO
+@property (assign, nonatomic) BOOL allowsMultipleSelection;                             // default is NO
 
 /*! 
  @brief Creates and returns an attachment picker controller

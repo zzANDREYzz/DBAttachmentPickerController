@@ -49,6 +49,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     controller.mediaType = DBAttachmentMediaTypeMaskAll;
     controller.allowsSelectionFromOtherApps = NO;
     controller.allowsMultipleSelection = NO;
+    controller.capturedVideoQulity = UIImagePickerControllerQualityTypeMedium;
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
@@ -198,6 +199,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     } else if ( !(self.mediaType & DBAttachmentMediaTypePhoto) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+        picker.videoQuality = self.capturedVideoQulity;
     } else {
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo, (NSString *)kUTTypeImage];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
