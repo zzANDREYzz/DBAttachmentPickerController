@@ -102,9 +102,17 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     // Fetch smart albums
     for (NSNumber *assetCollectionSubtype in assetCollectionSubtypes) {
         NSArray *collections = smartAlbums[assetCollectionSubtype];
-        
-        if (collections) {
-            [assetCollections addObjectsFromArray:collections];
+        for (PHAssetCollection *assetCollection in collections) {
+            
+            PHFetchOptions *options = [PHFetchOptions new];
+            if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeImage) {
+                options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+            }
+            PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
+            
+            if (fetchResult.count) {
+                [assetCollections addObject:assetCollection];
+            }
         }
     }
     
