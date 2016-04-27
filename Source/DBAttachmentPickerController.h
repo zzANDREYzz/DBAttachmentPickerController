@@ -39,7 +39,13 @@ typedef void (^CancelBlock)();
 @interface DBAttachmentPickerController : NSObject
 
 /*! 
- @brief Used to determine the types of attachments that can be picked 
+ @brief Used to provide opportunity to correctly calculate position popover view when app works on iPad. You can specify UIButton, UITableViewCell, etc. instance to which the user touched.
+ @attention The parameter must contain only UIView subclass instance or nil
+ */
+@property (weak, nonatomic) UIView *senderView;
+
+/*! 
+ @brief Used to determine the types of attachments that can be picked
  @note You can specify one or more than one from following types: <br>
  ● @a DBAttachmentMediaTypePhoto - photo from camera, camera roll or other apps;<br>
  ● @a DBAttachmentMediaTypeVideo - video from camera, camera roll or other apps;<br>

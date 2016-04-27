@@ -44,8 +44,10 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 #pragma mark -
 
 - (IBAction)addAttachmentButtonDidSelect:(UIBarButtonItem *)sender {
+    UIView *senderView = [sender valueForKey:@"view"];
     __weak typeof(self) weakSelf = self;
-    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {
+    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray)
+    {
         NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:attachmentArray.count];
         NSUInteger currentIndex = weakSelf.attachmentArray.count;
         for (NSUInteger i = 0; i < attachmentArray.count; i++) {
@@ -56,6 +58,8 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
         [weakSelf.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
 
     } cancelBlock:nil];
+//    attachmentPickerController.mediaType = DBAttachmentMediaTypeOther;
+//    attachmentPickerController.senderView = senderView;
     attachmentPickerController.allowsMultipleSelection = YES;
     attachmentPickerController.allowsSelectionFromOtherApps = YES;
     [attachmentPickerController presentOnViewController:self];

@@ -94,7 +94,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
                                                                                  } cancelHandler:^(UIAlertAction * _Nonnull action) {
                                                                                      [weakSelf cancelDidSelect];
                                                                                  }];
-
+    
+    self.alertController.popoverPresentationController.sourceView = [self popoverPresentationView];
+    self.alertController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
+    self.alertController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];
+    
     [self.initialViewController presentViewController:self.alertController animated:YES completion:^{
         weakSelf.alertController = nil;
     }];
@@ -125,6 +129,20 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     return [attachmentArray copy];
 }
 
+#pragma mark - Popover presentation options
+
+- (UIView *)popoverPresentationView {
+    return ( self.senderView ? self.senderView : self.initialViewController.view );
+}
+
+- (CGRect)popoverPresentationRect {
+    return ( self.senderView ? self.senderView.bounds : CGRectMake( CGRectGetMidX(self.initialViewController.view.bounds), CGRectGetMidY(self.initialViewController.view.bounds), .0f, .0f) );
+}
+
+- (UIPopoverArrowDirection)popoverPresentationArrowDirection {
+    return ( self.senderView ? UIPopoverArrowDirectionAny : 0 );
+}
+
 #pragma mark - Actions
 
 - (void)allAlbumsDidSelect {
@@ -150,6 +168,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     UIDocumentMenuViewController *viewController = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:documentMediaTypes inMode:UIDocumentPickerModeImport];
     viewController.delegate = self;
     viewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    viewController.popoverPresentationController.sourceView = [self popoverPresentationView];
+    viewController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
+    viewController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];
+    
     [self.initialViewController presentViewController:viewController animated:YES completion:nil];
 }
 
