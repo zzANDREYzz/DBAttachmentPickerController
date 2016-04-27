@@ -84,7 +84,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Attachment list" id="yp2-Wr-kep">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cWc-4G-Fto">
+                        <barButtonItem key="rightBarButtonItem" image="AttachFileIcon" id="cWc-4G-Fto">
                             <connections>
                                 <action selector="addAttachmentButtonDidSelect:" destination="ZLv-Ag-R34" id="7kS-PY-IO1"/>
                             </connections>
@@ -113,4 +113,7 @@
             <point key="canvasLocation" x="146" y="450"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AttachFileIcon" width="24" height="24"/>
+    </resources>
 </document>
