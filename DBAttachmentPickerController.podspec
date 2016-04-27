@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/d0ping/DBAttachmentPickerController'
   s.license      = { :type => 'MIT' }
   s.requires_arc = true
-  s.platform     = :ios, '6.0'
+  s.platform     = :ios, '8.0'
   s.source       = { :git => 'https://github.com/d0ping/DBAttachmentPickerController.git', :tag => "#{s.version}" }
   s.source_files = 'Source/**/*.{h,m,xib}'
   s.public_header_files = 'Source/**/*.h'

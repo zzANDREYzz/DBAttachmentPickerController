@@ -58,10 +58,12 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
         [weakSelf.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
 
     } cancelBlock:nil];
-//    attachmentPickerController.mediaType = DBAttachmentMediaTypeOther;
+    
+    attachmentPickerController.mediaType = DBAttachmentMediaTypeVideo;
     attachmentPickerController.senderView = senderView;
     attachmentPickerController.allowsMultipleSelection = YES;
     attachmentPickerController.allowsSelectionFromOtherApps = YES;
+    
     [attachmentPickerController presentOnViewController:self];
 }
 
