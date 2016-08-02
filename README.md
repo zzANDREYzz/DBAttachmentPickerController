@@ -1,7 +1,7 @@
 # DBAttachmentPickerController
 [![Version](https://img.shields.io/cocoapods/v/DBAttachmentPickerController.svg?style=flat)](http://cocoadocs.org/docsets/DBAttachmentPickerController)
-[![License](https://img.shields.io/cocoapods/l/DBMapSelectorViewController.svg?style=flat)](http://cocoadocs.org/docsets/DBMapSelectorViewController)
-[![Platform](https://img.shields.io/cocoapods/p/DBMapSelectorViewController.svg?style=flat)](http://cocoadocs.org/docsets/DBMapSelectorViewController)
+[![License](https://img.shields.io/cocoapods/l/DBAttachmentPickerController.svg?style=flat)](http://cocoadocs.org/docsets/DBAttachmentPickerController)
+[![Platform](https://img.shields.io/cocoapods/p/DBAttachmentPickerController.svg?style=flat)](http://cocoadocs.org/docsets/DBAttachmentPickerController)
 ![Language](https://img.shields.io/badge/Language-%20Objective%20C%20-blue.svg)
 
 This powerful component allows to select different types of files from different sources on your device. 
@@ -28,14 +28,14 @@ To add DBAttachmentPickerController manually into your project:
 
 To use DBAttachmentPickerController in your project you should perform the following steps:
 
-1. Initialize attachment picker controller (see [Constructors section](#constructors))
-2. Set addition options if nedded (see [Property list section](#property-list))
-3. Present attachment picker controller (see [Presentation section](#presentation))
+1. Initialize Attachment picker controller (see the [Constructors section](#constructors))
+2. Specify additional options if nedded (see the [Property list section](#property-list))
+3. Present Attachment picker controller (see the [Presentation section](#presentation))
 
 ```objc
 - (void)addAttachment {
     // (1)
-    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray){...} cancelBlock:^{...}];
+    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {...} cancelBlock:^{...}];
     
     // (2)
     attachmentPickerController.mediaType = DBAttachmentMediaTypeVideo ;
@@ -53,13 +53,13 @@ To use DBAttachmentPickerController in your project you should perform the follo
 
 To initialize the attachment picker controller you have to call one of the following methods:
 
-- `+attachmentPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller. As a result in the finishPickingBlock will be returned array of DBAttachment objects. DBAttachment class provides more opportunities to process selected files but required additional processing to get result;
-- `+imagePickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (image). Other media types are ignored. As a result in the finishPickingBlock will be returned array of UIImage objects;
-- `+videoPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (video). Other media types are ignored. As a result in the finishPickingBlock will be returned array of different objects depending on the source. Required additional processing to get result.
+- `+attachmentPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller. As a result in the finishPickingBlock will be returned array of DBAttachment objects. [DBAttachment](#dbattachment) class provides more opportunities to process selected files but required additional processing to get result;
+- `+imagePickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (image). Other media types will be ignored. As a result in the finishPickingBlock will be returned array of UIImage objects;
+- `+videoPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (video). Other media types will be ignored. As a result in the finishPickingBlock will be returned array of different objects depending on the source. Required additional processing to get result.
 
 ### Property list
 
-You can change additional MapSelector properties. Full properties list is shown below:
+You can change additional Attachment Picker Controller properties. Full properties list is shown below:
 
 - `UIView *senderView` - Used to provide opportunity to correctly calculate position popover view when app works on iPad. You can specify UIButton, UITableViewCell, etc. instance to which the user touched. ATTENTION: The parameter must contain only UIView subclass instance or nil;
 - `DBAttachmentMediaType mediaType` - It's determine the types of attachments that can be picked. Default is DBAttachmentMediaTypeMaskAll;
@@ -70,7 +70,7 @@ You can change additional MapSelector properties. Full properties list is shown 
 
 ### Presentation
 
-After creation Attachment Picker Controller you should set additional options (see [Property list section](#property-list)) if needed and present it. 
+After creation Attachment Picker Controller you should set additional options if needed (see the [Property list section](#property-list)) and present it. 
 
 - `-presentOnViewController:` - Present attachment picker controller on specify UIViewController.
 
