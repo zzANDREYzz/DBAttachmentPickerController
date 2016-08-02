@@ -80,7 +80,8 @@ typedef void (^CancelBlock)();
  @param cancelBlock The block will be performed when user select cancel button
  @return An instance attachment picker controller
  */
-+ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock cancelBlock:(_Nullable CancelBlock)cancelBlock;
++ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock
+                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock;
 
 /*!
  @brief Creates and returns an attachment picker controller with constant media type (image)
@@ -89,7 +90,8 @@ typedef void (^CancelBlock)();
  @param cancelBlock The block will be performed when user select cancel button
  @return An instance attachment picker controller
  */
-+ (instancetype)imagePickerControllerFinishPickingBlock:(FinishImagePickingBlock)finishPickingBlock cancelBlock:(_Nullable CancelBlock)cancelBlock;
++ (instancetype)imagePickerControllerFinishPickingBlock:(FinishImagePickingBlock)finishPickingBlock
+                                            cancelBlock:(_Nullable CancelBlock)cancelBlock;
 
 /*!
  @brief Creates and returns an attachment picker controller with constant media type (video)
@@ -98,7 +100,8 @@ typedef void (^CancelBlock)();
  @param cancelBlock The block will be performed when user select cancel button
  @return An instance attachment picker controller
  */
-+ (instancetype)videoPickerControllerFinishPickingBlock:(FinishVideoPickingBlock)finishPickingBlock cancelBlock:(_Nullable CancelBlock)cancelBlock;
++ (instancetype)videoPickerControllerFinishPickingBlock:(FinishVideoPickingBlock)finishPickingBlock
+                                            cancelBlock:(_Nullable CancelBlock)cancelBlock;
 
 /*!
  @brief Present attachment picker controller on specify UIViewController

@@ -22,8 +22,38 @@ To add DBAttachmentPickerController manually into your project:
 1. Download the latest code, using `git clone`
 2. Open your project in Xcode, then drag and drop entire contents of the `Source` folder into your project (Make sure to select Copy items when asked if you extracted the code archive outside of your project)
 
-## AllowsSelectionFromOtherApps
-Bla Bla
+## Usage
+
+To use DBAttachmentPickerController in your project you should perform the following steps:
+
+1. Initialize attachment picker controller (see )
+2. Set addition options if nedded
+3. Present attachment picker controller
+
+```objc
+- (void)addAttachment {
+    // (1)
+    DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray){...} cancelBlock:^{...}];
+    
+    // (2)
+    attachmentPickerController.mediaType = DBAttachmentMediaTypeVideo ;
+    attachmentPickerController.capturedVideoQulity = UIImagePickerControllerQualityTypeHigh;
+    attachmentPickerController.senderView = senderView;
+    attachmentPickerController.allowsMultipleSelection = YES;
+    attachmentPickerController.allowsSelectionFromOtherApps = YES;
+    
+    // (3)
+    [attachmentPickerController presentOnViewController:self];
+}
+```
+
+### Constructors
+
+To initialize the attachment picker controller you have to call one of the following methods:
+
+- `+attachmentPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller. As a result in the finishPickingBlock will be returned array of DBAttachment objects. DBAttachment class provides more opportunities to process selected files but required additional processing to get result;
+- `+imagePickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (image). As a result in the finishPickingBlock will be returned array of UIImage objects;
+- `+videoPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (video). As a result in the finishPickingBlock will be returned array of different objects depending on the source. Required additional processing to get result.
 
 ### Property list
 
@@ -36,20 +66,20 @@ You can change additional MapSelector properties. Full properties list is shown 
  capability on project settings. To view detail information, see [AllowsSelectionFromOtherApps](#AllowsSelectionFromOtherApps). Default is NO.
 - `BOOL allowsMultipleSelection` - Used to allow multiple selection where it possible. Default is NO.
 
-### Constructors
-
-To initialize the attachment picker controller you have to call one of the following methods:
-
-- `+attachmentPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller. As a result in the finishPickingBlock will be returned array of DBAttachment objects. DBAttachment class provides more opportunities to process selected files but required additional processing to get result;
-- `+imagePickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (image). As a result in the finishPickingBlock will be returned array of UIImage objects;
-- `+videoPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (video). As a result in the finishPickingBlock will be returned array of different objects depending on the source. Required additional processing to get result.
-
 ### Presentation
 
 After creation Attachment Picker Controller you should set additional options (see Property list section) if needed and present it. 
 
 - `-presentOnViewController:` - Present attachment picker controller on specify UIViewController.
 
+## Usage Document Picker (Other apps button)
+
+To usage Document Picker you must:
+
+- set `AllowsSelectionFromOtherApps` property to YES
+- add iCloud documents capability on the project settings (see image later)
+
+![iCloud Documents Capability](https://github.com/d0ping/DBAttachmentPickerController/blob/develop/Screenshots/iCloudDocumentsCapability.jpg)
 
 ## Contact
 
