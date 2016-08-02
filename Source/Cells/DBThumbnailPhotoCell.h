@@ -24,8 +24,8 @@
 
 @interface DBThumbnailPhotoCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet DBAssetImageView *assetImageView;
-@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic, nullable) IBOutlet DBAssetImageView *assetImageView;
+@property (weak, nonatomic, nullable) IBOutlet UILabel *durationLabel;
 
 @property (assign, nonatomic) BOOL needsDisplayEmptySelectedIndicator;
 @property (copy, nonatomic, nullable) NSString *identifier;

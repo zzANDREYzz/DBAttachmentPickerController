@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_END
 
 @interface DBAssetGroupsViewController : UITableViewController
 
-@property (weak, nonatomic) id<DBAssetGroupsViewControllerDelegate> assetGroupsDelegate;
+@property (weak, nonatomic, nullable) id<DBAssetGroupsViewControllerDelegate> assetGroupsDelegate;
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
 
 @end

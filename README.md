@@ -25,7 +25,7 @@ To add DBAttachmentPickerController manually into your project:
 ## AllowsSelectionFromOtherApps
 Bla Bla
 
-### Property list selector
+### Property list
 
 You can change additional MapSelector properties. Full properties list is shown below:
 
@@ -35,6 +35,21 @@ You can change additional MapSelector properties. Full properties list is shown 
 - `BOOL allowsSelectionFromOtherApps` - Used to add Other Apps button. ATTENTION: To correctly work this option you must select iCloud Documents 
  capability on project settings. To view detail information, see [AllowsSelectionFromOtherApps](#AllowsSelectionFromOtherApps). Default is NO.
 - `BOOL allowsMultipleSelection` - Used to allow multiple selection where it possible. Default is NO.
+
+### Constructors
+
+To initialize the attachment picker controller you have to call one of the following methods:
+
+- `+attachmentPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller. As a result in the finishPickingBlock will be returned array of DBAttachment objects. DBAttachment class provides more opportunities to process selected files but required additional processing to get result;
+- `+imagePickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (image). As a result in the finishPickingBlock will be returned array of UIImage objects;
+- `+videoPickerControllerFinishPickingBlock:cancelBlock:` - Creates and returns an attachment picker controller with constant media type (video). As a result in the finishPickingBlock will be returned array of different objects depending on the source. Required additional processing to get result.
+
+### Presentation
+
+After creation Attachment Picker Controller you should set additional options (see Property list section) if needed and present it. 
+
+- `-presentOnViewController:` - Present attachment picker controller on specify UIViewController.
+
 
 ## Contact
 

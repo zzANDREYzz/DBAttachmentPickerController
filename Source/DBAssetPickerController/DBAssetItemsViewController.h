@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_END
 
 @interface DBAssetItemsViewController : UICollectionViewController
 
-@property (weak, nonatomic) id<DBAssetItemsViewControllerDelegate> assetItemsDelegate;
+@property (weak, nonatomic, nullable) id<DBAssetItemsViewControllerDelegate> assetItemsDelegate;
 @property (strong, nonatomic, nonnull) PHAssetCollection *assetCollection;
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
 

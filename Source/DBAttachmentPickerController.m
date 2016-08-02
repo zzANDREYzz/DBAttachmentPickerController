@@ -26,7 +26,7 @@
 #import "DBAttachment.h"
 #import "DBAssetPickerController.h"
 
-const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaTypePhoto | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
+const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo | DBAttachmentMediaTypeOther;
 
 @interface DBAttachmentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DBAssetPickerControllerDelegate>
 
@@ -35,6 +35,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 
 @property (strong, nonatomic) FinishPickingBlock extendedFinishPickingBlock;
 @property (strong, nonatomic) CancelBlock extendedCancelBlock;
+
+@property (assign, nonatomic) BOOL ignoreChangeMediaType;
 
 @end
 
@@ -66,6 +68,66 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     return controller;
 }
 
++ (instancetype)imagePickerControllerFinishPickingBlock:(FinishImagePickingBlock)finishPickingBlock
+                                            cancelBlock:(_Nullable CancelBlock)cancelBlock
+{
+    void (^finishBlock)(NSArray<DBAttachment *> * _Nonnull attachmentArray) = ^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            dispatch_group_t loadGroup = dispatch_group_create();
+            
+            NSMutableDictionary *imageDict = [NSMutableDictionary dictionaryWithCapacity:attachmentArray.count];
+            for (DBAttachment *attachment in attachmentArray) {
+                dispatch_group_enter(loadGroup);
+                [attachment loadOriginalImageWithCompletion:^(UIImage * _Nullable resultImage) {
+                    [imageDict setObject:resultImage forKey:@([attachment hash])];
+                    dispatch_group_leave(loadGroup);
+                }];
+            }
+            
+            dispatch_group_wait(loadGroup, DISPATCH_TIME_FOREVER);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSMutableArray *imageArray = [NSMutableArray arrayWithCapacity:attachmentArray.count];
+                for (DBAttachment *attachment in attachmentArray) {
+                    UIImage *image = imageDict[@([attachment hash])];
+                    if (image) {
+                        [imageArray addObject:image];
+                    }
+                }
+                if (finishPickingBlock) {
+                    finishPickingBlock([imageArray copy]);
+                }
+            });
+        });
+    };
+    
+    DBAttachmentPickerController *controller = [self attachmentPickerControllerFinishPickingBlock:finishBlock cancelBlock:cancelBlock];
+    controller.mediaType = DBAttachmentMediaTypeImage;
+    controller.ignoreChangeMediaType = YES;
+    return controller;
+}
+
++ (instancetype)videoPickerControllerFinishPickingBlock:(FinishVideoPickingBlock)finishPickingBlock
+                                            cancelBlock:(_Nullable CancelBlock)cancelBlock
+{
+    void (^finishBlock)(NSArray<DBAttachment *> * _Nonnull attachmentArray) = ^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {
+        NSMutableArray *resourceArray = [NSMutableArray arrayWithCapacity:attachmentArray.count];
+        for (DBAttachment *attachment in attachmentArray) {
+            id resource = [attachment originalFileResource];
+            if (resource) {
+                [resourceArray addObject:resource];
+            }
+        }
+        if (finishPickingBlock) {
+            finishPickingBlock([resourceArray copy]);
+        }
+    };
+    
+    DBAttachmentPickerController *controller = [self attachmentPickerControllerFinishPickingBlock:finishBlock cancelBlock:cancelBlock];
+    controller.mediaType = DBAttachmentMediaTypeVideo;
+    controller.ignoreChangeMediaType = YES;
+    return controller;
+}
+
 #pragma mark - Lifecycle
 
 - (void)dealloc {
@@ -81,7 +143,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     __weak typeof(self) weakSelf = self;
     self.alertController = [DBAttachmentAlertController attachmentAlertControllerWithMediaType:[self assetMediaType]
                                                                        allowsMultipleSelection:self.allowsMultipleSelection
-                                                                            allowsMediaLibrary:( (self.mediaType & DBAttachmentMediaTypePhoto) || (self.mediaType & DBAttachmentMediaTypeVideo) )
+                                                                            allowsMediaLibrary:( (self.mediaType & DBAttachmentMediaTypeImage) || (self.mediaType & DBAttachmentMediaTypeVideo) )
                                                                                allowsOtherApps:self.allowsSelectionFromOtherApps
                                                                                  attachHandler:^(NSArray<PHAsset *> *assetArray) {
                                                                                      NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
@@ -113,9 +175,9 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 #pragma mark Helpers
 
 - (PHAssetMediaType)assetMediaType {
-    if ( (self.mediaType & DBAttachmentMediaTypePhoto) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
         return PHAssetMediaTypeImage;
-    } else if ( !(self.mediaType & DBAttachmentMediaTypePhoto) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
         return PHAssetMediaTypeVideo;
     }
     return PHAssetMediaTypeUnknown;
@@ -144,6 +206,15 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     return ( self.senderView ? UIPopoverArrowDirectionAny : 0 );
 }
 
+#pragma mark - Accessors
+
+- (void)setMediaType:(DBAttachmentMediaType)mediaType {
+    if (self.ignoreChangeMediaType)
+        return;
+    
+    _mediaType = mediaType;
+}
+
 #pragma mark - Actions
 
 - (void)allAlbumsDidSelect {
@@ -155,7 +226,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 
 - (void)otherAppsButtonDidSelect {
     NSMutableArray *documentMediaTypes = [NSMutableArray arrayWithCapacity:10];
-    if (self.mediaType & DBAttachmentMediaTypePhoto) {
+    if (self.mediaType & DBAttachmentMediaTypeImage) {
         [documentMediaTypes addObject:(NSString *)kUTTypeImage];
     }
     if (self.mediaType & DBAttachmentMediaTypeVideo) {
@@ -166,25 +237,25 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
         [documentMediaTypes addObject:(NSString *)kUTTypeItem];
     }
     
-    UIDocumentMenuViewController *viewController = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:documentMediaTypes inMode:UIDocumentPickerModeImport];
-    viewController.delegate = self;
-    viewController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    viewController.popoverPresentationController.sourceView = [self popoverPresentationView];
-    viewController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
-    viewController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];
-    
-    [self.initialViewController presentViewController:viewController animated:YES completion:nil];
+    @try {
+        UIDocumentMenuViewController *viewController = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:documentMediaTypes inMode:UIDocumentPickerModeImport];
+        viewController.delegate = self;
+        viewController.modalPresentationStyle = UIModalPresentationFullScreen;
+        
+        viewController.popoverPresentationController.sourceView = [self popoverPresentationView];
+        viewController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
+        viewController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];
+        
+        [self.initialViewController presentViewController:viewController animated:YES completion:nil];
+        
+    } @catch (NSException *exception) {
+        [self cancelWithAlertErrorText:@"Can't load Document Picker"];
+    }
 }
 
 - (void)takePictureButtonDidSelect {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Device has no camera" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:actionCancel];
-        
-        [self.initialViewController presentViewController:alertController animated:YES completion:nil];
+        [self cancelWithAlertErrorText:@"Device has no camera"];
         return;
     }
     
@@ -193,10 +264,10 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
-    if ( (self.mediaType & DBAttachmentMediaTypePhoto) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    if ( (self.mediaType & DBAttachmentMediaTypeImage) && !(self.mediaType & DBAttachmentMediaTypeVideo) ) {
         picker.mediaTypes = @[(NSString *)kUTTypeImage];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-    } else if ( !(self.mediaType & DBAttachmentMediaTypePhoto) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
+    } else if ( !(self.mediaType & DBAttachmentMediaTypeImage) && (self.mediaType & DBAttachmentMediaTypeVideo) ) {
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
         picker.videoQuality = self.capturedVideoQulity;
@@ -215,6 +286,14 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 }
 
 - (void)cancelDidSelect {
+    self.extendedCancelBlock();
+}
+
+- (void)cancelWithAlertErrorText:(NSString *)errorText {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:errorText preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:actionCancel];
+    [self.initialViewController presentViewController:alertController animated:YES completion:nil];
     self.extendedCancelBlock();
 }
 

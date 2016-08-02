@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_END
 
 @interface DBAssetPickerController : UINavigationController
 
-@property (weak, nonatomic) id<DBAssetPickerControllerDelegate> assetPickerDelegate;
+@property (weak, nonatomic, nullable) id<DBAssetPickerControllerDelegate> assetPickerDelegate;
 @property (assign, nonatomic) PHAssetMediaType assetMediaType;
 
 @end
