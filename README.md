@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/DBMapSelectorViewController.svg?style=flat)](http://cocoadocs.org/docsets/DBMapSelectorViewController)
 ![Language](https://img.shields.io/badge/Language-%20Objective%20C%20-blue.svg)
 
-This component allows to select different types of files from different sources on your device.
+This powerful component allows to select different types of files from different sources on your device. 
 
 ## Adding to your project
 
@@ -26,9 +26,9 @@ To add DBAttachmentPickerController manually into your project:
 
 To use DBAttachmentPickerController in your project you should perform the following steps:
 
-1. Initialize attachment picker controller (see )
-2. Set addition options if nedded
-3. Present attachment picker controller
+1. Initialize attachment picker controller (see [Constructors section](### Constructors))
+2. Set addition options if nedded (see [Property list section](### Property list))
+3. Present attachment picker controller (see [Presentation section](### Presentation))
 
 ```objc
 - (void)addAttachment {
@@ -68,7 +68,7 @@ You can change additional MapSelector properties. Full properties list is shown 
 
 ### Presentation
 
-After creation Attachment Picker Controller you should set additional options (see Property list section) if needed and present it. 
+After creation Attachment Picker Controller you should set additional options (see [Property list section](### Property list)) if needed and present it. 
 
 - `-presentOnViewController:` - Present attachment picker controller on specify UIViewController.
 
@@ -76,10 +76,20 @@ After creation Attachment Picker Controller you should set additional options (s
 
 To usage Document Picker you must:
 
-- set `AllowsSelectionFromOtherApps` property to YES
+- set YES value to `AllowsSelectionFromOtherApps` property
 - add iCloud documents capability on the project settings (see image later)
 
-![iCloud Documents Capability](https://github.com/d0ping/DBAttachmentPickerController/blob/develop/Screenshots/iCloudDocumentsCapability.jpg)
+![iCloud Documents Capability](Screenshots/iCloudDocumentsCapability.jpg)
+
+## DBAttachment
+
+The class contain metadata about selected item. 
+
+You can use following properties to get metadata of file: `NSString *fileName`, `NSDate *creationDate`, `NSUInteger fileSize`, `NSString *fileSizeStr`. 
+
+To get thumbnail image you should call folowing method: `-loadThumbnailImageWithTargetSize:completion:`. Or you can get original image through method `-loadOriginalImageWithCompletion:`.
+
+Also you can get original file data if call appropriate method `-originalFileResource`.
 
 ## Contact
 
@@ -90,7 +100,7 @@ Denis Bogatyrev (maintainer)
 
 ##License
 
-DBMapSelectorViewController - Copyright (c) 2016 Denis Bogatyrev
+DBAttachmentPickerController - Copyright (c) 2016 Denis Bogatyrev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
