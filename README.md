@@ -85,7 +85,7 @@ To usage Document Picker you must:
 - turn on the iCloud Documents capabilities in Xcode (see image later)
 
 
-<img src="Screenshots/iCloudDocumentsCapability.jpg" width="512" align="center"/>
+<img src="Screenshots/iCloudDocumentsCapability.jpg" width="570"/>
 
 ## DBAttachment
 
