@@ -59,6 +59,7 @@ static NSString *const kAttachmentCellIdentifier = @"AttachmentCellID";
 
     } cancelBlock:nil];
     
+    attachmentPickerController.mediaType = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo;
     attachmentPickerController.capturedVideoQulity = UIImagePickerControllerQualityTypeHigh;
     attachmentPickerController.senderView = senderView;
     attachmentPickerController.allowsMultipleSelection = YES;

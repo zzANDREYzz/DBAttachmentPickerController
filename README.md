@@ -8,6 +8,10 @@ This powerful component allows to select different types of files from different
 
 ![iCloud Documents Capability](Screenshots/Screenshot.jpg)
 
+## Preview
+
+![iCloud Documents Capability](Screenshots/ezgif.com-gif-maker.gif)
+
 ## Adding to your project
 
 ### Cocoapods
@@ -38,9 +42,8 @@ To use DBAttachmentPickerController in your project you should perform the follo
     DBAttachmentPickerController *attachmentPickerController = [DBAttachmentPickerController attachmentPickerControllerFinishPickingBlock:^(NSArray<DBAttachment *> * _Nonnull attachmentArray) {...} cancelBlock:^{...}];
     
     // (2)
-    attachmentPickerController.mediaType = DBAttachmentMediaTypeVideo ;
+    attachmentPickerController.mediaType = DBAttachmentMediaTypeImage | DBAttachmentMediaTypeVideo;
     attachmentPickerController.capturedVideoQulity = UIImagePickerControllerQualityTypeHigh;
-    attachmentPickerController.senderView = senderView;
     attachmentPickerController.allowsMultipleSelection = YES;
     attachmentPickerController.allowsSelectionFromOtherApps = YES;
     
@@ -79,9 +82,10 @@ After creation Attachment Picker Controller you should set additional options if
 To usage Document Picker you must:
 
 - set YES value to `AllowsSelectionFromOtherApps` property
-- add iCloud documents capability on the project settings (see image later)
+- turn on the iCloud Documents capabilities in Xcode (see image later)
 
-![iCloud Documents Capability](Screenshots/iCloudDocumentsCapability.jpg)
+
+<img src="Screenshots/iCloudDocumentsCapability.jpg" width="512" align="center"/>
 
 ## DBAttachment
 
