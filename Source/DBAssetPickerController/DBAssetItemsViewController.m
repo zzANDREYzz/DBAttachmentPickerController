@@ -46,11 +46,11 @@ static NSString * const reuseIdentifier = @"Cell";
     
     self.selectedIndexPathArray = [NSMutableArray arrayWithCapacity:100];
     
-    self.navigationItem.title = @"Camera roll";
+    self.navigationItem.title = self.assetCollection.localizedTitle;
     
     if ([self.assetItemsDelegate respondsToSelector:@selector(DBAssetImageViewControllerAllowsMultipleSelection:)]) {
         if ( [self.assetItemsDelegate DBAssetImageViewControllerAllowsMultipleSelection:self] ) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Attach" style:UIBarButtonItemStyleDone target:self action:@selector(attachButtonDidSelect:)];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Attach", nil) style:UIBarButtonItemStyleDone target:self action:@selector(attachButtonDidSelect:)];
         }
     }
     

@@ -1,5 +1,11 @@
+/* No comment provided by engineer. */
+"Albums" = "Альбомы";
+
 /* Button on main menu */
 "All albums" = "Все альбомы";
+
+/* No comment provided by engineer. */
+"Attach" = "Прикрепить";
 
 /* Button on main menu */
 "Attach %zd files" = "Прикрепить %zd файлов";
@@ -7,8 +13,20 @@
 /* Title */
 "Attach files" = "Прикрепить файлы";
 
+/* Error text */
+"Can't load Document Picker" = "Невозможно загрузить Document Picker";
+
 /* Common */
 "Cancel" = "Отменить";
+
+/* Error text */
+"Device has no camera" = "Устройство не имеет камеры";
+
+/* Common */
+"Error" = "Ошибка";
+
+/* Common */
+"OK" = "Ок";
 
 /* Button on main menu */
 "Other apps" = "Другие приложения";
