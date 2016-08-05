@@ -42,6 +42,8 @@
 		A401D5011D5545F7006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A401D5021D554922006B2909 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A401D5041D554AD3006B2909 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		A401D5051D554BD0006B2909 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A401D5061D554BD0006B2909 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		C3134EAF1C9C30990023B9E6 /* DBAttachmentPickerControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAttachmentPickerControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3134EB31C9C30990023B9E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3134EB51C9C30990023B9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				Base,
 				ru,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = C3134EA61C9C30990023B9E6;
 			productRefGroup = C3134EB01C9C30990023B9E6 /* Products */;
@@ -365,6 +368,7 @@
 				A401D4F81D537AEF006B2909 /* en */,
 				A401D4F91D537AF0006B2909 /* ru */,
 				A401D5021D554922006B2909 /* zh-Hans */,
+				A401D5051D554BD0006B2909 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -375,6 +379,7 @@
 				A401D4FF1D5545F5006B2909 /* en */,
 				A401D5011D5545F7006B2909 /* ru */,
 				A401D5041D554AD3006B2909 /* zh-Hans */,
+				A401D5061D554BD0006B2909 /* zh-Hant */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
