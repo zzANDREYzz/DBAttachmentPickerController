@@ -50,6 +50,8 @@
 		A401D50A1D554FCD006B2909 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A401D50B1D555228006B2909 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A401D50C1D555228006B2909 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A401D50D1D5553CA006B2909 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A401D50E1D5553ED006B2909 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		C3134EAF1C9C30990023B9E6 /* DBAttachmentPickerControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAttachmentPickerControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3134EB31C9C30990023B9E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3134EB51C9C30990023B9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				es,
 				de,
 				ja,
+				uk,
 			);
 			mainGroup = C3134EA61C9C30990023B9E6;
 			productRefGroup = C3134EB01C9C30990023B9E6 /* Products */;
@@ -381,6 +384,7 @@
 				A401D5071D554D71006B2909 /* es */,
 				A401D5091D554FCD006B2909 /* de */,
 				A401D50B1D555228006B2909 /* ja */,
+				A401D50D1D5553CA006B2909 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -395,6 +399,7 @@
 				A401D5081D554D71006B2909 /* es */,
 				A401D50A1D554FCD006B2909 /* de */,
 				A401D50C1D555228006B2909 /* ja */,
+				A401D50E1D5553ED006B2909 /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
