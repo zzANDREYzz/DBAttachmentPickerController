@@ -8,7 +8,7 @@
 "Attach" = "Прикрепить";
 
 /* Button on main menu */
-"Attach %zd files" = "Прикрепить %zd файлов";
+"Attach %zd file(s)" = "Прикрепить %zd файл(ов)";
 
 /* Title */
 "Attach files" = "Прикрепить файлы";

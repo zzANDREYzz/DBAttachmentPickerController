@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A401D4F51D537AEC006B2909 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A401D4F71D537AEC006B2909 /* Localizable.strings */; };
+		A401D4FE1D5545F5006B2909 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A401D5001D5545F5006B2909 /* Localizable.stringsdict */; };
 		C3134EB41C9C30990023B9E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134EB31C9C30990023B9E6 /* main.m */; };
 		C3134EB71C9C30990023B9E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134EB61C9C30990023B9E6 /* AppDelegate.m */; };
 		C3134EBD1C9C30990023B9E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3134EBB1C9C30990023B9E6 /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 		A401D4F41D537A13006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A401D4F81D537AEF006B2909 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A401D4F91D537AF0006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A401D4FF1D5545F5006B2909 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A401D5011D5545F7006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		C3134EAF1C9C30990023B9E6 /* DBAttachmentPickerControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAttachmentPickerControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3134EB31C9C30990023B9E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3134EB51C9C30990023B9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				A401D4F71D537AEC006B2909 /* Localizable.strings */,
+				A401D5001D5545F5006B2909 /* Localizable.stringsdict */,
 			);
 			name = Localization;
 			path = ../../Source/Localization;
@@ -316,6 +320,7 @@
 				C3134EC21C9C30990023B9E6 /* LaunchScreen.storyboard in Resources */,
 				C3849AB61C9C3D8C00D12EEF /* DBAssetGroupsViewController.xib in Resources */,
 				C3134EEB1C9C323C0023B9E6 /* DBAssetGroupCell.xib in Resources */,
+				A401D4FE1D5545F5006B2909 /* Localizable.stringsdict in Resources */,
 				C3134EED1C9C323C0023B9E6 /* DBThumbnailPhotoCell.xib in Resources */,
 				A401D4F51D537AEC006B2909 /* Localizable.strings in Resources */,
 				C3134EFC1C9C34340023B9E6 /* Assets.xcassets in Resources */,
@@ -358,6 +363,15 @@
 				A401D4F91D537AF0006B2909 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A401D5001D5545F5006B2909 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A401D4FF1D5545F5006B2909 /* en */,
+				A401D5011D5545F7006B2909 /* ru */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 		C3134EBB1C9C30990023B9E6 /* Main.storyboard */ = {

@@ -343,7 +343,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 - (void)updateAttachPhotoCountIfNedded {
     NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
-    self.attachActionText = ( selectedItems.count ? [NSString stringWithFormat:NSLocalizedString(@"Attach %zd files", @"Button on main menu"), selectedItems.count] : NSLocalizedString(@"All albums", nil) );
+    self.attachActionText = ( selectedItems.count ? [NSString stringWithFormat:NSLocalizedString(@"Attach %zd file(s)", @"Button on main menu"), selectedItems.count] : NSLocalizedString(@"All albums", nil) );
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
