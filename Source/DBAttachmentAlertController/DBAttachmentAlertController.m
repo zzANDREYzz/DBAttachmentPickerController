@@ -68,11 +68,11 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     controller.assetMediaType = assetMediaType;
     controller.allowsMultipleSelection = allowsMultipleSelection;
     controller.showCollectionView = ( showPhotoOrVideo && controller.assetsFetchResult.count );
-    controller.title = ( controller.showCollectionView ? @"\n\n\n\n\n" : @"Attach files" );
+    controller.title = ( controller.showCollectionView ? @"\n\n\n\n\n" : NSLocalizedString(@"Attach files", @"Title") );
     
     if ( showPhotoOrVideo && controller.assetsFetchResult.count ) {
         __weak DBAttachmentAlertController *weakController = controller;
-        UIAlertAction *attachAction = [UIAlertAction actionWithTitle:@"All albums" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *attachAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"All albums", @"Button on main menu") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([weakController.collectionView indexPathsForSelectedItems].count) {
                 if (attachHandler) {
                     attachHandler([weakController getSelectedAssetArray]);
@@ -96,13 +96,13 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         NSString *buttonTitle;
         switch (controller.assetMediaType) {
             case PHAssetMediaTypeVideo:
-                buttonTitle = @"Take a video";
+                buttonTitle = NSLocalizedString(@"Take a video", @"Button on main menu");
                 break;
             case PHAssetMediaTypeImage:
-                buttonTitle = @"Take a picture";
+                buttonTitle = NSLocalizedString(@"Take a picture", @"Button on main menu");
                 break;
             default:
-                buttonTitle = @"Take a picture or a video";
+                buttonTitle = NSLocalizedString(@"Take a picture or a video", @"Button on main menu");
                 break;
         }
         UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:takePictureHandler];
@@ -110,11 +110,11 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     }
     
     if (allowsOtherApps) {
-        UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:@"Other apps" style:UIAlertActionStyleDefault handler:otherAppsHandler];
+        UIAlertAction *otherAppsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Other apps", @"Button on main menu") style:UIAlertActionStyleDefault handler:otherAppsHandler];
         [controller addAction:otherAppsAction];
     }
     
-    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:cancelHandler];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Common") style:UIAlertActionStyleCancel handler:cancelHandler];
     [controller addAction:actionCancel];
     
     return controller;
@@ -343,7 +343,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 - (void)updateAttachPhotoCountIfNedded {
     NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
-    self.attachActionText = ( selectedItems.count ? [NSString stringWithFormat:@"Attach %zd files", selectedItems.count] : @"All albums" );
+    self.attachActionText = ( selectedItems.count ? [NSString stringWithFormat:NSLocalizedString(@"Attach %zd file(s)", @"Button on main menu"), selectedItems.count] : NSLocalizedString(@"All albums", nil) );
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

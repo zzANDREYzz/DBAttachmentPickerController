@@ -10,5 +10,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/d0ping/DBAttachmentPickerController.git', :tag => "#{s.version}" }
   s.source_files = 'Source/**/*.{h,m}'
   s.resources = 'Source/**/*.{xib}'
+  s.resource_bundle = { 'DBAttachmentPickerController' => ['Source/Localization/*.lproj'] }
   s.public_header_files = 'Source/**/*.h'
 end

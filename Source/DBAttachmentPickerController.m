@@ -249,13 +249,13 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
         [self.initialViewController presentViewController:viewController animated:YES completion:nil];
         
     } @catch (NSException *exception) {
-        [self cancelWithAlertErrorText:@"Can't load Document Picker"];
+        [self cancelWithAlertErrorText:NSLocalizedString(@"Can't load Document Picker", @"Error text")];
     }
 }
 
 - (void)takePictureButtonDidSelect {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [self cancelWithAlertErrorText:@"Device has no camera"];
+        [self cancelWithAlertErrorText:NSLocalizedString(@"Device has no camera", @"Error text")];
         return;
     }
     
@@ -290,8 +290,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 }
 
 - (void)cancelWithAlertErrorText:(NSString *)errorText {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:errorText preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"Common") message:errorText preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Common") style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:actionCancel];
     [self.initialViewController presentViewController:alertController animated:YES completion:nil];
     self.extendedCancelBlock();
