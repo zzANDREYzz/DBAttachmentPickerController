@@ -102,6 +102,12 @@ To get thumbnail image you should call folowing method: `-loadThumbnailImageWith
 
 Also you can get original file data if call appropriate method `-originalFileResource`.
 
+## Version history
+
+### 1.1.0
+- Added localization. Available following languages: English (Default), Russian, Spanish, German, French, Ukrainian, Chinese (Simplified and Traditional) and Japanese.
+- Added description for methods and properties on DBAttachment class. 
+
 ## Contact
 
 Denis Bogatyrev (maintainer)
