@@ -40,7 +40,7 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Albums";
+    self.navigationItem.title = NSLocalizedString(@"Albums", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonDidSelect:)];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DBAssetGroupCell class]) bundle:nil] forCellReuseIdentifier:kAssetGroupsCellIdentifier];
