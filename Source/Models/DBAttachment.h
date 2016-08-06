@@ -32,21 +32,88 @@ typedef NS_ENUM(NSInteger, DBAttachmentSourceType) {
 @class PHAsset;
 @interface DBAttachment : NSObject
 
+/*!
+ @brief The name of the file. Can be empty.
+ */
 @property (strong, nonatomic, readonly, nullable) NSString *fileName;
+
+/*!
+ @brief Creation date of the file. Can be nil.
+ */
 @property (strong, nonatomic, readonly, nullable) NSDate *creationDate;
+
+/*!
+ @brief Size of the file in byte. Available only for existing files.
+ @attention If you want get file size for PHAsset or something like that, you should calculate it after getting file data.
+ @see fileSizeStr
+ */
 @property (assign, nonatomic, readonly) NSUInteger fileSize;
+
+/*!
+ @brief Formatted string of file size. Can be empty.
+ @see fileSize
+ */
 @property (readonly, nullable) NSString *fileSizeStr;
 
+/*!
+ @brief Attachment source type
+ */
 @property (assign, nonatomic, readonly) DBAttachmentSourceType sourceType;
+
+/*!
+ @brief Attachment media type
+ */
 @property (assign, nonatomic, readonly) DBAttachmentMediaType mediaType;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/*!
+ @brief Creates and returns an attachment on the basis of PHAsset
+ @see attachmentFromCameraImage:
+ @see attachmentFromDocumentURL:
+ @param asset PHAsset object
+ @return An instance attachment object
+ */
 + (instancetype)attachmentFromPHAsset:(PHAsset *)asset;
+
+/*!
+ @brief Creates and returns an attachment on the basis of UIImage
+ @see attachmentFromPHAsset:
+ @see attachmentFromDocumentURL:
+ @param image UIImage object
+ @return An instance attachment object
+ */
 + (instancetype)attachmentFromCameraImage:(UIImage *)image;
+
+/*!
+ @brief Creates and returns an attachment on the basis of NSURL
+ @see attachmentFromPHAsset:
+ @see attachmentFromCameraImage:
+ @param url NSURL object
+ @return An instance attachment object
+ */
 + (instancetype)attachmentFromDocumentURL:(NSURL *)url;
 
+
+/*!
+ @brief Load thumbnail image for specified size. Resultant image size can differ from the specified size.
+ @see loadOriginalImageWithCompletion:
+ @param targetSize The desired image size
+ @param completion result block
+ */
 - (void)loadThumbnailImageWithTargetSize:(CGSize)targetSize completion:(void(^)(UIImage * _Nullable resultImage))completion;
+
+/*!
+ @brief Load original image
+ @see loadThumbnailImageWithTargetSize:completion:
+ @param completion result block
+ */
 - (void)loadOriginalImageWithCompletion:(void(^)(UIImage * _Nullable resultImage))completion;
+
+/*!
+ @brief Get original resource
+ @return Can be return PHAsset, UIImage or local file path (NSString)
+ */
 - (id)originalFileResource;
 
 NS_ASSUME_NONNULL_END

@@ -122,13 +122,6 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 
 #pragma mark - Lifecycle
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
