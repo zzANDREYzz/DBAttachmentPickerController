@@ -91,7 +91,12 @@ To usage Document Picker you must:
 
 The class contain metadata about selected item. 
 
-You can use following properties to get metadata of file: `NSString *fileName`, `NSDate *creationDate`, `NSUInteger fileSize`, `NSString *fileSizeStr`. 
+You can use following properties to get metadata of file: 
+
+- `NSString *fileName` - The name of the file. Can be empty;
+- `NSDate *creationDate` - Creation date of the file. Can be nil;
+- `NSUInteger fileSize` - Size of the file in byte. Available only for existing files. ATTENTION: If you want get file size for PHAsset or something like that, you should calculate it after getting file data; 
+- `NSString *fileSizeStr` - Formatted string of file size. Can be empty. 
 
 To get thumbnail image you should call folowing method: `-loadThumbnailImageWithTargetSize:completion:`. Or you can get original image through method `-loadOriginalImageWithCompletion:`.
 
