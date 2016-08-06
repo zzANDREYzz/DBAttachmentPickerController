@@ -20,6 +20,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NSBundle+DBLibrary.h"
 
 typedef NS_OPTIONS(NSUInteger, DBAttachmentMediaType) {
     DBAttachmentMediaTypeImage = (1 << 0),
