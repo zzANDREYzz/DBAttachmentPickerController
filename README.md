@@ -18,7 +18,7 @@ This powerful component allows to select different types of files from different
 
 To add DBAttachmentPickerController via [CocoaPods](http://cocoapods.org/) into your project:
 
-1. Add a pod entry for DBAttachmentPickerController to your Podfile `pod 'DBAttachmentPickerController', '~> 1.0.0'`
+1. Add a pod entry for DBAttachmentPickerController to your Podfile `pod 'DBAttachmentPickerController', '~> 1.1.0'`
 2. Install the pod by running `pod install`
 
 ### Source Files
