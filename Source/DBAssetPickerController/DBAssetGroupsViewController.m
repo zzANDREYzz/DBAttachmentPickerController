@@ -24,6 +24,7 @@
 #import "DBAssetItemsViewController.h"
 #import "DBAssetGroupCell.h"
 #import "UIImage+DBAssetIcons.h"
+#import "NSBundle+DBLibrary.h"
 
 static const CGSize kDefaultThumbnailSize = {68.f, 68.f};
 static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";

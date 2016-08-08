@@ -23,6 +23,7 @@
 #import "DBAssetItemsViewController.h"
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DBLibrary.h"
+#import "NSBundle+DBLibrary.h"
 
 static const NSInteger kNumberItemsPerRowPortrait = 4;
 static const NSInteger kNumberItemsPerRowLandscape = 7;
