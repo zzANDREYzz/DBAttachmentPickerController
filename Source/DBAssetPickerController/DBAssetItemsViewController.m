@@ -65,7 +65,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.imageManager = [[PHCachingImageManager alloc] init];
     [self.imageManager stopCachingImagesForAllAssets];
     
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:nil] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:[NSBundle dbAttachmentPickerBundle]] forCellWithReuseIdentifier:kPhotoCellIdentifier];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }

@@ -142,7 +142,7 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         self.collectionView.dataSource = self;
         self.collectionView.tintColor = [[[UIApplication sharedApplication] delegate] window].tintColor;
         
-        [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:nil] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+        [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:[NSBundle dbAttachmentPickerBundle]] forCellWithReuseIdentifier:kPhotoCellIdentifier];
         
         [self.view addSubview:self.collectionView];
         

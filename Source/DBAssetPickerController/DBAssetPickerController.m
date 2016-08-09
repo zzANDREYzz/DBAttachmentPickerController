@@ -23,6 +23,7 @@
 #import "DBAssetPickerController.h"
 #import "DBAssetGroupsViewController.h"
 #import "DBAssetItemsViewController.h"
+#import "NSBundle+DBLibrary.h"
 
 @interface DBAssetPickerController () <DBAssetGroupsViewControllerDelegate, DBAssetItemsViewControllerDelegate>
 
@@ -33,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    DBAssetGroupsViewController *groupController = [[DBAssetGroupsViewController alloc] initWithNibName:NSStringFromClass([DBAssetGroupsViewController class]) bundle:[NSBundle mainBundle]];
+    DBAssetGroupsViewController *groupController = [[DBAssetGroupsViewController alloc] initWithNibName:NSStringFromClass([DBAssetGroupsViewController class]) bundle:[NSBundle dbAttachmentPickerBundle]];
     groupController.assetMediaType = self.assetMediaType;
     groupController.assetGroupsDelegate = self;
     [self setViewControllers:@[groupController]];
@@ -42,7 +43,7 @@
 #pragma mark - DBAssetGroupsViewControllerDelegate
 
 - (void)DBAssetGroupsViewController:(DBAssetGroupsViewController *)controller didSelectAssetColoection:(PHAssetCollection *)assetCollection {
-    DBAssetItemsViewController *itemsController = [[DBAssetItemsViewController alloc] initWithNibName:NSStringFromClass([DBAssetItemsViewController class]) bundle:[NSBundle mainBundle]];
+    DBAssetItemsViewController *itemsController = [[DBAssetItemsViewController alloc] initWithNibName:NSStringFromClass([DBAssetItemsViewController class]) bundle:[NSBundle dbAttachmentPickerBundle]];
     itemsController.assetMediaType = self.assetMediaType;
     itemsController.assetItemsDelegate = self;
     itemsController.assetCollection = assetCollection;
