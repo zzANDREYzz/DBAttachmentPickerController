@@ -21,6 +21,7 @@
 
 #import "DBThumbnailPhotoCell.h"
 #import "UIImage+DBAssetIcons.h"
+#import "NSBundle+DBLibrary.h"
 
 static const CGFloat kDefaultSelectorImageViewOffset = 4.f;
 
@@ -36,7 +37,7 @@ static const CGFloat kDefaultSelectorImageViewOffset = 4.f;
 #pragma mark - Class methods
 
 + (instancetype)thumbnailImageCell {
-    DBThumbnailPhotoCell *view = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
+    DBThumbnailPhotoCell *view = [[[NSBundle dbAttachmentPickerBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
     return view;
 }
 

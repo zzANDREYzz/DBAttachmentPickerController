@@ -79,7 +79,9 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
             for (DBAttachment *attachment in attachmentArray) {
                 dispatch_group_enter(loadGroup);
                 [attachment loadOriginalImageWithCompletion:^(UIImage * _Nullable resultImage) {
-                    [imageDict setObject:resultImage forKey:@([attachment hash])];
+                    if (resultImage) {
+                        [imageDict setObject:resultImage forKey:@([attachment hash])];
+                    }
                     dispatch_group_leave(loadGroup);
                 }];
             }

@@ -12,6 +12,10 @@ This powerful component allows to select different types of files from different
 
 ![iCloud Documents Capability](Screenshots/ezgif.com-gif-maker.gif)
 
+## Requirements
+
+- iOS 8.0+
+
 ## Adding to your project
 
 ### Cocoapods

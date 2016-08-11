@@ -20,12 +20,17 @@
 //
 
 #import "NSBundle+DBLibrary.h"
+#import "DBAttachmentPickerController.h"
 
 @implementation NSBundle (DBLibrary)
 
 NSString * const kLocalizedStringNotFound = @"kLocalizedStringNotFound";
 
 + (instancetype)dbAttachmentPickerBundle {
+    return [NSBundle bundleForClass:[DBAttachmentPickerController class]];
+}
+
++ (instancetype)dbAttachmentPickerResourceBundle {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"DBAttachmentPickerController" ofType:@"bundle"];
     if (bundlePath) {

@@ -25,9 +25,10 @@
 
 #undef  NSLocalizedString
 #define NSLocalizedString(key, comment) \
-[NSBundle localizedStringForKey:key value:nil table:@"DBAttachmentPickerController" backupBundle:[NSBundle dbAttachmentPickerBundle]]
+[NSBundle localizedStringForKey:key value:nil table:@"DBAttachmentPickerController" backupBundle:[NSBundle dbAttachmentPickerResourceBundle]]
 
 + (instancetype)dbAttachmentPickerBundle;
++ (instancetype)dbAttachmentPickerResourceBundle;
 + (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName backupBundle:(NSBundle *)bundle;
 
 @end
