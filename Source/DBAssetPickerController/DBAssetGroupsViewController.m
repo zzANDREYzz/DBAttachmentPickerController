@@ -44,7 +44,7 @@ static NSString *const kAssetGroupsCellIdentifier = @"DBAssetGroupCellID";
     self.navigationItem.title = NSLocalizedString(@"Albums", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonDidSelect:)];
     
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DBAssetGroupCell class]) bundle:nil] forCellReuseIdentifier:kAssetGroupsCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DBAssetGroupCell class]) bundle:[NSBundle dbAttachmentPickerBundle]] forCellReuseIdentifier:kAssetGroupsCellIdentifier];
     
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
     PHFetchResult *userAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
