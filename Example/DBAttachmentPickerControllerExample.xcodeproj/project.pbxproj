@@ -57,6 +57,8 @@
 		A41C4BD31D557B1A002FEA0B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
 		A41C4BD51D557B9A002FEA0B /* NSBundle+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+DBLibrary.h"; sourceTree = "<group>"; };
 		A41C4BD61D557B9A002FEA0B /* NSBundle+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+DBLibrary.m"; sourceTree = "<group>"; };
+		A43A510B1D76A68B00065358 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
+		A43A510C1D76A68B00065358 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
 		C3134EAF1C9C30990023B9E6 /* DBAttachmentPickerControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAttachmentPickerControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3134EB31C9C30990023B9E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3134EB51C9C30990023B9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				ja,
 				uk,
 				fr,
+				"pt-BR",
 			);
 			mainGroup = C3134EA61C9C30990023B9E6;
 			productRefGroup = C3134EB01C9C30990023B9E6 /* Products */;
@@ -395,6 +398,7 @@
 				A401D50B1D555228006B2909 /* ja */,
 				A401D50D1D5553CA006B2909 /* uk */,
 				A401D50F1D55560A006B2909 /* fr */,
+				A43A510B1D76A68B00065358 /* pt-BR */,
 			);
 			name = DBAttachmentPickerController.strings;
 			sourceTree = "<group>";
@@ -411,6 +415,7 @@
 				A401D50E1D5553ED006B2909 /* uk */,
 				A401D5101D55560A006B2909 /* fr */,
 				A41C4BD31D557B1A002FEA0B /* de */,
+				A43A510C1D76A68B00065358 /* pt-BR */,
 			);
 			name = DBAttachmentPickerController.stringsdict;
 			sourceTree = "<group>";
