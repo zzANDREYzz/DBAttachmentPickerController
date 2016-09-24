@@ -25,9 +25,13 @@ typedef void (^AlertAttachAssetsHandler)(NSArray * _Nonnull assetArray);
 typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
 
 @interface DBAttachmentAlertController : UIAlertController
+@property (assign, nonatomic) NSNumber * _Nonnull maxItems;
 
+NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly) PHAssetMediaType assetMediaType;
 @property (assign, nonatomic, readonly) BOOL allowsMultipleSelection;
+@property (assign, nonatomic) NSArray *selectedItems;
+@property (assign, nonatomic) NSPredicate *customPredicate;
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
@@ -38,5 +42,6 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
                                                otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
                                                   cancelHandler:(nullable AlertActionHandler)cancelHandler;
+NS_ASSUME_NONNULL_END
 
 @end

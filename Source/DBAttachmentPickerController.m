@@ -52,6 +52,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     controller.allowsSelectionFromOtherApps = NO;
     controller.allowsMultipleSelection = NO;
     controller.capturedVideoQulity = UIImagePickerControllerQualityTypeMedium;
+    controller.capturedMaximumDuration = 0;
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
@@ -151,6 +152,12 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
                                                                                      NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
                                                                                      [weakSelf finishPickingWithAttachmentArray:attachmentArray];
                                                                                  } allAlbumsHandler:^(UIAlertAction *action) {
+                                                                                     weakSelf.selectedItems = self.selectedItems;
+                                                                                     weakSelf.maxItems = self.maxItems;
+                                                                                     
+                                                                                     if (self.customPredicate) {
+                                                                                         weakSelf.customPredicate = self.customPredicate;
+                                                                                     }
                                                                                      [weakSelf allAlbumsDidSelect];
                                                                                  } takePictureHandler:^(UIAlertAction *action) {
                                                                                      [weakSelf takePictureButtonDidSelect];
@@ -159,7 +166,10 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
                                                                                  } cancelHandler:^(UIAlertAction * _Nonnull action) {
                                                                                      [weakSelf cancelDidSelect];
                                                                                  }];
-    
+
+    self.alertController.selectedItems = self.selectedItems;
+    self.alertController.maxItems = self.maxItems;
+    self.alertController.customPredicate = self.customPredicate;
     self.alertController.popoverPresentationController.sourceView = [self popoverPresentationView];
     self.alertController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
     self.alertController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];
@@ -223,6 +233,9 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     DBAssetPickerController *viewController =[[DBAssetPickerController alloc] init];
     viewController.assetMediaType = [self assetMediaType];
     viewController.assetPickerDelegate = self;
+    viewController.selectedItems = self.selectedItems;
+    viewController.maxItems = self.maxItems;
+    viewController.customPredicate = self.customPredicate;
     [self.initialViewController presentViewController:viewController animated:YES completion:nil];
 }
 
@@ -273,9 +286,15 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
         picker.videoQuality = self.capturedVideoQulity;
+        if(self.capturedMaximumDuration > 0) {
+            picker.videoMaximumDuration = self.capturedMaximumDuration;
+        }
     } else {
         picker.mediaTypes = @[(NSString *)kUTTypeMovie, (NSString *)kUTTypeVideo, (NSString *)kUTTypeImage];
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        if(self.capturedMaximumDuration > 0) {
+            picker.videoMaximumDuration = self.capturedMaximumDuration;
+        }
     }
     
     [self.initialViewController presentViewController:picker animated:YES completion:nil];

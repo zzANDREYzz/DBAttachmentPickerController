@@ -33,7 +33,6 @@
 @property (assign, nonatomic) DBAttachmentSourceType sourceType;
 @property (assign, nonatomic) DBAttachmentMediaType mediaType;
 
-@property (strong, nonatomic) PHAsset *photoAsset;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *thumbmailImage;
 @property (strong, nonatomic) NSString *originalFilePath;
