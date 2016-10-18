@@ -41,7 +41,6 @@
     }
     groupController.assetGroupsDelegate = self;
     [self setViewControllers:@[groupController]];
-
 }
 
 #pragma mark - DBAssetGroupsViewControllerDelegate

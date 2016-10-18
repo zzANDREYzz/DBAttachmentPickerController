@@ -38,7 +38,9 @@ NSString * const kLocalizedStringNotFound = @"kLocalizedStringNotFound";
         // but in framework bundle
         bundlePath = [[NSBundle bundleForClass:[DBAttachmentPickerController class]] pathForResource:@"DBAttachmentPickerController" ofType:@"bundle"];
     }
-    bundle = [NSBundle bundleWithPath:bundlePath];
+    if (bundlePath) {
+        bundle = [NSBundle bundleWithPath:bundlePath];
+    }
     return bundle;
 }
 
