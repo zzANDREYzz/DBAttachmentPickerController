@@ -85,12 +85,11 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.assetsFetchResults enumerateObjectsUsingBlock:^(PHAsset * obj, NSUInteger idx, BOOL * _Nonnull stop) {
             for (DBAttachment *attachment  in self.selectedItens) {
                 if ([attachment.photoAsset.localIdentifier isEqualToString:obj.localIdentifier]) {
-                    NSIndexPath *reversedIndex = [NSIndexPath indexPathForRow:self.assetsFetchResults.count - idx - 1 inSection:0];
                     NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
 
                     
                     [self.selectedIndexPathArray addObject:index];
-                    [self.collectionView selectItemAtIndexPath:reversedIndex animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                    [self.collectionView selectItemAtIndexPath:index animated:NO scrollPosition:UICollectionViewScrollPositionNone];
                     
                     return;
                 }
