@@ -24,6 +24,7 @@
 #import "DBThumbnailPhotoCell.h"
 #import "NSIndexSet+DBLibrary.h"
 #import "NSBundle+DBLibrary.h"
+#import "DBAttachment.h"
 
 static const NSInteger kNumberItemsPerRowPortrait = 4;
 static const NSInteger kNumberItemsPerRowLandscape = 7;
@@ -44,6 +45,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   /* dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.assetsFetchResults.count > 0) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assetsFetchResults.count-1 inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+        }
+    });*/
+    [self.collectionView reloadData];
+    CGSize contentSize = self.collectionView.collectionViewLayout.collectionViewContentSize;
+    [self.collectionView setContentOffset:[self bottomOffsetForContentSize:contentSize] animated:NO];
+
     
     self.selectedIndexPathArray = [NSMutableArray arrayWithCapacity:100];
     
@@ -68,8 +79,55 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DBThumbnailPhotoCell class]) bundle:[NSBundle dbAttachmentPickerBundle]] forCellWithReuseIdentifier:kPhotoCellIdentifier];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self.assetsFetchResults enumerateObjectsUsingBlock:^(PHAsset * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            for (DBAttachment *attachment  in self.selectedItens) {
+                if ([attachment.photoAsset.localIdentifier isEqualToString:obj.localIdentifier]) {
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
+
+                    
+                    [self.selectedIndexPathArray addObject:index];
+                    [self.collectionView selectItemAtIndexPath:index animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                    
+                    return;
+                }
+            }
+        }];
+    });
+
+}
+- (CGPoint)bottomOffsetForContentSize:(CGSize)contentSize
+{
+    CGFloat contentSizeHeight = contentSize.height;
+    CGFloat collectionViewFrameHeight = self.collectionView.frame.size.height;
+    CGFloat collectionViewBottomInset = self.collectionView.contentInset.bottom;
+    CGFloat collectionViewTopInset = self.collectionView.contentInset.top;
+    CGPoint offset = CGPointMake(0, MAX(-collectionViewTopInset, contentSizeHeight - (collectionViewFrameHeight - collectionViewBottomInset)));
+    return offset;
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+- (void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // ---- autolayout ----
+   /* [self.view layoutIfNeeded];
+    
+    CGSize contentSize = [self.collectionView.collectionViewLayout collectionViewContentSize];
+    if (contentSize.height > self.collectionView.bounds.size.height) {
+        CGPoint targetContentOffset = CGPointMake(0.0f, contentSize.height - self.collectionView.bounds.size.height+80);
+        [self.collectionView setContentOffset:targetContentOffset];
+    }*/
+}
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self.collectionView.collectionViewLayout invalidateLayout];
@@ -113,11 +171,15 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)updateFetchRequest {
     if (self.assetCollection) {
         PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
-        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeImage) {
-            allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+        //allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+        if (self.customPredicate) {
+            allPhotosOptions.predicate = self.customPredicate;
         }
-        
+        else {
+            if (self.assetMediaType == PHAssetMediaTypeVideo || self.assetMediaType == PHAssetMediaTypeImage) {
+                allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", self.assetMediaType];
+            }
+        }
         self.assetsFetchResults = [PHAsset fetchAssetsInAssetCollection:self.assetCollection options:allPhotosOptions];
         [self.collectionView reloadData];
     } else {
@@ -173,7 +235,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DBThumbnailPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[DBThumbnailPhotoCell alloc] init];
+        cell = [DBThumbnailPhotoCell thumbnailImageCell];
     }
     [self configurePhotoCell:cell atIndexPath:indexPath];
     return cell;
@@ -213,6 +275,17 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.maxItems) {
+        if ((self.selectedIndexPathArray.count < [self.maxItems intValue])) {
+            [self selectItemAtIndex:indexPath];
+        } else {
+            [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        }
+    }else {
+        [self selectItemAtIndex:indexPath];
+    }
+}
+- (void) selectItemAtIndex:(NSIndexPath *) indexPath {
     [self.selectedIndexPathArray addObject:indexPath];
     BOOL allowsMultipleSelection = NO;
     if ([self.assetItemsDelegate respondsToSelector:@selector(DBAssetImageViewControllerAllowsMultipleSelection:)]) {
@@ -224,6 +297,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+
     [self.selectedIndexPathArray removeObject:indexPath];
 }
 

@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, DBAttachmentSourceType) {
 
 @class PHAsset;
 @interface DBAttachment : NSObject
+@property (strong, nonatomic, nullable) PHAsset *photoAsset;
 
 /*!
  @brief The name of the file. Can be empty.
