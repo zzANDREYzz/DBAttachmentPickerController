@@ -82,6 +82,10 @@ typedef void (^CancelBlock)();
  */
 @property (assign, nonatomic) BOOL allowsMultipleSelection;                             // default is NO
 
++ (instancetype)attachmentPickerControllerWithCustomActions:(NSArray *)customActions
+                                         FinishPickingBlock:(FinishPickingBlock)finishPickingBlock
+                                                cancelBlock:(_Nullable CancelBlock)cancelBlock;
+
 /*!
  @brief Creates and returns an attachment picker controller
  @see presentOnViewController:

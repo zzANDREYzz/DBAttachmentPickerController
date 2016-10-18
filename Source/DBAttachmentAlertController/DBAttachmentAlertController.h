@@ -37,6 +37,18 @@ NS_ASSUME_NONNULL_BEGIN
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
                                              allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
                                                 allowsOtherApps:(BOOL)allowsOtherApps
+                                                  customActions:(NSArray *) customActions
+                                                  attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
+                                               allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
+                                             takePictureHandler:(nullable AlertActionHandler)takePictureHandler
+                                               otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
+                                                  cancelHandler:(nullable AlertActionHandler)cancelHandler;
+
+
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
+                                        allowsMultipleSelection:(BOOL)allowsMultipleSelection
+                                             allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
+                                                allowsOtherApps:(BOOL)allowsOtherApps
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler

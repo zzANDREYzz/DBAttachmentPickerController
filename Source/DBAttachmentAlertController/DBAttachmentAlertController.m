@@ -45,6 +45,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 @property (assign, nonatomic) BOOL allowsMultipleSelection;
 @property (strong, nonatomic) NSMutableArray *selectedIndexPathArray;
 @property (strong, nonatomic) NSMutableArray *oldSelectedIndexPathArray;
+@property (strong, nonatomic) NSMutableArray *customActions;
+
 
 @property (strong, nonatomic) AlertAttachAssetsHandler extensionAttachHandler;
 
@@ -53,11 +55,33 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 @implementation DBAttachmentAlertController
 
 #pragma mark - Class methods
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
+                                        allowsMultipleSelection:(BOOL)allowsMultipleSelection
+                                             allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
+                                                allowsOtherApps:(BOOL)allowsOtherApps
+                                                  attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
+                                               allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
+                                             takePictureHandler:(nullable AlertActionHandler)takePictureHandler
+                                               otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
+                                                  cancelHandler:(nullable AlertActionHandler)cancelHandler {
+    
+    [self attachmentAlertControllerWithMediaType:assetMediaType
+                         allowsMultipleSelection:allowsMultipleSelection
+                              allowsMediaLibrary:allowsPhotoOrVideo
+                                 allowsOtherApps:allowsOtherApps
+                                   customActions:nil
+                                   attachHandler:attachHandler
+                                allAlbumsHandler:allAlbumsHandler
+                              takePictureHandler:takePictureHandler
+                                otherAppsHandler:otherAppsHandler
+                                   cancelHandler:cancelHandler];
+}
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
                                              allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
                                                 allowsOtherApps:(BOOL)allowsOtherApps
+                                                  customActions:(NSArray *) customActions
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
@@ -72,7 +96,11 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
     controller.showCollectionView = ( showPhotoOrVideo && controller.assetsFetchResult.count );
     controller.title = ( controller.showCollectionView ? @"\n\n\n\n\n" : NSLocalizedString(@"Attach files", @"Title") );
     
-    if ( showPhotoOrVideo && controller.assetsFetchResult.count ) {
+    if (customActions.count > 0) {
+        controller.customActions = customActions;
+    }
+    
+    if (showPhotoOrVideo && controller.assetsFetchResult.count ) {
         __weak DBAttachmentAlertController *weakController = controller;
         UIAlertAction *attachAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"All albums", @"Button on main menu") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (weakController.selectedIndexPathArray.count > 0) {
@@ -116,6 +144,15 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         [controller addAction:otherAppsAction];
     }
     
+    
+    __weak DBAttachmentAlertController *weakController = controller;
+    NSArray *actions = weakController.customActions;
+    if (actions.count > 0) {
+        for (UIAlertAction *action in actions) {
+            [controller addAction:action];
+        }
+    }
+    
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Common") style:UIAlertActionStyleCancel handler:cancelHandler];
     [controller addAction:actionCancel];
     
@@ -151,10 +188,13 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
             [self.assetsFetchResult enumerateObjectsUsingBlock:^(PHAsset * obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 for (DBAttachment *attachment  in self.selectedItems) {
                     if ([attachment.photoAsset.localIdentifier isEqualToString:obj.localIdentifier]) {
-                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
-                        [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-                        [self.oldSelectedIndexPathArray addObject:indexPath];
-                        [self.selectedIndexPathArray addObject:indexPath];
+                        NSIndexPath *reversedIndex = [NSIndexPath indexPathForRow:self.assetsFetchResult.count - idx - 1 inSection:0];
+                        NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
+                        
+                        [self.collectionView selectItemAtIndexPath:reversedIndex animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                        
+                        [self.oldSelectedIndexPathArray addObject:reversedIndex];
+                        [self.selectedIndexPathArray addObject:index];
                         return;
                     }
                 }
@@ -201,8 +241,10 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 - (PHFetchResult *)assetsFetchResult {
     if (_assetsFetchResult == nil) {
         PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
-        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        
+
+        [_assetsFetchResult enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+        }];
         if (![self.customPredicate isKindOfClass:[NSNull class]]) {
             allPhotosOptions.predicate = self.customPredicate;
             _assetsFetchResult = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
@@ -314,11 +356,13 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *reversedIndex = [NSIndexPath indexPathForRow:self.assetsFetchResult.count - indexPath.item - 1 inSection:0];
+
     DBThumbnailPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
         cell = [DBThumbnailPhotoCell thumbnailImageCell];
     }
-    [self configurePhotoCell:cell atIndexPath:indexPath];
+    [self configurePhotoCell:cell atIndexPath:reversedIndex];
     return cell;
 }
 
@@ -356,14 +400,16 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *reversedIndex = [NSIndexPath indexPathForRow:self.assetsFetchResult.count - indexPath.item - 1 inSection:0];
+
     if (self.maxItems) {
         if ((self.selectedIndexPathArray.count < [self.maxItems intValue])) {
-            [self selectItemAtIndex:indexPath];
+            [self selectItemAtIndex:reversedIndex];
         } else {
-            [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            [self.collectionView deselectItemAtIndexPath:reversedIndex animated:YES];
         }
     }else {
-        [self selectItemAtIndex:indexPath];
+        [self selectItemAtIndex:reversedIndex];
     }
 }
 - (void) selectItemAtIndex: (NSIndexPath *) indexPath {
@@ -378,7 +424,9 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selectedIndexPathArray removeObject:indexPath];
+    NSIndexPath *reversedIndex = [NSIndexPath indexPathForRow:self.assetsFetchResult.count - indexPath.item - 1 inSection:0];
+
+    [self.selectedIndexPathArray removeObject:reversedIndex];
     [self updateAttachPhotoCountIfNedded];
 }
 

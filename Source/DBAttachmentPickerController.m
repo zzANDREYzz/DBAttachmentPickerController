@@ -35,7 +35,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 
 @property (strong, nonatomic) FinishPickingBlock extendedFinishPickingBlock;
 @property (strong, nonatomic) CancelBlock extendedCancelBlock;
-
+@property (strong, nonatomic) NSArray *customActions;
 @property (assign, nonatomic) BOOL ignoreChangeMediaType;
 
 @end
@@ -43,16 +43,25 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 @implementation DBAttachmentPickerController
 
 #pragma mark - Class methods
-
 + (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock
-                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock
-{
+                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock {
+
+    [self attachmentPickerControllerWithCustomActions:nil
+                                   FinishPickingBlock:finishPickingBlock
+                                          cancelBlock:cancelBlock];
+}
++ (instancetype)attachmentPickerControllerWithCustomActions:(NSArray *)customActions
+                                         FinishPickingBlock:(FinishPickingBlock)finishPickingBlock
+                                                cancelBlock:(_Nullable CancelBlock)cancelBlock {
     DBAttachmentPickerController *controller = [[DBAttachmentPickerController alloc] init];
     controller.mediaType = DBAttachmentMediaTypeMaskAll;
     controller.allowsSelectionFromOtherApps = NO;
     controller.allowsMultipleSelection = NO;
     controller.capturedVideoQulity = UIImagePickerControllerQualityTypeMedium;
     controller.capturedMaximumDuration = 0;
+    if (customActions.count) {
+        controller.customActions = customActions;
+    }
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
@@ -148,6 +157,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
                                                                        allowsMultipleSelection:self.allowsMultipleSelection
                                                                             allowsMediaLibrary:( (self.mediaType & DBAttachmentMediaTypeImage) || (self.mediaType & DBAttachmentMediaTypeVideo) )
                                                                                allowsOtherApps:self.allowsSelectionFromOtherApps
+                                                                                 customActions:self.customActions
                                                                                  attachHandler:^(NSArray<PHAsset *> *assetArray) {
                                                                                      NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
                                                                                      [weakSelf finishPickingWithAttachmentArray:attachmentArray];
