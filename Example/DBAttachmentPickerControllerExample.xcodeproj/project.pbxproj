@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A401D4F51D537AEC006B2909 /* DBAttachmentPickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = A401D4F71D537AEC006B2909 /* DBAttachmentPickerController.strings */; };
-		A401D4FE1D5545F5006B2909 /* DBAttachmentPickerController.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A401D5001D5545F5006B2909 /* DBAttachmentPickerController.stringsdict */; };
 		A41C4BD71D557B9A002FEA0B /* NSBundle+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = A41C4BD61D557B9A002FEA0B /* NSBundle+DBLibrary.m */; };
 		C3134EB41C9C30990023B9E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134EB31C9C30990023B9E6 /* main.m */; };
 		C3134EB71C9C30990023B9E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3134EB61C9C30990023B9E6 /* AppDelegate.m */; };
@@ -37,28 +35,8 @@
 
 /* Begin PBXFileReference section */
 		A401D4F41D537A13006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		A401D4F81D537AEF006B2909 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D4F91D537AF0006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D4FF1D5545F5006B2909 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A401D5011D5545F7006B2909 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A401D5021D554922006B2909 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
-		A401D5041D554AD3006B2909 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
-		A401D5051D554BD0006B2909 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
-		A401D5061D554BD0006B2909 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
-		A401D5071D554D71006B2909 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D5081D554D71006B2909 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A401D5091D554FCD006B2909 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D50B1D555228006B2909 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D50C1D555228006B2909 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A401D50D1D5553CA006B2909 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D50E1D5553ED006B2909 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A401D50F1D55560A006B2909 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
-		A401D5101D55560A006B2909 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		A41C4BD31D557B1A002FEA0B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
 		A41C4BD51D557B9A002FEA0B /* NSBundle+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+DBLibrary.h"; sourceTree = "<group>"; };
 		A41C4BD61D557B9A002FEA0B /* NSBundle+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+DBLibrary.m"; sourceTree = "<group>"; };
-		A43A510B1D76A68B00065358 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
-		A43A510C1D76A68B00065358 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
 		C3134EAF1C9C30990023B9E6 /* DBAttachmentPickerControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAttachmentPickerControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3134EB31C9C30990023B9E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3134EB51C9C30990023B9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -116,8 +94,6 @@
 		A401D4F11D5378F2006B2909 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				A401D4F71D537AEC006B2909 /* DBAttachmentPickerController.strings */,
-				A401D5001D5545F5006B2909 /* DBAttachmentPickerController.stringsdict */,
 			);
 			name = Localization;
 			path = ../../Source/Localization;
@@ -349,9 +325,7 @@
 				C3134EC21C9C30990023B9E6 /* LaunchScreen.storyboard in Resources */,
 				C3849AB61C9C3D8C00D12EEF /* DBAssetGroupsViewController.xib in Resources */,
 				C3134EEB1C9C323C0023B9E6 /* DBAssetGroupCell.xib in Resources */,
-				A401D4FE1D5545F5006B2909 /* DBAttachmentPickerController.stringsdict in Resources */,
 				C3134EED1C9C323C0023B9E6 /* DBThumbnailPhotoCell.xib in Resources */,
-				A401D4F51D537AEC006B2909 /* DBAttachmentPickerController.strings in Resources */,
 				C3134EFC1C9C34340023B9E6 /* Assets.xcassets in Resources */,
 				C3134EBD1C9C30990023B9E6 /* Main.storyboard in Resources */,
 			);
@@ -386,40 +360,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A401D4F71D537AEC006B2909 /* DBAttachmentPickerController.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A401D4F81D537AEF006B2909 /* en */,
-				A401D4F91D537AF0006B2909 /* ru */,
-				A401D5021D554922006B2909 /* zh-Hans */,
-				A401D5051D554BD0006B2909 /* zh-Hant */,
-				A401D5071D554D71006B2909 /* es */,
-				A401D5091D554FCD006B2909 /* de */,
-				A401D50B1D555228006B2909 /* ja */,
-				A401D50D1D5553CA006B2909 /* uk */,
-				A401D50F1D55560A006B2909 /* fr */,
-				A43A510B1D76A68B00065358 /* pt-BR */,
-			);
-			name = DBAttachmentPickerController.strings;
-			sourceTree = "<group>";
-		};
-		A401D5001D5545F5006B2909 /* DBAttachmentPickerController.stringsdict */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A401D4FF1D5545F5006B2909 /* en */,
-				A401D5011D5545F7006B2909 /* ru */,
-				A401D5041D554AD3006B2909 /* zh-Hans */,
-				A401D5061D554BD0006B2909 /* zh-Hant */,
-				A401D5081D554D71006B2909 /* es */,
-				A401D50C1D555228006B2909 /* ja */,
-				A401D50E1D5553ED006B2909 /* uk */,
-				A401D5101D55560A006B2909 /* fr */,
-				A41C4BD31D557B1A002FEA0B /* de */,
-				A43A510C1D76A68B00065358 /* pt-BR */,
-			);
-			name = DBAttachmentPickerController.stringsdict;
-			sourceTree = "<group>";
-		};
 		C3134EBB1C9C30990023B9E6 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

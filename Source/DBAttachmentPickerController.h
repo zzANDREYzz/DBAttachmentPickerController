@@ -68,7 +68,7 @@ typedef void (^CancelBlock)();
 /*!
  @brief Used to determine maximum video recording duration
  */
-@property (assign, nonatomic) NSTimeInterval capturedMaximumDuration;   // default is 0
+@property (assign, nonatomic) NSTimeInterval capturedMaximumDuration;                   // default is 0
     
 /*!
  @brief Used to add Other Apps button
@@ -82,7 +82,7 @@ typedef void (^CancelBlock)();
  */
 @property (assign, nonatomic) BOOL allowsMultipleSelection;                             // default is NO
 
-+ (instancetype)attachmentPickerControllerWithCustomActions:(NSArray *)customActions
++ (instancetype)attachmentPickerControllerWithCustomActions:(nullable NSArray *)customActions
                                          FinishPickingBlock:(FinishPickingBlock)finishPickingBlock
                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock;
 

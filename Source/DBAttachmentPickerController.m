@@ -43,16 +43,19 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 @implementation DBAttachmentPickerController
 
 #pragma mark - Class methods
-+ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock
-                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock {
 
-    [self attachmentPickerControllerWithCustomActions:nil
-                                   FinishPickingBlock:finishPickingBlock
-                                          cancelBlock:cancelBlock];
++ (instancetype)attachmentPickerControllerFinishPickingBlock:(FinishPickingBlock)finishPickingBlock
+                                                 cancelBlock:(_Nullable CancelBlock)cancelBlock
+{
+    return [self attachmentPickerControllerWithCustomActions:nil
+                                          FinishPickingBlock:finishPickingBlock
+                                                 cancelBlock:cancelBlock];
 }
-+ (instancetype)attachmentPickerControllerWithCustomActions:(NSArray *)customActions
+
++ (instancetype)attachmentPickerControllerWithCustomActions:(nullable NSArray *)customActions
                                          FinishPickingBlock:(FinishPickingBlock)finishPickingBlock
-                                                cancelBlock:(_Nullable CancelBlock)cancelBlock {
+                                                cancelBlock:(_Nullable CancelBlock)cancelBlock
+{
     DBAttachmentPickerController *controller = [[DBAttachmentPickerController alloc] init];
     controller.mediaType = DBAttachmentMediaTypeMaskAll;
     controller.allowsSelectionFromOtherApps = NO;
@@ -162,11 +165,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
                                                                                      NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
                                                                                      [weakSelf finishPickingWithAttachmentArray:attachmentArray];
                                                                                  } allAlbumsHandler:^(UIAlertAction *action) {
-                                                                                     weakSelf.selectedItems = self.selectedItems;
-                                                                                     weakSelf.maxItems = self.maxItems;
+                                                                                     weakSelf.selectedItems = weakSelf.selectedItems;
+                                                                                     weakSelf.maxItems = weakSelf.maxItems;
                                                                                      
-                                                                                     if (self.customPredicate) {
-                                                                                         weakSelf.customPredicate = self.customPredicate;
+                                                                                     if (weakSelf.customPredicate) {
+                                                                                         weakSelf.customPredicate = weakSelf.customPredicate;
                                                                                      }
                                                                                      [weakSelf allAlbumsDidSelect];
                                                                                  } takePictureHandler:^(UIAlertAction *action) {
@@ -180,6 +183,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     self.alertController.selectedItems = self.selectedItems;
     self.alertController.maxItems = self.maxItems;
     self.alertController.customPredicate = self.customPredicate;
+    
     self.alertController.popoverPresentationController.sourceView = [self popoverPresentationView];
     self.alertController.popoverPresentationController.sourceRect = [self popoverPresentationRect];
     self.alertController.popoverPresentationController.permittedArrowDirections = [self popoverPresentationArrowDirection];

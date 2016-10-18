@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
                                              allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
                                                 allowsOtherApps:(BOOL)allowsOtherApps
-                                                  customActions:(NSArray *) customActions
+                                                  customActions:(nullable NSArray *) customActions
                                                   attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
                                                allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
