@@ -256,6 +256,11 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 }
 
 - (void)takePictureButtonDidSelect {
+    if (self.presentCamera) {
+        [self.initialViewController presentViewController:self.presentCamera() animated:YES completion:nil];
+        return;
+    }
+  
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self cancelWithAlertErrorText:NSLocalizedString(@"Device has no camera", @"Error text")];
         return;
