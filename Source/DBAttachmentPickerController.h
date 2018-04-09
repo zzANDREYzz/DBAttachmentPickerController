@@ -40,7 +40,7 @@ typedef void (^FinishVideoPickingBlock)(NSArray* resourceArray);
 typedef void (^CancelBlock)();
 
 @interface DBAttachmentPickerController : NSObject
-
+@property (nonatomic, copy) UIViewController*(^presentCamera)(void); 
 /*!
  @brief Used to provide opportunity to correctly calculate position popover view when app works on iPad. You can specify UIButton, UITableViewCell, etc. instance to which the user touched.
  @attention The parameter must contain only UIView subclass instance or nil
