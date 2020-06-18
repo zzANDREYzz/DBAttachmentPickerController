@@ -189,7 +189,7 @@
                                                           contentMode:PHImageContentModeDefault
                                                               options:nil
                                                         resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                            completion(result);
+                                                            if ([info[PHImageResultIsDegradedKey] boolValue] == NO) completion(result);
                                                         }];
             }
             break;
